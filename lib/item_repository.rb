@@ -1,17 +1,18 @@
 require "pry"
 
 class ItemRepository
-  attr_reader :count,
-              :items
+  attr_reader :items
 
   def initialize
-    @count = 0
     @items = []
+  end
+
+  def count
+    items.count
   end
 
   def << (item)
     items << item
-    @count = items.count
   end
 
   def all
