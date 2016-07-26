@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-25T22:08:59-06:00">2016-07-25T22:08:59-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-25T22:52:27-06:00">2016-07-25T22:52:27-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">100.0%</span></span>
+    (<span class="covered_percent"><span class="green">96.43%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         6.41
+         15.68
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>22</b> relevant lines. 
-    <span class="green"><b>22</b> lines covered</span> and
-    <span class="red"><b>0</b> lines missed </span>
+    <b>28</b> relevant lines. 
+    <span class="green"><b>27</b> lines covered</span> and
+    <span class="red"><b>1</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -51,23 +51,23 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#39f8f80f0a8d8529f5b6e49eebd8141db96ab5be" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
-        <td class="green strong">100.0 %</td>
+        <td class="strong"><a href="#27e979e2e082abb646188a5d27b21ccebebfe5e5" class="src_link" title="lib/item.rb">lib/item.rb</a></td>
+        <td class="green strong">92.31 %</td>
+        <td>26</td>
+        <td>13</td>
         <td>12</td>
-        <td>6</td>
-        <td>6</td>
-        <td>0</td>
-        <td>6.7</td>
+        <td>1</td>
+        <td>27.3</td>
       </tr>
       
       <tr>
-        <td class="strong"><a href="#73dbae166c169888c2fde10b4904243a2c5761ac" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
+        <td class="strong"><a href="#bf34401a212858da24b5d5fd4074eddbd4873942" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>32</td>
-        <td>16</td>
-        <td>16</td>
+        <td>29</td>
+        <td>15</td>
+        <td>15</td>
         <td>0</td>
-        <td>6.3</td>
+        <td>5.6</td>
       </tr>
       
     </tbody>
@@ -86,13 +86,187 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="39f8f80f0a8d8529f5b6e49eebd8141db96ab5be">
+        <div class="source_table" id="27e979e2e082abb646188a5d27b21ccebebfe5e5">
   <div class="header">
-    <h3>lib/merchant.rb</h3>
+    <h3>lib/item.rb</h3>
+    <h4><span class="green">92.31 %</span> covered</h4>
+    <div>
+      <b>13</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
+      <span class="red"><b>1</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;bigdecimal&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Item</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :id,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :name,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">              :description,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">              :unit_price,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">              :created_at,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby">              :updated_at,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">              :merchant_id</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(item)</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="13">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @id = item[:id]</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="14">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @name = item[:name]</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="15">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @description = item[:description]</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="16">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @unit_price = item[:unit_price]</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="17">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @created_at = item[:created_at]</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="18">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @updated_at = item[:updated_at]</code>
+        </li>
+      
+        <li class="covered" data-hits="50" data-linenumber="19">
+          <span class="hits">50</span>
+          
+          <code class="ruby">    @merchant_id = item[:merchant_id]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def unit_price_to_dollars</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="23">
+          
+          
+          <code class="ruby">    @unit_price.to_f</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="25">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
+        <div class="source_table" id="bf34401a212858da24b5d5fd4074eddbd4873942">
+  <div class="header">
+    <h3>lib/item_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>6</b> relevant lines. 
-      <span class="green"><b>6</b> lines covered</span> and
+      <b>15</b> relevant lines. 
+      <span class="green"><b>15</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -115,19 +289,19 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">class Merchant</code>
+          <code class="ruby">class ItemRepository</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_reader :id,</code>
+          <code class="ruby">  attr_reader :count,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
           
           
-          <code class="ruby">              :name</code>
+          <code class="ruby">              :items</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="6">
@@ -139,19 +313,19 @@
         <li class="covered" data-hits="1" data-linenumber="7">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize(merchant)</code>
+          <code class="ruby">  def initialize</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="8">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="10" data-linenumber="8">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @id = merchant[:id]</code>
+          <code class="ruby">    @count = 0</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="9">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="10" data-linenumber="9">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @name = merchant[:name]</code>
+          <code class="ruby">    @items = []</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="10">
@@ -166,220 +340,112 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="12">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-    </ol>
-  </pre>
-</div>
-      
-        <div class="source_table" id="73dbae166c169888c2fde10b4904243a2c5761ac">
-  <div class="header">
-    <h3>lib/merchant_repository.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
-    <div>
-      <b>16</b> relevant lines. 
-      <span class="green"><b>16</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
+        <li class="covered" data-hits="1" data-linenumber="12">
           <span class="hits">1</span>
           
-          <code class="ruby">class MerchantRepository</code>
+          <code class="ruby">  def &lt;&lt; (item)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="2">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="17" data-linenumber="13">
+          <span class="hits">17</span>
           
-          <code class="ruby">  attr_reader :count,</code>
+          <code class="ruby">    items &lt;&lt; item</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="3">
+        <li class="covered" data-hits="17" data-linenumber="14">
+          <span class="hits">17</span>
           
-          
-          <code class="ruby">              :merchants</code>
+          <code class="ruby">    @count = items.count</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="4">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="5">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def initialize</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="6">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    @count = 0</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="7">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    @merchants = []</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="8">
+        <li class="never" data-hits="" data-linenumber="15">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="9">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="10">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def &lt;&lt; (merchant)</code>
-        </li>
-      
-        <li class="covered" data-hits="14" data-linenumber="11">
-          <span class="hits">14</span>
-          
-          <code class="ruby">    merchants &lt;&lt; merchant</code>
-        </li>
-      
-        <li class="covered" data-hits="14" data-linenumber="12">
-          <span class="hits">14</span>
-          
-          <code class="ruby">    @count = merchants.count</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="13">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="14">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="15">
+        <li class="covered" data-hits="1" data-linenumber="17">
           <span class="hits">1</span>
           
           <code class="ruby">  def all</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="16">
+        <li class="covered" data-hits="2" data-linenumber="18">
           <span class="hits">2</span>
           
-          <code class="ruby">    merchants</code>
+          <code class="ruby">    items</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="17">
+        <li class="never" data-hits="" data-linenumber="19">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="18">
+        <li class="never" data-hits="" data-linenumber="20">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="19">
+        <li class="covered" data-hits="1" data-linenumber="21">
           <span class="hits">1</span>
           
           <code class="ruby">  def find_by_id(id)</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="20">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="11" data-linenumber="22">
+          <span class="hits">11</span>
           
-          <code class="ruby">    merchants.find { |merchant| merchant.id == id }</code>
+          <code class="ruby">    items.find { |item| item.id == id }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
+        <li class="covered" data-hits="1" data-linenumber="25">
           <span class="hits">1</span>
           
           <code class="ruby">  def find_by_name(name)</code>
         </li>
       
-        <li class="covered" data-hits="13" data-linenumber="24">
-          <span class="hits">13</span>
+        <li class="covered" data-hits="9" data-linenumber="26">
+          <span class="hits">9</span>
           
-          <code class="ruby">    merchants.find { |merchant| merchant.name.downcase == name.downcase }</code>
+          <code class="ruby">    items.find { |item| item.name.downcase == name.downcase }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="25">
+        <li class="never" data-hits="" data-linenumber="27">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="26">
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="27">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def find_all_by_name(name)</code>
-        </li>
-      
-        <li class="covered" data-hits="28" data-linenumber="28">
-          <span class="hits">28</span>
-          
-          <code class="ruby">    merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="29">
           
           
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="31">
-          
-          
           <code class="ruby">end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="32">
-          
-          
-          <code class="ruby"># find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive</code>
         </li>
       
     </ol>
