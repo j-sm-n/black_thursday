@@ -32,7 +32,6 @@ class ParserTest < Minitest::Test
     expected = 10
 
     actual = p.parse_items_csv(file_name).count
-
     assert_equal expected, actual
   end
 

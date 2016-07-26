@@ -11,7 +11,7 @@ class Parser
   end
 
   def load(file_name)
-    contents = CSV.open file_name, headers: true, header_converters: :symbol
+    CSV.open file_name, headers: true, header_converters: :symbol
   end
 
   def parse_merchant_csv(file_name)
@@ -19,7 +19,9 @@ class Parser
     contents = load(file_name)
     contents.each do |row|
       merchant_repository << Merchant.new({:id => row[:id],
-                                           :name => row[:name]})
+                                           :name => row[:name],
+                                           :created_at => row[:created_at],
+                                           :updated_at => row[:udated_at]})
     end
     return merchant_repository
   end
@@ -34,7 +36,7 @@ class Parser
                                   :description => row[:description],
                                   :unit_price => row[:unit_price],
                                   :created_at => row[:created_at],
-                                  :updated_at => row[:udated_at],
+                                  :updated_at => row[:updated_at],
                                   :merchant_id => row[:merchant_id]})
     end
     return item_repository
