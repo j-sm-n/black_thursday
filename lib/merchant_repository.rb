@@ -1,15 +1,16 @@
 class MerchantRepository
-  attr_reader :count,
-              :merchants
+  attr_reader :merchants
 
   def initialize
-    @count = 0
     @merchants = []
+  end
+
+  def count
+    merchants.count
   end
 
   def << (merchant)
     merchants << merchant
-    @count = merchants.count
   end
 
   def all
