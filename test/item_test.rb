@@ -7,9 +7,17 @@ class ItemTest < Minitest::Test
               :this_time_2
 
   def setup
-    @this_time_1 = Time.now
+    @this_time_1 = Time.now - (60 * 60)
     @this_time_2 = Time.now
-    @i = Item.new("263444697", "Pencil", "You can use it to write things", BigDecimal.new(10.99,4), this_time_1, this_time_2, "12334496")
+    @i = Item.new({
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => this_time_1,
+      :updated_at  => this_time_2,
+      :id => "263444697",
+      :merchant_id => "12334496"
+    })
   end
 
   def test_it_exists
@@ -29,13 +37,5 @@ class ItemTest < Minitest::Test
   def test_it_can_return_unit_price_as_float
     assert_equal 10.99, @i.unit_price_to_dollars
   end
-
-  # def test_it_has_an_id
-  #   assert_equal "12334496", @m.id
-  # end
-  #
-  # def test_it_has_a_name
-  #   assert_equal "ElaineClausonArt", @m.name
-  # end
 
 end
