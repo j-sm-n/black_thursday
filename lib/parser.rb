@@ -21,7 +21,7 @@ class Parser
       merchant_repository << Merchant.new({:id => row[:id],
                                            :name => row[:name],
                                            :created_at => row[:created_at],
-                                           :updated_at => row[:udated_at]})
+                                           :updated_at => row[:udated_at]})#.set_parent(merchant_repository.self)
     end
     return merchant_repository
   end
