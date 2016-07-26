@@ -3,6 +3,7 @@ require './lib/item'
 
 class ItemTest < Minitest::Test
   attr_reader :i,
+              :ir,
               :this_time_1,
               :this_time_2
 
@@ -18,6 +19,7 @@ class ItemTest < Minitest::Test
       :id => 263444697,
       :merchant_id => 12334496
     })
+    @ir = ItemRepository.new
   end
 
   def test_it_exists
@@ -38,4 +40,9 @@ class ItemTest < Minitest::Test
     assert_equal 10.99, @i.unit_price_to_dollars
   end
 
+  def test_item_has_parent
+    i.set_parent(ir)
+
+    assert_equal ir, i.parent
+  end
 end
