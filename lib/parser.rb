@@ -1,4 +1,5 @@
 require "csv"
+require "./lib/merchant"
 require "pry"
 
 class Parser
@@ -13,10 +14,8 @@ class Parser
   def parse_merchant_csv(file_name)
     contents = load(file_name)
     contents.each do |row|
-      id = row[:id]
-      name = row[:name]
+      m = Merchant.new({:id => row[:id], :name => row[:name]})
       
     end
-
   end
 end
