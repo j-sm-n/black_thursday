@@ -20,9 +20,9 @@ class ParserTest < Minitest::Test
 
   def test_it_parses_merchant_data
     file_name = "./data/merchants_test.csv"
-    expected = ""
+    expected = 9
 
-    actual = p.parse_merchant_csv(file_name)
+    actual = p.parse_merchant_csv(file_name).count
 
     assert_equal expected, actual
   end

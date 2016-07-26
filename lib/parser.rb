@@ -1,5 +1,6 @@
 require "csv"
 require "./lib/merchant"
+require "./lib/merchant_repository"
 require "pry"
 
 class Parser
@@ -12,11 +13,12 @@ class Parser
   end
 
   def parse_merchant_csv(file_name)
+    merchant_repository = MerchantRepository.new
     contents = load(file_name)
     contents.each do |row|
-      m = Merchant.new({:id => row[:id], :name => row[:name]})
-
+      merchant_repository << Merchant.new({:id => row[:id], :name => row[:name]})
     end
+    return merchant_repository
   end
 end
 # se = SalesEngine.from_csv({
