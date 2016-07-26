@@ -43,4 +43,19 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected_2, actual_2
   end
 
+  def test_it_can_find_by_id
+    mr << merchant_1
+    mr << merchant_2
+    actual_1 = mr.find_by_id(5)
+    actual_2 = mr.find_by_id(12334145)
+    actual_3 = mr.find_by_id(1606)
+    expected_1 = merchant_1
+    expected_2 = merchant_2
+    expected_3 = nil
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
+    assert_equal expected_3, actual_3
+  end
+
 end
