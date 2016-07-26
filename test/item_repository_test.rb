@@ -155,24 +155,28 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_in_price_range
-    [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
     expected_1 = [item_2, item_4, item_5]
     expected_2 = [item_1]
     expected_3 = [item_1, item_2, item_3, item_4, item_5]
     expected_4 = []
-    range_1 = (10.00..12.00)
-    range_2 = (100.00..11770)
-    range_3 = (0..11770)
-    range_4 = (0..0.01)
+    range_1 = Range.new(BigDecimal.new(10.00,4), BigDecimal.new(11.99,4))
+    range_2 = Range.new(BigDecimal.new(11770.00,7), BigDecimal.new(11771.00,7))
+    range_3 = Range.new(BigDecimal.new(0,1), BigDecimal.new(11771,5))
+    range_4 = Range.new(BigDecimal.new(0,1), BigDecimal.new(0.01,3))
 
     actual_1 = ir.find_all_by_price_in_range(range_1)
     actual_2 = ir.find_all_by_price_in_range(range_2)
     actual_3 = ir.find_all_by_price_in_range(range_3)
     actual_4 = ir.find_all_by_price_in_range(range_4)
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
+    assert_equal expected_3, actual_3
+    assert_equal expected_4, actual_4
   end
 
   def test_it_can_find_all_by_merchant_id
-    
+
   end
 
 end
