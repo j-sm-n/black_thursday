@@ -38,4 +38,8 @@ class ItemRepository
     items.find_all { |item| price_range.include?(BigDecimal.new(item.unit_price,4)) }
   end
 
+  def find_all_by_merchant_id(id)
+    items.find_all { |item| item.merchant_id == id }
+  end
+
 end

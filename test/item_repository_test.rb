@@ -176,7 +176,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_merchant_id
+    expected_1 = [item_1]
+    expected_2 = [item_2, item_3, item_4, item_5]
+    expected_3 = []
 
+    actual_1 = ir.find_all_by_merchant_id(12336081)
+    actual_2 = ir.find_all_by_merchant_id(78910)
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
   end
 
 end
