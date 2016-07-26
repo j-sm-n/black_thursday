@@ -21,9 +21,11 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    merchants.find { |merchant| merchant.name == name }
+    merchants.find { |merchant| merchant.name.downcase == name.downcase }
+  end
+
+  def find_all_by_name(name)
+    merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
 
 end
-# find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
-# find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive

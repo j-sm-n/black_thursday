@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-25T21:55:59-06:00">2016-07-25T21:55:59-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-25T22:08:59-06:00">2016-07-25T22:08:59-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.07
+         6.41
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>20</b> relevant lines. 
-    <span class="green"><b>20</b> lines covered</span> and
+    <b>22</b> relevant lines. 
+    <span class="green"><b>22</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -57,17 +57,17 @@
         <td>6</td>
         <td>6</td>
         <td>0</td>
-        <td>4.7</td>
+        <td>6.7</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#73dbae166c169888c2fde10b4904243a2c5761ac" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>29</td>
-        <td>14</td>
-        <td>14</td>
+        <td>32</td>
+        <td>16</td>
+        <td>16</td>
         <td>0</td>
-        <td>3.8</td>
+        <td>6.3</td>
       </tr>
       
     </tbody>
@@ -142,14 +142,14 @@
           <code class="ruby">  def initialize(merchant)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="8">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="18" data-linenumber="8">
+          <span class="hits">18</span>
           
           <code class="ruby">    @id = merchant[:id]</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="9">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="18" data-linenumber="9">
+          <span class="hits">18</span>
           
           <code class="ruby">    @name = merchant[:name]</code>
         </li>
@@ -181,8 +181,8 @@
     <h3>lib/merchant_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>14</b> relevant lines. 
-      <span class="green"><b>14</b> lines covered</span> and
+      <b>16</b> relevant lines. 
+      <span class="green"><b>16</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -220,14 +220,14 @@
           <code class="ruby">  def initialize</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="6">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="7" data-linenumber="6">
+          <span class="hits">7</span>
           
           <code class="ruby">    @count = 0</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="7">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="7" data-linenumber="7">
+          <span class="hits">7</span>
           
           <code class="ruby">    @merchants = []</code>
         </li>
@@ -250,14 +250,14 @@
           <code class="ruby">  def &lt;&lt; (merchant)</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="11">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="14" data-linenumber="11">
+          <span class="hits">14</span>
           
           <code class="ruby">    merchants &lt;&lt; merchant</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="12">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="14" data-linenumber="12">
+          <span class="hits">14</span>
           
           <code class="ruby">    @count = merchants.count</code>
         </li>
@@ -328,10 +328,10 @@
           <code class="ruby">  def find_by_name(name)</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="24">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="13" data-linenumber="24">
+          <span class="hits">13</span>
           
-          <code class="ruby">    merchants.find { |merchant| merchant.name == name }</code>
+          <code class="ruby">    merchants.find { |merchant| merchant.name.downcase == name.downcase }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
@@ -346,19 +346,37 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="27">
+        <li class="covered" data-hits="1" data-linenumber="27">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def find_all_by_name(name)</code>
+        </li>
+      
+        <li class="covered" data-hits="28" data-linenumber="28">
+          <span class="hits">28</span>
+          
+          <code class="ruby">    merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="29">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
-          
-          
-          <code class="ruby"># find_by_name - returns either nil or an instance of Merchant having done a case insensitive search</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="29">
+        <li class="never" data-hits="" data-linenumber="32">
           
           
           <code class="ruby"># find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive</code>
