@@ -14,18 +14,18 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-26T08:15:08-06:00">2016-07-26T08:15:08-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-26T08:22:16-06:00">2016-07-26T08:22:16-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">93.94%</span></span>
+    (<span class="covered_percent"><span class="green">96.97%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         14.45
+         15.3
        </span>
     </span> hits/line)
   </h2>
@@ -33,8 +33,8 @@
   <div>
     <b>2</b> files in total.
     <b>33</b> relevant lines. 
-    <span class="green"><b>31</b> lines covered</span> and
-    <span class="red"><b>2</b> lines missed </span>
+    <span class="green"><b>32</b> lines covered</span> and
+    <span class="red"><b>1</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -62,12 +62,12 @@
       
       <tr>
         <td class="strong"><a href="#bf34401a212858da24b5d5fd4074eddbd4873942" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
-        <td class="green strong">95.0 %</td>
+        <td class="green strong">100.0 %</td>
         <td>40</td>
         <td>20</td>
-        <td>19</td>
-        <td>1</td>
-        <td>6.1</td>
+        <td>20</td>
+        <td>0</td>
+        <td>7.5</td>
       </tr>
       
     </tbody>
@@ -263,11 +263,11 @@
         <div class="source_table" id="bf34401a212858da24b5d5fd4074eddbd4873942">
   <div class="header">
     <h3>lib/item_repository.rb</h3>
-    <h4><span class="green">95.0 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
       <b>20</b> relevant lines. 
-      <span class="green"><b>19</b> lines covered</span> and
-      <span class="red"><b>1</b> lines missed.</span>
+      <span class="green"><b>20</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -346,14 +346,14 @@
           <code class="ruby">  def &lt;&lt; (item)</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="13">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="27" data-linenumber="13">
+          <span class="hits">27</span>
           
           <code class="ruby">    items &lt;&lt; item</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="14">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="27" data-linenumber="14">
+          <span class="hits">27</span>
           
           <code class="ruby">    @count = items.count</code>
         </li>
@@ -472,10 +472,10 @@
           <code class="ruby">  def find_all_by_price(price)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="34">
+        <li class="covered" data-hits="18" data-linenumber="34">
+          <span class="hits">18</span>
           
-          
-          <code class="ruby">    items.find { |item| item.unit_price == price }</code>
+          <code class="ruby">    items.find_all { |item| BigDecimal.new(item.unit_price,4) == price }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="35">

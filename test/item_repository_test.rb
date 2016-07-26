@@ -48,7 +48,7 @@ class ItemRepositoryTest < Minitest::Test
     @item_4 = Item.new({
       :name => "Color Markers",
       :description => "You can use it to write things in color",
-      :unit_price => BigDecimal.new(11.99,3),
+      :unit_price => BigDecimal.new(11.99,4),
       :created_at => Time.now - (60 * 60),
       :updated_at => Time.now,
       :id => 9870,
@@ -57,7 +57,7 @@ class ItemRepositoryTest < Minitest::Test
     @item_5 = Item.new({
       :name => "Permanent Markers",
       :description => "You can use it to write things forever",
-      :unit_price => BigDecimal.new(11.99,3),
+      :unit_price => BigDecimal.new(11.99,4),
       :created_at => Time.now - (60 * 60),
       :updated_at => Time.now,
       :id => 9871,
@@ -140,16 +140,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price
-    skip
-    [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
     [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
     expected_1 = [item_2]
     expected_2 = [item_4, item_5]
     expected_3 = []
 
     actual_1 = ir.find_all_by_price(BigDecimal.new(10.99,4))
-    actual_2 = ir.find_all_by_price(11.99)
-    actual_3 = ir.find_all_by_price(25.01)
+    actual_2 = ir.find_all_by_price(BigDecimal.new(11.99,4))
+    actual_3 = ir.find_all_by_price(BigDecimal.new(25.01,4))
 
     assert_equal expected_1, actual_1
     assert_equal expected_2, actual_2

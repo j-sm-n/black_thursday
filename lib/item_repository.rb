@@ -31,7 +31,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    items.find { |item| item.unit_price == price }
+    items.find_all { |item| BigDecimal.new(item.unit_price,4) == price }
   end
 
   def find_all_by_price_in_range(price_range)
