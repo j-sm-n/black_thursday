@@ -122,18 +122,49 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_description
-    skip
     [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
+    expected_1 = [item_2, item_4, item_5]
+    expected_2 = [item_1]
+    expected_3 = [item_1, item_2, item_3, item_4, item_5]
+    expected_4 = []
+
+    actual_1 = ir.find_all_with_description("WRITE")
+    actual_2 = ir.find_all_with_description("gold PLATED")
+    actual_3 = ir.find_all_with_description("e")
+    actual_4 = ir.find_all_with_description("super")
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
+    assert_equal expected_3, actual_3
+    assert_equal expected_4, actual_4
   end
 
   def test_it_can_find_all_by_price
     skip
     [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
+    [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
+    expected_1 = [item_2]
+    expected_2 = [item_4, item_5]
+    expected_3 = []
+
+    actual_1 = ir.find_all_by_price(BigDecimal.new(10.99,4))
+    actual_2 = ir.find_all_by_price(11.99)
+    actual_3 = ir.find_all_by_price(25.01)
+
+    assert_equal expected_1, actual_1
+    assert_equal expected_2, actual_2
+    assert_equal expected_3, actual_3
   end
 
   def test_it_can_find_all_in_price_range
     skip
     [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
+    expected_1 = [item_2, item_4, item_5]
+    expected_2 = [item_1]
+    expected_3 = [item_1, item_2, item_3, item_4, item_5]
+    expected_4 = []
+
+    actual_2 = ir.find_all_by_price(11.99)
   end
 
   def test_it_can_find_all_by_merchant_id

@@ -26,4 +26,15 @@ class ItemRepository
     items.find { |item| item.name.downcase == name.downcase }
   end
 
+  def find_all_with_description(search_text)
+    items.find_all { |item| item.description.downcase.include?(search_text.downcase) }
+  end
+
+  def find_all_by_price(price)
+    items.find { |item| item.unit_price == price }
+  end
+
+  def find_all_by_price_in_range(price_range)
+  end
+
 end
