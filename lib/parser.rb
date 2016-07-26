@@ -21,7 +21,7 @@ class Parser
       merchant_repository << Merchant.new({:id => row[:id],
                                            :name => row[:name],
                                            :created_at => row[:created_at],
-                                           :updated_at => row[:udated_at]})
+                                           :updated_at => row[:updated_at]})
     end
     return merchant_repository
   end
