@@ -1,6 +1,8 @@
 require "csv"
 require "./lib/merchant"
+require "./lib/item"
 require "./lib/merchant_repository"
+require "./lib/item_repository"
 require "pry"
 
 class Parser
@@ -16,22 +18,25 @@ class Parser
     merchant_repository = MerchantRepository.new
     contents = load(file_name)
     contents.each do |row|
-      merchant_repository << Merchant.new({:id => row[:id], :name => row[:name]})
+      merchant_repository << Merchant.new({:id => row[:id],
+                                           :name => row[:name]})
     end
     return merchant_repository
   end
+
+  def parse_items_csv(file_name)
+    item_repository = ItemRepository.new
+    contents = load(file_name)
+    contents.each do |row|
+      item_repository << Item.new({:id => row[:id],
+                                  :name => row[:name],
+                                  :description => row[:description],
+                                  :description => row[:description],
+                                  :unit_price => row[:unit_price],
+                                  :created_at => row[:created_at],
+                                  :updated_at => row[:udated_at],
+                                  :merchant_id => row[:merchant_id]})
+    end
+    return item_repository
+  end
 end
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#
-# class SalesEngine
-#   def initialize(csv_list)
-#     items_file = csv_list[:items]
-#     @merchant_repo = parse_merchant_csv(file_name)
-#     @items_repo = parse_items_csv(file_name)
-#   end
-#
-#
-# end

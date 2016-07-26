@@ -27,8 +27,13 @@ class ParserTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_it_parses_item_data
+    file_name = "./data/items_test.csv"
+    expected = 10
+
+    actual = p.parse_items_csv(file_name).count
+
+    assert_equal expected, actual
+  end
+
 end
-
-
-# id,name,created_at,updated_at
-# 12334496,ElaineClausonArt,12/9/2001,10/17/2007
