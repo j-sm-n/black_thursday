@@ -33,6 +33,8 @@ class ParserTest < Minitest::Test
 
     actual = p.parse_items_csv(file_name).count
     assert_equal expected, actual
+
+    assert_instance_of ItemRepository, p.parse_items_csv(file_name)
   end
 
 end

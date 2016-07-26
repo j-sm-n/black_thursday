@@ -9,7 +9,7 @@ class Item
               :updated_at,
               :merchant_id
 
-  def initialize(item) #, repo = nil)
+  def initialize(item)
     @id = item[:id]
     @name = item[:name]
     @description = item[:description]
