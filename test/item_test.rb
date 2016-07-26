@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/item'
+require './lib/parser'
 
 class ItemTest < Minitest::Test
   attr_reader :i,
@@ -8,6 +9,7 @@ class ItemTest < Minitest::Test
               :this_time_2
 
   def setup
+    contents = Parser.new.load("./data/items_test.csv")
     @this_time_1 = Time.now - (60 * 60)
     @this_time_2 = Time.now
     @i = Item.new({
@@ -19,7 +21,7 @@ class ItemTest < Minitest::Test
       :id => 263444697,
       :merchant_id => 12334496
     })
-    @ir = ItemRepository.new
+    @ir = ItemRepository.new(contents)
   end
 
   def test_it_exists

@@ -1,10 +1,12 @@
 require './test/test_helper'
 require './lib/item_repository'
 require './lib/item'
+require './lib/parser'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :empty_ir,
               :ir,
+              :contents,
               :item_1,
               :item_2,
               :item_3,
@@ -12,8 +14,9 @@ class ItemRepositoryTest < Minitest::Test
               :item_5
 
   def setup
-    @empty_ir = ItemRepository.new
-    @ir = ItemRepository.new
+    @contents = Parser.new.load("./data/items_test.csv")
+    @empty_ir = ItemRepository.new(contents)
+    @ir = ItemRepository.new(contents)
     @item_1 = Item.new({
       :name => "Rose gold brooch, flower brooch, pearl brooch, \
                blue brooch, bulk brooch, wholesale brooches sale \
@@ -187,4 +190,29 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected_2, actual_2
   end
 
+  def test_it_can_populate_itself_with_child_merchants
+    ir.populate(contents)
+    assert_instance_of Item, ir.find_by_id(263435825)
+    assert_instance_of Item, ir.items[0]
+    assert_equal 15, ir.all.length
+  end
+
+  def test_it_can_parse_rows
+      test_row = nil
+      contents.each do |row|
+        test_row = row
+        break
+      end
+      actual = ir.parse_row(test_row)
+      expected = {:id => test_row[:id],
+                  :name => test_row[:name],
+                  :description => test_row[:description],
+                  :description => test_row[:description],
+                  :unit_price => test_row[:unit_price],
+                  :created_at => test_row[:created_at],
+                  :updated_at => test_row[:updated_at],
+                  :merchant_id => test_row[:merchant_id]}
+
+     assert_equal expected, actual
+  end
 end

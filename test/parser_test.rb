@@ -18,23 +18,4 @@ class ParserTest < Minitest::Test
     assert_instance_of CSV, actual
   end
 
-  def test_it_parses_merchant_data
-    file_name = "./data/merchants_test.csv"
-    expected = 9
-
-    actual = p.parse_merchant_csv(file_name).count
-
-    assert_equal expected, actual
-  end
-
-  def test_it_parses_item_data
-    file_name = "./data/items_test.csv"
-    expected = 10
-
-    actual = p.parse_items_csv(file_name).count
-    assert_equal expected, actual
-
-    assert_instance_of ItemRepository, p.parse_items_csv(file_name)
-  end
-
 end

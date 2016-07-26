@@ -1,14 +1,35 @@
 require "pry"
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items,
+              :contents
 
-  def initialize
+  def initialize(contents)
     @items = []
+    @contents = contents
   end
 
   def count
     items.count
+  end
+
+  def populate(contents)
+    contents.each do |row|
+     this_item = Item.new(parse_row(row))
+     this_item.set_parent(self)
+     items << this_item
+    end
+  end
+
+  def parse_row(row)
+    {:id => row[:id],
+    :name => row[:name],
+    :description => row[:description],
+    :description => row[:description],
+    :unit_price => row[:unit_price],
+    :created_at => row[:created_at],
+    :updated_at => row[:updated_at],
+    :merchant_id => row[:merchant_id]}
   end
 
   def << (item)
@@ -20,7 +41,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    items.find { |item| item.id == id }
+    items.find { |item| item.id.to_i == id }
   end
 
   def find_by_name(name)
@@ -40,7 +61,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(id)
-    items.find_all { |item| item.merchant_id == id }
+    items.find_all { |item| item.merchant_id.to_i == id }
   end
 
 end

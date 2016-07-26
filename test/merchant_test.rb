@@ -1,12 +1,15 @@
 require './test/test_helper'
 require './lib/merchant'
+require './lib/parser'
 
 class MerchantTest < Minitest::Test
   attr_reader :m,
-              :mr
+              :mr,
+              :contents
 
   def setup
-    @mr = MerchantRepository.new
+    @contents = Parser.new.load("./data/merchants_test.csv")
+    @mr = MerchantRepository.new(contents)
     @m = Merchant.new({:id => 5, :name => "Turing School"})
   end
 

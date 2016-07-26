@@ -1,14 +1,17 @@
 require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
+require './lib/parser'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr,
+              :contents,
               :merchant_1,
               :merchant_2
 
   def setup
-    @mr = MerchantRepository.new
+    @contents = Parser.new.load("./data/merchants_test.csv")
+    @mr = MerchantRepository.new(contents)
     @merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
     @merchant_2 = Merchant.new({:id => 12334145, :name => "BowlsByChris"})
   end
@@ -100,4 +103,29 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected_4, actual_4
   end
 
+  def test_it_can_populate_itself_with_child_merchants
+    mr.populate(contents)
+    assert_instance_of Merchant, mr.find_by_id(12334496)
+    assert_instance_of Merchant, mr.find_by_id(12334984)
+    assert_instance_of Merchant, mr.find_by_id(12335918)
+    assert_instance_of Merchant, mr.find_by_id(12335813)
+    assert_instance_of Merchant, mr.merchants[0]
+    assert_equal 9, mr.all.length
+  end
+
+  def test_it_can_parse_rows
+      test_row = nil
+      contents.each do |row|
+        test_row = row
+        break
+      end
+      actual = mr.parse_row(test_row)
+      expected = {:id => test_row[:id],
+                  :name => test_row[:name],
+                  :created_at => test_row[:created_at],
+                  :updated_at => test_row[:updated_at]}
+
+     assert_equal expected, actual
+  end
+  
 end
