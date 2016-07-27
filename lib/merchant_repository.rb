@@ -1,26 +1,20 @@
 require './lib/merchant'
 
 class MerchantRepository
-  attr_reader :merchants,
-              :contents
+  attr_reader :merchants
 
   def initialize(contents)
-    @merchants = []
-    @contents = contents
+    @merchants = populate(contents)
   end
 
   def populate(contents)
-    contents.each do |row|
-     merchants << Merchant.new(row, self)
+    contents.map do |row|
+      Merchant.new(row, self)
     end
   end
 
   def count
     merchants.count
-  end
-
-  def << (merchant)
-    merchants << merchant
   end
 
   def all

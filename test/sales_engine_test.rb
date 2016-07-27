@@ -20,15 +20,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_parse_items_from_given_file_path
-    skip
     this_sales_engine = SalesEngine.from_csv({
                            :items     => "./data/items_test.csv",
                            :merchants => "./data/merchants_test.csv",
                          })
     assert_equal ItemRepository, this_sales_engine.items.class
     assert_equal MerchantRepository, this_sales_engine.merchants.class
-    refute_equal 0, this_sales_engine.items.count
-    refute_equal 0, this_sales_engine.merchants.count
+    refute_equal 0, this_sales_engine.items.items.count
+    refute_equal 0, this_sales_engine.merchants.merchants.count
   end
 
 end

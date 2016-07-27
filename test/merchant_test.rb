@@ -12,8 +12,8 @@ class MerchantTest < Minitest::Test
     @test_merchant_repository = MerchantRepository.new(contents)
     @test_merchant = Merchant.new({:id => 5,
                        :name => "Turing School",
-                       :created_at => "2016-01-11",
-                       :updated_at => "2012-03-27"},
+                       :created_at => "2010-12-10",
+                       :updated_at => "2011-12-04"},
                        test_merchant_repository)
   end
 
@@ -34,8 +34,8 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_all_the_properties_of_a_merchant
-    date_1 = "2016-01-11"
-    date_2 = "2012-03-27"
+    date_1 = "2010-12-10"
+    date_2 = "2011-12-04"
 
     assert_equal 5, test_merchant.id
     assert_equal "Turing School", test_merchant.name
