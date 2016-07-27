@@ -45,4 +45,9 @@ class ItemTest < Minitest::Test
   def test_item_has_parent
     assert_equal test_item_repository, test_item.repository
   end
+
+  def test_time_states_are_scrubbed
+    skip
+    item.created_at == date_scrubber(data[:created_at])
+  end
 end
