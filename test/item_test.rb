@@ -16,7 +16,7 @@ class ItemTest < Minitest::Test
     @i = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => "1099",
       :created_at  => this_time_1,
       :updated_at  => this_time_2,
       :id => 263444697,
@@ -32,14 +32,14 @@ class ItemTest < Minitest::Test
     assert_equal 263444697, @i.id
     assert_equal "Pencil", @i.name
     assert_equal "You can use it to write things", @i.description
-    assert_equal BigDecimal.new(10.99,4), @i.unit_price
+    assert_equal BigDecimal.new("1099")/100, @i.unit_price
     assert_equal this_time_1, @i.created_at
     assert_equal this_time_2, @i.updated_at
     assert_equal 12334496, @i.merchant_id
   end
 
   def test_it_can_return_unit_price_as_float
-    assert_equal 10.99, @i.unit_price_to_dollars
+    assert_equal 10.99, i.unit_price_to_dollars
   end
 
   def test_item_has_parent
