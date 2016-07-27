@@ -1,12 +1,17 @@
 require './test/test_helper'
 require './lib/item_repository'
 require './lib/parser'
+require './lib/sales_engine'
 require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def test_initialization_populates_the_repository
     contents = Parser.new.load("./data/items_test.csv")
-    test_item_repository = ItemRepository.new(contents)
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
+    test_item_repository = ItemRepository.new(contents, sales_engine)
     assert_equal 10, test_item_repository.all.length
     refute_equal 0, test_item_repository.items.count
   end
@@ -14,7 +19,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_finds_all_items
     contents = Parser.new.load("./data/items_test.csv")
-    test_item_repository = ItemRepository.new(contents)
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
+    test_item_repository = ItemRepository.new(contents, sales_engine)
     expected_ids = [263435825, 263440607, 263440363, 263437771,
                     263439003, 263420519, 263423509, 263440155,
                     263417331, 263414425]
@@ -26,7 +35,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_with_description
     contents = Parser.new.load("./data/items_test.csv")
-    test_item_repository = ItemRepository.new(contents)
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
+    test_item_repository = ItemRepository.new(contents, sales_engine)
     expected_ids = [263435825, 263440607, 263440363, 263437771,
                     263439003, 263420519, 263423509, 263440155,
                     263417331, 263414425]
@@ -40,7 +53,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_price
     contents = Parser.new.load("./data/items_test.csv")
-    test_item_repository = ItemRepository.new(contents)
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
+    test_item_repository = ItemRepository.new(contents, sales_engine)
     expected_ids = [263435825, 263423509]
     actual_1 = test_item_repository.find_all_by_price(10000)
     actual_1.each do |item|
@@ -53,7 +70,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_in_price_range
     contents = Parser.new.load("./data/items_test.csv")
-    test_item_repository = ItemRepository.new(contents)
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
+    test_item_repository = ItemRepository.new(contents, sales_engine)
     expected_ids = [263435825, 263440607, 263440363, 263437771,
                     263439003, 263420519, 263423509, 263440155,
                     263417331, 263414425]
@@ -70,7 +91,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_merchant_id
     contents = Parser.new.load("./data/items_test.csv")
-    test_item_repository = ItemRepository.new(contents)
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
+    test_item_repository = ItemRepository.new(contents, sales_engine)
     actual = test_item_repository.find_all_by_merchant_id(12335215)
     assert_equal 263440155, actual[0].id
   end

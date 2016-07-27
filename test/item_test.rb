@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/item'
 require './lib/parser'
+require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
   attr_reader :test_item,
@@ -10,9 +11,13 @@ class ItemTest < Minitest::Test
 
   def setup
     contents = Parser.new.load("./data/items_test.csv")
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./data/items_test.csv",
+                           :merchants => "./data/merchants_test.csv",
+                         })
     @test_time_1 = "2016-01-11 18:07:30 UTC"
     @test_time_2 = "2012-03-27 14:54:33 UTC"
-    @test_item_repository = ItemRepository.new(contents)
+    @test_item_repository = ItemRepository.new(contents, sales_engine)
     @test_item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -43,6 +48,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_parent
-    assert_equal test_item_repository, test_item.repository
+    assert_equal test_item_repository, test_item.parent
   end
 end
