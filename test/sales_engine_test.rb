@@ -26,6 +26,8 @@ class SalesEngineTest < Minitest::Test
                          })
     assert_equal ItemRepository, this_sales_engine.items.class
     assert_equal MerchantRepository, this_sales_engine.merchants.class
+    refute_equal 0, this_sales_engine.items.items.count
+    refute_equal 0, this_sales_engine.merchants.merchants.count
   end
 
 end

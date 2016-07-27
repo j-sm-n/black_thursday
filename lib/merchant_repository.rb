@@ -1,17 +1,15 @@
 require './lib/merchant'
 
 class MerchantRepository
-  attr_reader :merchants,
-              :contents
+  attr_reader :merchants
 
   def initialize(contents)
-    @merchants = []
-    @contents = contents
+    @merchants = populate(contents)
   end
 
   def populate(contents)
-    contents.each do |row|
-     merchants << Merchant.new(row, self)
+    contents.map do |row|
+      Merchant.new(row, self)
     end
   end
 
@@ -19,16 +17,12 @@ class MerchantRepository
     merchants.count
   end
 
-  def << (merchant)
-    merchants << merchant
-  end
-
   def all
     merchants
   end
 
   def find_by_id(id)
-    merchants.find { |merchant| merchant.id.to_i == id }
+    merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)

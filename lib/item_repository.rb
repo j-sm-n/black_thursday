@@ -5,22 +5,13 @@ class ItemRepository
               :contents
 
   def initialize(contents)
-    @items    = []
-    @contents = contents
-  end
-
-  def count
-    items.count
+    @items = populate(contents)
   end
 
   def populate(contents)
-    contents.each do |row|
-     items << Item.new(row, self)
+    contents.map do |row|
+      Item.new(row, self)
     end
-  end
-
-  def << (item)
-    items << item
   end
 
   def all

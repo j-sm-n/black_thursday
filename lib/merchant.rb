@@ -13,8 +13,8 @@ class Merchant
     @id          = merchant_data[:id].to_i
     @name        = merchant_data[:name]
     @repository  = repository
-    @created_at  = Date.parse(merchant_data[:created_at])
-    @updated_at  = Date.parse(merchant_data[:updated_at])
+    @created_at  = Date.parse(merchant_data[:created_at]) #Date.parse(merchant_data[:created_at])
+    @updated_at  = Date.parse(merchant_data[:updated_at]) #Date.parse(merchant_data[:updated_at])
   end
 
 end
