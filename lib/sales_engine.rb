@@ -8,7 +8,7 @@ class SalesEngine
 
   def initialize(item_file, merchant_file)
     parser = Parser.new
-    @items = ItemRepository.new(parser.load(item_file))
+    @items = ItemRepository.new(parser.load(item_file), self)
     @merchants = MerchantRepository.new(parser.load(merchant_file), self)
   end
 
