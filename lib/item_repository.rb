@@ -2,10 +2,12 @@ require './lib/item'
 
 class ItemRepository
   attr_reader :items,
-              :contents
+              :contents,
+              :parent
 
-  def initialize(contents)
+  def initialize(contents, parent)
     @items = populate(contents)
+    @parent = parent
   end
 
   def populate(contents)
