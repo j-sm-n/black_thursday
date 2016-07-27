@@ -135,20 +135,4 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, test_merchant_repository.merchants[0]
     assert_equal 9, test_merchant_repository.all.length
   end
-
-  def test_it_can_parse_rows
-      test_row = nil
-      contents.each do |row|
-        test_row = row
-        break
-      end
-      actual = test_merchant_repository.parse_row(test_row)
-      expected = {:id => test_row[:id],
-                  :name => test_row[:name],
-                  :created_at => test_row[:created_at],
-                  :updated_at => test_row[:updated_at]}
-
-     assert_equal expected, actual
-  end
-
 end
