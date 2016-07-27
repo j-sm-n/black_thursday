@@ -31,7 +31,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at => Date.new(2016,01,11,18),
       :id => 263444697,
       :merchant_id => 12336081
-      })
+      }, ir)
     @item_2 = Item.new({
       :name => "Pencil",
       :description => "You can use it to write things",
@@ -40,7 +40,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at => Time.now,
       :id => 1234,
       :merchant_id => 78910
-      })
+      }, ir)
     @item_3 = Item.new({
       :name => "Eraser",
       :description => "You can use it to erase things",
@@ -49,7 +49,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at => Time.now,
       :id => 2341,
       :merchant_id => 78910
-      })
+      }, ir)
     @item_4 = Item.new({
       :name => "Color Markers",
       :description => "You can use it to write things in color",
@@ -58,7 +58,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at => Time.now,
       :id => 9870,
       :merchant_id => 78910
-      })
+      }, ir)
     @item_5 = Item.new({
       :name => "Permanent Markers",
       :description => "You can use it to write things forever",
@@ -67,7 +67,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at => Time.now,
       :id => 9871,
       :merchant_id => 78910
-      })
+      }, ir)
 
       [item_1, item_2, item_3, item_4, item_5].each { |item| ir << item }
     end
@@ -200,27 +200,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 15, ir.all.length
   end
 
-  def test_it_can_parse_rows
-      test_row = nil
-      contents.each do |row|
-        test_row = row
-        break
-      end
-      actual = ir.parse_row(test_row)
-      expected = {:id => test_row[:id],
-                  :name => test_row[:name],
-                  :description => test_row[:description],
-                  :unit_price => test_row[:unit_price],
-                  :created_at => test_row[:created_at],
-                  :updated_at => test_row[:updated_at],
-                  :merchant_id => test_row[:merchant_id]}
-
-     assert_equal expected, actual
-  end
-
   def test_items_repo_contains_items_with_parent_repo_named
     ir.populate(contents)
-    
-    assert_instance_of ItemRepository, ir.items[0].parent
+
+    assert_instance_of ItemRepository, ir.items[0].repository
   end
 end

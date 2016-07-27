@@ -5,7 +5,7 @@ class ItemRepository
               :contents
 
   def initialize(contents)
-    @items = []
+    @items    = []
     @contents = contents
   end
 
@@ -15,20 +15,8 @@ class ItemRepository
 
   def populate(contents)
     contents.each do |row|
-     this_item = Item.new(parse_row(row))
-     this_item.set_parent(self)
-     items << this_item
+     items << Item.new(row, self)
     end
-  end
-
-  def parse_row(row)
-    {:id => row[:id],
-    :name => row[:name],
-    :description => row[:description],
-    :unit_price => row[:unit_price],
-    :created_at => row[:created_at],
-    :updated_at => row[:updated_at],
-    :merchant_id => row[:merchant_id]}
   end
 
   def << (item)
