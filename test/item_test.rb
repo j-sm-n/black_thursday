@@ -12,6 +12,7 @@ class ItemTest < Minitest::Test
     contents = Parser.new.load("./data/items_test.csv")
     @this_time_1 = Time.now - (60 * 60)
     @this_time_2 = Time.now
+    @ir = ItemRepository.new(contents)
     @i = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -20,8 +21,7 @@ class ItemTest < Minitest::Test
       :updated_at  => this_time_2,
       :id => 263444697,
       :merchant_id => 12334496
-    })
-    @ir = ItemRepository.new(contents)
+    }, ir)
   end
 
   def test_it_exists
@@ -43,8 +43,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_parent
-    i.set_parent(ir)
-
-    assert_equal ir, i.parent
+    assert_equal ir, i.repository
   end
 end

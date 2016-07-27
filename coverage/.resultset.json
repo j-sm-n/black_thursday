@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/item_repository.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/item_repository.rb": [
         1,
         null,
         1,
@@ -18,22 +18,22 @@
         null,
         null,
         1,
-        1,
-        10,
-        10,
-        10,
+        2,
         null,
         null,
         null,
-        1,
-        null,
+        20,
         null,
         null,
         null,
         null,
         null,
         null,
-        11,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         1,
@@ -70,7 +70,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/item.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/item.rb": [
         1,
         1,
         null,
@@ -84,29 +84,28 @@
         null,
         null,
         null,
-        null,
         1,
-        74,
-        74,
-        74,
-        74,
-        74,
-        74,
-        74,
-        74,
-        null,
-        null,
-        1,
-        1,
+        84,
+        84,
+        84,
+        84,
+        84,
+        84,
+        84,
+        84,
         null,
         null,
         1,
-        11,
+        1,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/parser.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/parser.rb": [
         1,
         null,
         1,
@@ -115,7 +114,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/test/item_test.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/test/item_test.rb": [
         1,
         1,
         1,
@@ -131,29 +130,15 @@
         4,
         4,
         4,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         4,
         null,
         null,
-        1,
-        1,
         null,
         null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         1,
@@ -162,12 +147,24 @@
         null,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
         1,
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/test/merchant_repository_test.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/test/merchant_repository_test.rb": [
         1,
         1,
         1,
@@ -300,7 +297,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/merchant_repository.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
         1,
         null,
         1,
@@ -353,7 +350,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/merchant.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/merchant.rb": [
         1,
         1,
         null,
@@ -373,7 +370,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/test/merchant_test.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/test/merchant_test.rb": [
         1,
         1,
         1,
@@ -408,7 +405,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/test/parser_test.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/test/parser_test.rb": [
         1,
         1,
         null,
@@ -431,7 +428,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/test/sales_engine_test.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/test/sales_engine_test.rb": [
         1,
         1,
         null,
@@ -463,7 +460,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/sales_engine.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -483,24 +480,23 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/test/test_helper.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/test/test_helper.rb": [
         1,
         1,
         1,
         1
       ]
     },
-    "timestamp": 1469575492
+    "timestamp": 1469589232
   },
   "Unit Tests": {
     "coverage": {
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/item.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/item.rb": [
         1,
         1,
         null,
         1,
         1,
-        null,
         null,
         null,
         null,
@@ -524,13 +520,13 @@
         1,
         null,
         null,
-        1,
-        1,
+        null,
+        null,
         null,
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/item_repository.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/item_repository.rb": [
         1,
         null,
         1,
@@ -548,21 +544,21 @@
         null,
         1,
         0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
         null,
         null,
         null,
         0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         1,
@@ -599,7 +595,7 @@
         null,
         null
       ],
-      "/Users/JesseSpevack/turing/1module/black_thursday/lib/parser.rb": [
+      "/Users/artemis/turing/1module/projects/black_thursday/lib/parser.rb": [
         1,
         null,
         1,
@@ -609,6 +605,6 @@
         null
       ]
     },
-    "timestamp": 1469575489
+    "timestamp": 1469589209
   }
 }
