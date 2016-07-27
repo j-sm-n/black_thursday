@@ -12,8 +12,16 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     @contents = Parser.new.load("./data/merchants_test.csv")
     @mr = MerchantRepository.new(contents)
-    @merchant_1 = Merchant.new({:id => 5, :name => "Turing School"})
-    @merchant_2 = Merchant.new({:id => 12334145, :name => "BowlsByChris"})
+    @merchant_1 = Merchant.new({:id => 5,
+                       :name => "Turing School",
+                       :created_at => Time.now - (60 * 60),
+                       :updated_at => Time.now},
+                       mr)
+    @merchant_2 = Merchant.new({:id => 12334145,
+                       :name => "BowlsByChris",
+                       :created_at => Time.now - (60 * 60),
+                       :updated_at => Time.now},
+                       mr)
   end
 
   def test_it_exists
@@ -81,10 +89,26 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name
-    merchant_3 = Merchant.new({:id => 6, :name => "Turing School of Software Design"})
-    merchant_4 = Merchant.new({:id => 7, :name => "Turing School of Software Design Front End"})
-    merchant_5 = Merchant.new({:id => 8, :name => "Turing Computer Supply Chain"})
-    merchant_6 = Merchant.new({:id => 9, :name => "Turing Test"})
+    merchant_3 = Merchant.new({:id => 6,
+                               :name => "Turing School of Software Design",
+                               :created_at => Time.now - (60 * 60),
+                               :updated_at => Time.now},
+                               mr)
+    merchant_4 = Merchant.new({:id => 7,
+                               :name => "Turing School of Software Design Front End",
+                               :created_at => Time.now - (60 * 60),
+                               :updated_at => Time.now},
+                               mr)
+    merchant_5 = Merchant.new({:id => 8,
+                               :name => "Turing Computer Supply Chain",
+                               :created_at => Time.now - (60 * 60),
+                               :updated_at => Time.now},
+                               mr)
+    merchant_6 = Merchant.new({:id => 9,
+                               :name => "Turing Test",
+                               :created_at => Time.now - (60 * 60),
+                               :updated_at => Time.now},
+                               mr)
     [merchant_1, merchant_2, merchant_3,
     merchant_4, merchant_5, merchant_6].each { |merchant| mr << merchant }
     expected_1 = [merchant_1, merchant_3, merchant_4, merchant_5, merchant_6]
@@ -127,5 +151,5 @@ class MerchantRepositoryTest < Minitest::Test
 
      assert_equal expected, actual
   end
-  
+
 end

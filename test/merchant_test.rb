@@ -10,7 +10,11 @@ class MerchantTest < Minitest::Test
   def setup
     @contents = Parser.new.load("./data/merchants_test.csv")
     @mr = MerchantRepository.new(contents)
-    @m = Merchant.new({:id => 5, :name => "Turing School"})
+    @m = Merchant.new({:id => 5,
+                       :name => "Turing School",
+                       :created_at => Time.now - (60 * 60),
+                       :updated_at => Time.now},
+                       mr)
   end
 
   def test_it_exists
@@ -25,9 +29,8 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", m.name
   end
 
-  def test_it_has_a_parent
-    m.set_parent(mr)
-    assert_equal mr, m.parent
+  def test_it_has_a_repository
+    assert_equal mr, m.repository
   end
 
 end

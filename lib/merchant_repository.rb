@@ -11,9 +11,7 @@ class MerchantRepository
 
   def populate(contents)
     contents.each do |row|
-     this_merchant = Merchant.new(parse_row(row))
-     this_merchant.set_parent(self)
-     merchants << this_merchant
+     merchants << Merchant.new(row, self)
     end
   end
 
