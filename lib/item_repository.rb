@@ -1,4 +1,4 @@
-require "pry"
+require './lib/item'
 
 class ItemRepository
   attr_reader :items,
@@ -40,11 +40,11 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    items.find_all { |item| BigDecimal.new(item.unit_price,4) == price }
+    items.find_all { |item| item.unit_price == BigDecimal.new(price)/100 }
   end
 
-  def find_all_by_price_in_range(price_range)
-    items.find_all { |item| price_range.include?(BigDecimal.new(item.unit_price,4)) }
+  def find_all_by_price_in_range(price_range_as_integers)
+    items.find_all { |item| price_range_as_integers.include?(item.unit_price * 100) }
   end
 
   def find_all_by_merchant_id(id)

@@ -2,10 +2,10 @@ require './test/test_helper'
 require './lib/parser'
 
 class ParserTest < Minitest::Test
-  attr_reader :p
+  attr_reader :test_parser
 
   def setup
-    @p = Parser.new
+    @test_parser = Parser.new
   end
 
   def test_it_exists
@@ -14,7 +14,7 @@ class ParserTest < Minitest::Test
 
   def test_it_loads_csv_by_line
     file_name = "./data/merchants_test.csv"
-    actual = p.load(file_name)
+    actual = test_parser.load(file_name)
     assert_instance_of CSV, actual
   end
 
