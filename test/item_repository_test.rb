@@ -13,24 +13,7 @@ class ItemRepositoryTest < Minitest::Test
                          })
     test_item_repository = ItemRepository.new(contents, sales_engine)
     assert_equal 10, test_item_repository.all.length
-    refute_equal 0, test_item_repository.items.count
-  end
-
-
-  def test_it_finds_all_items
-    contents = Parser.new.load("./data/items_test.csv")
-    sales_engine = SalesEngine.from_csv({
-                           :items     => "./data/items_test.csv",
-                           :merchants => "./data/merchants_test.csv",
-                         })
-    test_item_repository = ItemRepository.new(contents, sales_engine)
-    expected_ids = [263435825, 263440607, 263440363, 263437771,
-                    263439003, 263420519, 263423509, 263440155,
-                    263417331, 263414425]
-    actually_all_the_items = test_item_repository.all
-    actually_all_the_items.each do |item|
-      assert_equal true, expected_ids.include?(item.id)
-    end
+    refute_equal 0, test_item_repository.count
   end
 
   def test_it_can_find_all_with_description
