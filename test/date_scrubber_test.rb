@@ -20,7 +20,7 @@ class DateScrubberTest < Minitest::Test
     test_invalid_time_2 = "2002-12-20 25:12:12 UTC"
     test_invalid_time_3 = "2002-12-20 22:70:12 UTC"
 
-    expected = 2016, 1, 1, 18, 07, 30, "+00:00"
+    expected = ["2016-01-11", 18, 07, 30, "+00:00"]
 
     assert_equal expected, DateScrubber.scrub(test_time_1)
   end
