@@ -529,8 +529,11 @@
       ],
       "/Users/JesseSpevack/turing/1module/black_thursday/lib/merchant_repository.rb": [
         1,
+        1,
         null,
         1,
+        1,
+        null,
         1,
         null,
         1,
@@ -541,22 +544,6 @@
         6,
         54,
         null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
         null,
         null,
         1,
@@ -586,6 +573,26 @@
         null,
         null
       ],
+      "/Users/JesseSpevack/turing/1module/black_thursday/lib/repository.rb": [
+        null,
+        1,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
       "/Users/JesseSpevack/turing/1module/black_thursday/lib/parser.rb": [
         1,
         null,
@@ -596,6 +603,6 @@
         null
       ]
     },
-    "timestamp": 1469656625
+    "timestamp": 1469659313
   }
 }
