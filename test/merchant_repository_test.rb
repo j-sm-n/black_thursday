@@ -13,13 +13,13 @@ class MerchantRepositoryTest < Minitest::Test
     @test_merchant_repository = MerchantRepository.new(contents)
     @merchant_1 = Merchant.new({:id => 5,
                        :name => "Turing School",
-                       :created_at => Time.now - (60 * 60),
-                       :updated_at => Time.now},
+                       :created_at => "2016-01-11",
+                       :updated_at => "2012-03-27"},
                        test_merchant_repository)
     @merchant_2 = Merchant.new({:id => 12334145,
                        :name => "BowlsByChris",
-                       :created_at => Time.now - (60 * 60),
-                       :updated_at => Time.now},
+                       :created_at => "2016-01-11",
+                       :updated_at => "2012-03-27"},
                        test_merchant_repository)
   end
 
@@ -90,23 +90,23 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_name
     merchant_3 = Merchant.new({:id => 6,
                                :name => "Turing School of Software Design",
-                               :created_at => Time.now - (60 * 60),
-                               :updated_at => Time.now},
+                               :created_at => "2016-01-11",
+                               :updated_at => "2012-03-27"},
                                test_merchant_repository)
     merchant_4 = Merchant.new({:id => 7,
                                :name => "Turing School of Software Design Front End",
-                               :created_at => Time.now - (60 * 60),
-                               :updated_at => Time.now},
+                               :created_at => "2016-01-11",
+                               :updated_at => "2012-03-27"},
                                test_merchant_repository)
     merchant_5 = Merchant.new({:id => 8,
                                :name => "Turing Computer Supply Chain",
-                               :created_at => Time.now - (60 * 60),
-                               :updated_at => Time.now},
+                               :created_at => "2016-01-11",
+                               :updated_at => "2012-03-27"},
                                test_merchant_repository)
     merchant_6 = Merchant.new({:id => 9,
                                :name => "Turing Test",
-                               :created_at => Time.now - (60 * 60),
-                               :updated_at => Time.now},
+                               :created_at => "2016-01-11",
+                               :updated_at => "2012-03-27"},
                                test_merchant_repository)
     [merchant_1, merchant_2, merchant_3,
     merchant_4, merchant_5, merchant_6].each { |merchant| test_merchant_repository << merchant }
@@ -128,11 +128,19 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_populate_itself_with_child_merchants
     test_merchant_repository.populate(contents)
+    
     assert_instance_of Merchant, test_merchant_repository.find_by_id(12334496)
     assert_instance_of Merchant, test_merchant_repository.find_by_id(12334984)
     assert_instance_of Merchant, test_merchant_repository.find_by_id(12335918)
     assert_instance_of Merchant, test_merchant_repository.find_by_id(12335813)
     assert_instance_of Merchant, test_merchant_repository.merchants[0]
     assert_equal 9, test_merchant_repository.all.length
+  end
+
+  def test_initialization_populates_the_repository
+    skip
+    test_merchant_repository(contents)
+    assert_equal 9, test_merchant_repository.all.length
+    refute_equal 0, test_merchant_repository.count
   end
 end
