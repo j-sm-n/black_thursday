@@ -207,7 +207,6 @@ class ItemRepositoryTest < Minitest::Test
       expected = {:id => test_row[:id],
                   :name => test_row[:name],
                   :description => test_row[:description],
-                  :description => test_row[:description],
                   :unit_price => test_row[:unit_price],
                   :created_at => test_row[:created_at],
                   :updated_at => test_row[:updated_at],
