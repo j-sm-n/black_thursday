@@ -9,7 +9,7 @@ class SalesEngine
   def initialize(item_file, merchant_file)
     parser = Parser.new
     @items = ItemRepository.new(parser.load(item_file))
-    @merchants = MerchantRepository.new(parser.load(merchant_file))
+    @merchants = MerchantRepository.new(parser.load(merchant_file), self)
   end
 
   def self.from_csv(hash_of_file_paths)
