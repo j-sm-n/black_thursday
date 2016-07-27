@@ -93,10 +93,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_return_all_items
     expected_1 = []
     actual_1 = empty_ir.all
+
     assert_equal expected_1, actual_1
 
     expected_2 = [item_1, item_2, item_3, item_4, item_5]
     actual_2 = ir.all
+
     assert_equal expected_2, actual_2
   end
 
@@ -192,6 +194,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_populate_itself_with_child_merchants
     ir.populate(contents)
+
     assert_instance_of Item, ir.find_by_id(263435825)
     assert_instance_of Item, ir.items[0]
     assert_equal 15, ir.all.length
@@ -213,5 +216,11 @@ class ItemRepositoryTest < Minitest::Test
                   :merchant_id => test_row[:merchant_id]}
 
      assert_equal expected, actual
+  end
+
+  def test_items_repo_contains_items_with_parent_repo_named
+    ir.populate(contents)
+    
+    assert_instance_of ItemRepository, ir.items[0].parent
   end
 end
