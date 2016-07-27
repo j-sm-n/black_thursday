@@ -1,10 +1,15 @@
 require './lib/merchant'
+require './lib/repository'
 
 class MerchantRepository
-  attr_reader :merchants
+  include Repository
+
+  attr_reader :repository,
+              :parent
 
   def initialize(contents, parent)
-    @merchants = populate(contents)
+    @repository = populate(contents)
+    @parent = parent
   end
 
   def populate(contents)
@@ -13,24 +18,8 @@ class MerchantRepository
     end
   end
 
-  def count
-    merchants.count
-  end
-
-  def all
-    merchants
-  end
-
-  def find_by_id(id)
-    merchants.find { |merchant| merchant.id == id }
-  end
-
-  def find_by_name(name)
-    merchants.find { |merchant| merchant.name.downcase == name.downcase }
-  end
-
   def find_all_by_name(name)
-    merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
+    repository.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
 
 end
