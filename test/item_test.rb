@@ -5,22 +5,22 @@ require './lib/parser'
 class ItemTest < Minitest::Test
   attr_reader :test_item,
               :test_item_repository,
-              :this_time_1,
-              :this_time_2
+              :test_time_1,
+              :test_time_2
 
   def setup
     contents = Parser.new.load("./data/items_test.csv")
-    @this_time_1 = Time.now - (60 * 60)
-    @this_time_2 = Time.now
+    @test_time_1 = "2016-01-11 18:07:30 UTC"
+    @test_time_2 = "2012-03-27 14:54:33 UTC"
     @test_item_repository = ItemRepository.new(contents)
     @test_item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
-      :created_at  => this_time_1,
-      :updated_at  => this_time_2,
-      :id => 263444697,
-      :merchant_id => 12334496
+      :unit_price  => "1099",
+      :created_at  => test_time_1,
+      :updated_at  => test_time_2,
+      :id => "263444697",
+      :merchant_id => "12334496"
     }, test_item_repository)
   end
 
@@ -33,8 +33,8 @@ class ItemTest < Minitest::Test
     assert_equal "Pencil", test_item.name
     assert_equal "You can use it to write things", test_item.description
     assert_equal BigDecimal.new("1099")/100, test_item.unit_price
-    assert_equal this_time_1, test_item.created_at
-    assert_equal this_time_2, test_item.updated_at
+    assert_equal Time.parse(test_time_1), test_item.created_at
+    assert_equal Time.parse(test_time_2), test_item.updated_at
     assert_equal 12334496, test_item.merchant_id
   end
 
