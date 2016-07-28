@@ -53,12 +53,13 @@ class ItemTest < Minitest::Test
 
   def test_item_returns_merchant_it_is_sold_by
     sales_engine = SalesEngine.from_csv({
-               :items     => "./data/items_test.csv",
-               :merchants => "./data/merchants_test.csv",
+               :items     => "./data/items.csv",
+               :merchants => "./data/merchants.csv",
              })
     item_repo = sales_engine.items
-    item = item_repo.find_by_id(263440155)
+    item = item_repo.find_by_id(263395237)
 
-    assert_equal "Iron Man Perler Bead Magnet/ Ornament", item.merchant.name
+    assert_equal "jejum", item.merchant.name
+    assert_instance_of Merchant, item.merchant
   end
 end
