@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require './lib/item_repository'
+require_relative '../lib/item_repository'
 
 class Item
   attr_reader :id,

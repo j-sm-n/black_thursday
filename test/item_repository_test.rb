@@ -42,10 +42,10 @@ class ItemRepositoryTest < Minitest::Test
                          })
     test_item_repository = ItemRepository.new(contents, sales_engine)
     expected_ids = [263435825, 263423509]
-    actual_1 = test_item_repository.find_all_by_price(10000)
-    actual_1.each do |item|
-      assert_equal true, expected_ids.include?(item.id)
-    end
+    actual_1 = test_item_repository.find_all_by_price(100)
+    refute_equal [], actual_1
+    assert_equal expected_ids[0], actual_1[0].id
+    assert_equal false, actual_1.include?(expected_ids[1])
 
     actual_2 = test_item_repository.find_all_by_price(0)
     assert_equal [], actual_2
@@ -61,7 +61,7 @@ class ItemRepositoryTest < Minitest::Test
     expected_ids = [263435825, 263440607, 263440363, 263437771,
                     263439003, 263420519, 263423509, 263440155,
                     263417331, 263414425]
-    range_1 = Range.new(0, 100000000)
+    range_1 = Range.new(0, 1000000)
     range_2 = Range.new(0, 1)
     actual = test_item_repository.find_all_by_price_in_range(range_1)
     actual.each do |item|

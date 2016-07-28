@@ -1,5 +1,5 @@
-require './lib/item'
-require './lib/repository'
+require_relative '../lib/item'
+require_relative '../lib/repository'
 
 class ItemRepository
   include Repository
@@ -25,15 +25,19 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    repository.find_all { |item| item.unit_price == BigDecimal.new(price)/100 }
+    repository.find_all { |item| item.unit_price == BigDecimal.new(price) }
   end
 
   def find_all_by_price_in_range(price_range_as_integers)
-    repository.find_all { |item| price_range_as_integers.include?(item.unit_price * 100) }
+    repository.find_all { |item| price_range_as_integers.include?(item.unit_price) }
   end
 
   def find_all_by_merchant_id(id)
     repository.find_all { |item| item.merchant_id.to_i == id }
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

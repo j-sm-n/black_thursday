@@ -1,6 +1,6 @@
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/parser'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/parser'
 
 class SalesEngine
   attr_reader :items,
