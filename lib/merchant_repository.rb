@@ -8,27 +8,19 @@ class MerchantRepository
               :parent
 
   def initialize(contents, parent)
-    @repository = populate(contents)
+    @repository = contents.map { |row| Merchant.new(row, self) }
     @parent = parent
   end
 
-  def populate(contents)
-    contents.map do |row|
-      Merchant.new(row, self)
-    end
-  end
-
   def find_all_by_name(name)
-    repository.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    repository.find_all { |merchant| merchant.name.include?(name.downcase) }
   end
 
   def find_items_by_merchant(merchant_id)
     parent.find_items_by_merchant(merchant_id)
   end
 
-
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

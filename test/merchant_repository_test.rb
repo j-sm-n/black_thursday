@@ -1,75 +1,61 @@
 require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/loader'
-require './lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :sales_engine
+  attr_reader :parent,
+              :test_repository
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => "./data/items_test.csv",
-                                         :merchants => "./data/merchants_test.csv",})
-  end
-
-  def test_it_exists
-    test_merchant_repository = MerchantRepository.new([],sales_engine)
-    assert_instance_of MerchantRepository, test_merchant_repository
-  end
-
-  def test_it_can_find_all_by_name
-    contents = Loader.load("./data/merchants_test.csv")
-    test_merchant_repository = MerchantRepository.new(contents, sales_engine)
-    actual = test_merchant_repository.find_all_by_name("e")
-    expected_names = ["MiniatureBikez", "LolaMarleys", "Keckenbauer", "perlesemoi", "GoldenRayPress", "jejum", "Urcase17"]
-    actual.each do |merchant|
-      assert_equal true, expected_names.include?(merchant.name)
-    end
-    assert_equal expected_names.length, actual.length
-  end
-
-  def test_it_can_populate_itself_with_child_merchants
-    test_merchant_repository = MerchantRepository.new([], sales_engine)
-    contents = Loader.load("./data/merchants_test.csv")
-    actual = test_merchant_repository.populate(contents)
-    assert_equal 9, actual.length
+    path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    contents = Loader.load(path)
+    @parent = Minitest::Mock.new
+    @test_repository = MerchantRepository.new(contents, parent)
   end
 
   def test_initialization_populates_the_repository
-    contents = Loader.load("./data/merchants_test.csv")
-    test_merchant_repository = MerchantRepository.new(contents, sales_engine)
-    assert_equal 9, test_merchant_repository.all.length
-    refute_equal 0, test_merchant_repository.count
+    merchant_1_id = 12334141
+    merchant_2_id = 12334105
+    merchant_3_id = 11111111
+
+    actual_merchant_1 = test_repository.find_by_id(merchant_1_id)
+    actual_merchant_2 = test_repository.find_by_id(merchant_2_id)
+    actual_merchant_3 = test_repository.find_by_id(merchant_3_id)
+
+    actual_merchant_id_1 = actual_merchant_1.id unless actual_merchant_1.nil?
+    actual_merchant_id_2 = actual_merchant_2.id unless actual_merchant_2.nil?
+    actual_merchant_id_3 = actual_merchant_3.id unless actual_merchant_3.nil?
+
+    assert_equal 3, test_repository.count
+    assert_equal 12334141, actual_merchant_id_1
+    assert_equal 12334105, actual_merchant_id_2
+    assert_equal nil, actual_merchant_id_3
+  end
+
+  def test_it_can_find_all_by_name
+    name_1 = "jejum"
+    name_2 = "e"
+    name_3 = "Jeff Casimir"
+
+    actual_merchants_w_name_1 = test_repository.find_all_by_name(name_1)
+    actual_merchants_w_name_2 = test_repository.find_all_by_name(name_2)
+    actual_merchants_w_name_3 = test_repository.find_all_by_name(name_3)
+
+    actual_merchants_w_name_1.map! { |item| item.id } unless actual_merchants_w_name_1.empty?
+    actual_merchants_w_name_2.map! { |item| item.id } unless actual_merchants_w_name_2.empty?
+    actual_merchants_w_name_3.map! { |item| item.id } unless actual_merchants_w_name_3.empty?
+
+    assert_equal [12334141], actual_merchants_w_name_1
+    assert_equal [12334141, 12337041], actual_merchants_w_name_2
+    assert_equal [], actual_merchants_w_name_3
   end
 
   def test_it_finds_items_by_merchant_id
-    sales_engine = SalesEngine.from_csv({:items=>"./data/items.csv",:merchants=>"./data/merchants.csv"})
-    actual_items = sales_engine.merchants.find_items_by_merchant(12334195)
-    expected_item_ids = {"item_id_1"=> 263396255, "item_id_2"=> 263396517, "item_id_3"=> 263397059,
-                         "item_id_4"=> 263397313, "item_id_5"=> 263397785, "item_id_6"=> 263397919,
-                         "item_id_7"=> 263398179, "item_id_8"=> 263398307, "item_id_9"=> 263398427,
-                         "item_id_10" => 263398653, "item_id_11" => 263399263, "item_id_12" => 263400013,
-                         "item_id_13" => 263499794, "item_id_14" => 263500126, "item_id_15" => 263500424,
-                         "item_id_16" => 263500990, "item_id_17" => 263501298, "item_id_18" => 263501476,
-                         "item_id_19" => 263502370, "item_id_20" => 263502940}
-    assert_equal actual_items[0].id, expected_item_ids["item_id_1"]
-    assert_equal actual_items[1].id, expected_item_ids["item_id_2"]
-    assert_equal actual_items[2].id, expected_item_ids["item_id_3"]
-    assert_equal actual_items[3].id, expected_item_ids["item_id_4"]
-    assert_equal actual_items[4].id, expected_item_ids["item_id_5"]
-    assert_equal actual_items[5].id, expected_item_ids["item_id_6"]
-    assert_equal actual_items[6].id, expected_item_ids["item_id_7"]
-    assert_equal actual_items[7].id, expected_item_ids["item_id_8"]
-    assert_equal actual_items[8].id, expected_item_ids["item_id_9"]
-    assert_equal actual_items[9].id, expected_item_ids["item_id_10"]
-    assert_equal actual_items[10].id, expected_item_ids["item_id_11"]
-    assert_equal actual_items[11].id, expected_item_ids["item_id_12"]
-    assert_equal actual_items[12].id, expected_item_ids["item_id_13"]
-    assert_equal actual_items[13].id, expected_item_ids["item_id_14"]
-    assert_equal actual_items[14].id, expected_item_ids["item_id_15"]
-    assert_equal actual_items[15].id, expected_item_ids["item_id_16"]
-    assert_equal actual_items[16].id, expected_item_ids["item_id_17"]
-    assert_equal actual_items[17].id, expected_item_ids["item_id_18"]
-    assert_equal actual_items[18].id, expected_item_ids["item_id_19"]
-    assert_equal actual_items[19].id, expected_item_ids["item_id_20"]
+    parent.expect(:find_items_by_merchant, "this_merchant", [12334141])
+    parent.expect(:find_items_by_merchant, nil, [11111111])
+
+    actual_items_1 = test_repository.find_items_by_merchant(12334141)
+    actual_items_2 = test_repository.find_items_by_merchant(11111111)
+    assert parent.verify
   end
 end

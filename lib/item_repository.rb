@@ -10,14 +10,8 @@ class ItemRepository
               :repository
 
   def initialize(contents, parent)
-    @repository = populate(contents)
+    @repository = contents.map { |row| Item.new(row, self) }
     @parent = parent
-  end
-
-  def populate(contents)
-    contents.map do |row|
-      Item.new(row, self)
-    end
   end
 
   def find_all_with_description(search_text)
@@ -41,7 +35,7 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@repository.size} rows>"
   end
 
   def find_merchant_by_merchant_id(merchant_id)

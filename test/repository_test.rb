@@ -1,64 +1,71 @@
 require './test/test_helper'
-require './lib/sales_engine'
+require './lib/loader'
 require './lib/merchant_repository'
 require './lib/repository'
 
 class RepositoryTest < Minitest::Test
 
-  attr_reader :sales_engine
+  attr_reader :parent,
+              :test_repository
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => "./data/items_test.csv",
-                                         :merchants => "./data/merchants_test.csv",})
+    path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    contents = Loader.load(path)
+    @parent = Minitest::Mock.new
+    @test_repository = MerchantRepository.new(contents, parent)
   end
 
+
   def test_it_has_a_count
-    test_merchant_repository = MerchantRepository.new([],sales_engine)
-    assert_equal 0, test_merchant_repository.count
+    assert_equal 3, test_repository.count
   end
 
   def test_it_can_find_by_id
-    contents = Loader.load("./data/merchants_test.csv")
-    test_merchant_repository = MerchantRepository.new(contents, sales_engine)
-    merchant_1 = Merchant.new({:id => "12334105",
-                         :name => "Shopin1901",
-                         :created_at => "2010-12-10",
-                         :updated_at => "2011-12-04"},
-                         test_merchant_repository)
-    actual_merchant_1 = test_merchant_repository.find_by_id(12334105)
-    actual_merchant_1_id = actual_merchant_1.id
+    id_1 = 12334141
+    id_2 = 12334105
+    id_3 = 11111111
 
-    assert_equal actual_merchant_1_id, merchant_1.id
+    repository_child_1 = test_repository.find_by_id(12334141)
+    repository_child_2 = test_repository.find_by_id(12334105)
+    repository_child_3 = test_repository.find_by_id(11111111)
 
-    actual_2 = test_merchant_repository.find_by_id(1606)
-    expected_2 = nil
-    assert_equal expected_2, actual_2
+    repository_child_1_id = repository_child_1.id unless repository_child_1.nil?
+    repository_child_2_id = repository_child_2.id unless repository_child_2.nil?
+    repository_child_3_id = repository_child_3.id unless repository_child_3.nil?
+
+    assert_equal id_1, repository_child_1_id
+    assert_equal id_2, repository_child_2_id
+    assert_equal nil, repository_child_3_id
   end
 
   def test_it_can_find_by_name
-    contents = Loader.load("./data/merchants_test.csv")
-    test_merchant_repository = MerchantRepository.new(contents, sales_engine)
-    merchant_1 = Merchant.new({:id => "12334105",
-                         :name => "Shopin1901",
-                         :created_at => "2010-12-10",
-                         :updated_at => "2011-12-04"},
-                         test_merchant_repository)
-    actual_merchant_1 = test_merchant_repository.find_by_name("Shopin1901")
-    actual_merchant_1_name = actual_merchant_1.name
-    actual_2 = test_merchant_repository.find_by_name("TURING SCHOOL")
-    expected_2 = nil
+    name_1 = "jejum"
+    name_2 = "Shopin1901"
+    name_3 = "Jeff Casimir"
 
-    assert_equal actual_merchant_1_name, merchant_1.name
-    assert_equal expected_2, actual_2
+    repository_child_1 = test_repository.find_by_name(name_1)
+    repository_child_2 = test_repository.find_by_name(name_2)
+    repository_child_3 = test_repository.find_by_name(name_3)
+
+    repository_child_1_id = repository_child_1.id unless repository_child_1.nil?
+    repository_child_2_id = repository_child_2.id unless repository_child_2.nil?
+    repository_child_3_id = repository_child_3.id unless repository_child_3.nil?
+
+    assert_equal 12334141, repository_child_1_id
+    assert_equal 12334105, repository_child_2_id
+    assert_equal nil, repository_child_3_id
   end
 
   def test_it_can_return_all_merchants
-    contents = Loader.load("./data/merchants_test.csv")
-    test_merchant_repository = MerchantRepository.new(contents, sales_engine)
+    actual_ids = [12334141, 12334105, 12337041]
+    invalid_id = [11111111]
 
-    merchants = test_merchant_repository.all
-    assert_equal 9, merchants.length
-    assert_instance_of Merchant, merchants[0]
+    repository_children = test_repository.all
+
+    assert_equal false, repository_children.empty?
+    repository_children.each do |child|
+      assert_equal true, actual_ids.include?(child.id)
+      assert_equal false, invalid_id.include?(child.id)
+    end
   end
-
 end
