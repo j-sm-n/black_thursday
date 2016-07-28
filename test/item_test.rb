@@ -1,32 +1,17 @@
 require './test/test_helper'
 require './lib/item'
 require './lib/loader'
-require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
   attr_reader :test_item,
-              :test_item_repository,
-              :test_time_1,
-              :test_time_2
+              :parent
 
   def setup
-    contents = Loader.load("./data/items_test.csv")
-    sales_engine = SalesEngine.from_csv({
-                           :items     => "./data/items_test.csv",
-                           :merchants => "./data/merchants_test.csv",
-                         })
-    @test_time_1 = "2016-01-11 18:07:30 UTC"
-    @test_time_2 = "2012-03-27 14:54:33 UTC"
-    @test_item_repository = ItemRepository.new(contents, sales_engine)
-    @test_item = Item.new({
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => "1099",
-      :created_at  => test_time_1,
-      :updated_at  => test_time_2,
-      :id => "263444697",
-      :merchant_id => "12334496"
-    }, test_item_repository)
+    contents = Loader.load("./test/fixtures/item.csv")
+    @parent = Minitest::Mock.new
+    contents.each do |data|
+      @test_item = Item.new(data, parent)
+    end
   end
 
   def test_it_exists
@@ -34,32 +19,59 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_all_the_properties_of_an_item
-    assert_equal 263444697, test_item.id
-    assert_equal "Pencil", test_item.name
-    assert_equal "you can use it to write things", test_item.description
-    assert_equal BigDecimal.new("1099")/100, test_item.unit_price
-    assert_equal Time.parse(test_time_1), test_item.created_at
-    assert_equal Time.parse(test_time_2), test_item.updated_at
-    assert_equal 12334496, test_item.merchant_id
+    expected_id          = 263406193
+    expected_name        = "Shimmering Peacock"
+    expected_description = "this decorative lighted wine bottle with 50 "\
+                           "lights will brighten up your home, bar area "\
+                           "and even act as a night light. use your ima"\
+                           "gination! it would be a great conversation "\
+                           "piece, a thoughtful gift, or an inspiration"\
+                           "al piece. this is a unique, one of a kind b"\
+                           "eautifully handcrafted wine bottle -- ready "\
+                           "to display and enjoy. the individual desig"\
+                           "n is the work of one artist and is inspired "\
+                           "from the artist’s lakeside retreat."
+    expected_unit_price  = BigDecimal.new("4500")/100
+    expected_created_at  = Time.parse("2016-01-11 16:19:54 UTC")
+    expected_updated_at  = Time.parse("1973-04-25 05:41:41 UTC")
+    expected_merchant_id = 12334703
+
+    assert_equal expected_id, test_item.id
+    assert_equal expected_name, test_item.name
+    assert_equal expected_description, test_item.description
+    assert_equal expected_unit_price, test_item.unit_price
+    assert_equal expected_created_at, test_item.created_at
+    assert_equal expected_updated_at, test_item.updated_at
+    assert_equal expected_merchant_id, test_item.merchant_id
   end
 
   def test_it_can_return_unit_price_as_float
-    assert_equal 10.99, test_item.unit_price_to_dollars
+    assert_equal 45, test_item.unit_price_to_dollars
   end
 
   def test_item_has_parent
-    assert_equal test_item_repository, test_item.parent
+    parent.expect(:class, ItemRepository)
+    assert_equal ItemRepository, test_item.parent.class
+    assert parent.verify
   end
 
   def test_item_returns_merchant_it_is_sold_by
-    sales_engine = SalesEngine.from_csv({
-               :items     => "./data/items.csv",
-               :merchants => "./data/merchants.csv",
-             })
-    item_repo = sales_engine.items
-    item = item_repo.find_by_id(263395237)
+    invalid_item = Item.new({
+      id:           "2",
+      name:         "invalid_item",
+      description:  "invalid_item_description",
+      unit_price:   "10000",
+      created_at:   "2016-04-25 05:41:41 UTC",
+      updated_at:   "2016-07-25 05:41:41 UTC",
+      merchant_id:  "2"}, parent)
 
-    assert_equal "jejum", item.merchant.name
-    assert_instance_of Merchant, item.merchant
+    parent.expect(:find_merchant_by_merchant_id, "this_merchant", [12334703])
+    parent.expect(:find_merchant_by_merchant_id, nil, [2])
+
+    actual_merchants = test_item.merchant
+
+    assert_equal "this_merchant", actual_merchants
+    assert_equal nil, invalid_item.merchant
+    assert parent.verify
   end
 end
