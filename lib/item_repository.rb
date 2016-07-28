@@ -10,14 +10,8 @@ class ItemRepository
               :repository
 
   def initialize(contents, parent)
-    @repository = populate(contents)
+    @repository = contents.map { |row| Item.new(row, self) }
     @parent = parent
-  end
-
-  def populate(contents)
-    contents.map do |row|
-      Item.new(row, self)
-    end
   end
 
   def find_all_with_description(search_text)

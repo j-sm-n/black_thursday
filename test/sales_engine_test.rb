@@ -29,12 +29,14 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_merchants_by_id
     merchant = test_sales_engine.merchants.find_by_id(12337041)
+
     assert_equal 12337041, merchant.id
     assert_equal "MilestonesForBaby", merchant.name
   end
 
   def test_it_can_find_items_by_id
     item = test_sales_engine.items.find_by_id(263396209)
+
     assert_equal 263396209, item.id
     assert_equal "Vogue Paris Original Givenchy 2307", item.name
   end

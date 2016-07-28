@@ -61,13 +61,11 @@ class RepositoryTest < Minitest::Test
     invalid_id = [11111111]
 
     repository_children = test_repository.all
-    if repository_children.empty?
-      assert_equal false, true
-    else
-      repository_children.each do |child|
-        assert_equal true, actual_ids.include?(child.id)
-        assert_equal false, invalid_id.include?(child.id)
-      end
+
+    assert_equal false, repository_children.empty?
+    repository_children.each do |child|
+      assert_equal true, actual_ids.include?(child.id)
+      assert_equal false, invalid_id.include?(child.id)
     end
   end
 end
