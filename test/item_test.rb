@@ -36,7 +36,7 @@ class ItemTest < Minitest::Test
   def test_it_has_all_the_properties_of_an_item
     assert_equal 263444697, test_item.id
     assert_equal "Pencil", test_item.name
-    assert_equal "You can use it to write things", test_item.description
+    assert_equal "you can use it to write things", test_item.description
     assert_equal BigDecimal.new("1099")/100, test_item.unit_price
     assert_equal Time.parse(test_time_1), test_item.created_at
     assert_equal Time.parse(test_time_2), test_item.updated_at

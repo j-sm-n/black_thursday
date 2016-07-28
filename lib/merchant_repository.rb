@@ -26,5 +26,9 @@ class MerchantRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
+  def find_items_by_merchant(merchant_id)
+    parent.find_items_by_merchant(merchant_id)
+  end
+
 
 end

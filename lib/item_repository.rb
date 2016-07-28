@@ -21,7 +21,9 @@ class ItemRepository
   end
 
   def find_all_with_description(search_text)
-    repository.find_all { |item| item.description.downcase.include?(search_text.downcase) }
+    repository.find_all do |item|
+      item.description.include?(search_text.downcase)
+    end
   end
 
   def find_all_by_price(price)
@@ -29,7 +31,9 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range_as_integers)
-    repository.find_all { |item| price_range_as_integers.include?(item.unit_price) }
+    repository.find_all do |item|
+      price_range_as_integers.include?(item.unit_price)
+    end
   end
 
   def find_all_by_merchant_id(id)
