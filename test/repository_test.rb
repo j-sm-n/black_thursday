@@ -18,7 +18,7 @@ class RepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    contents = Parser.new.load("./data/merchants_test.csv")
+    contents = Loader.load("./data/merchants_test.csv")
     test_merchant_repository = MerchantRepository.new(contents, sales_engine)
     merchant_1 = Merchant.new({:id => "12334105",
                          :name => "Shopin1901",
@@ -36,7 +36,7 @@ class RepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_name
-    contents = Parser.new.load("./data/merchants_test.csv")
+    contents = Loader.load("./data/merchants_test.csv")
     test_merchant_repository = MerchantRepository.new(contents, sales_engine)
     merchant_1 = Merchant.new({:id => "12334105",
                          :name => "Shopin1901",
@@ -53,7 +53,7 @@ class RepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_merchants
-    contents = Parser.new.load("./data/merchants_test.csv")
+    contents = Loader.load("./data/merchants_test.csv")
     test_merchant_repository = MerchantRepository.new(contents, sales_engine)
 
     merchants = test_merchant_repository.all

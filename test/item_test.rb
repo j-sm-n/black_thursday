@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/item'
-require './lib/parser'
+require './lib/loader'
 require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
               :test_time_2
 
   def setup
-    contents = Parser.new.load("./data/items_test.csv")
+    contents = Loader.load("./data/items_test.csv")
     sales_engine = SalesEngine.from_csv({
                            :items     => "./data/items_test.csv",
                            :merchants => "./data/merchants_test.csv",

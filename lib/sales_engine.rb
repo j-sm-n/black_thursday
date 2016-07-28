@@ -1,15 +1,14 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
-require_relative '../lib/parser'
+require_relative '../lib/loader'
 
 class SalesEngine
   attr_reader :items,
               :merchants
 
   def initialize(item_file, merchant_file)
-    parser = Parser.new
-    @items = ItemRepository.new(parser.load(item_file), self)
-    @merchants = MerchantRepository.new(parser.load(merchant_file), self)
+    @items = ItemRepository.new(Loader.load(item_file), self)
+    @merchants = MerchantRepository.new(Loader.load(merchant_file), self)
   end
 
   def self.from_csv(hash_of_file_paths)

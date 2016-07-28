@@ -1,12 +1,12 @@
 require './test/test_helper'
 require './lib/item_repository'
-require './lib/parser'
+require './lib/loader'
 require './lib/sales_engine'
 require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def test_initialization_populates_the_repository
-    contents = Parser.new.load("./data/items_test.csv")
+    contents = Loader.load("./data/items_test.csv")
     sales_engine = SalesEngine.from_csv({
                            :items     => "./data/items_test.csv",
                            :merchants => "./data/merchants_test.csv",
@@ -17,7 +17,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_description
-    contents = Parser.new.load("./data/items_test.csv")
+    contents = Loader.load("./data/items_test.csv")
     sales_engine = SalesEngine.from_csv({
                            :items     => "./data/items_test.csv",
                            :merchants => "./data/merchants_test.csv",
@@ -35,7 +35,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_price
-    contents = Parser.new.load("./data/items_test.csv")
+    contents = Loader.load("./data/items_test.csv")
     sales_engine = SalesEngine.from_csv({
                            :items     => "./data/items_test.csv",
                            :merchants => "./data/merchants_test.csv",
@@ -52,7 +52,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_in_price_range
-    contents = Parser.new.load("./data/items_test.csv")
+    contents = Loader.load("./data/items_test.csv")
     sales_engine = SalesEngine.from_csv({
                            :items     => "./data/items_test.csv",
                            :merchants => "./data/merchants_test.csv",
