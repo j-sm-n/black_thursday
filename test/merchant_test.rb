@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/merchant'
-require './lib/parser'
+require './lib/loader'
 require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
@@ -9,7 +9,7 @@ class MerchantTest < Minitest::Test
               :contents
 
   def setup
-    @contents = Parser.new.load("./data/merchants_test.csv")
+    @contents = Loader.load("./data/merchants_test.csv")
     sales_engine = SalesEngine.from_csv({:items => "./data/items_test.csv",
                                           :merchants => "./data/merchants_test.csv",})
     @test_merchant_repository = MerchantRepository.new(contents, sales_engine)

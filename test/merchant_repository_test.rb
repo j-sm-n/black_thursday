@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/merchant_repository'
-require './lib/parser'
+require './lib/loader'
 require './lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
@@ -17,7 +17,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name
-    contents = Parser.new.load("./data/merchants_test.csv")
+    contents = Loader.load("./data/merchants_test.csv")
     test_merchant_repository = MerchantRepository.new(contents, sales_engine)
     actual = test_merchant_repository.find_all_by_name("e")
     expected_names = ["MiniatureBikez", "LolaMarleys", "Keckenbauer", "perlesemoi", "GoldenRayPress", "jejum", "Urcase17"]
@@ -29,13 +29,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_populate_itself_with_child_merchants
     test_merchant_repository = MerchantRepository.new([], sales_engine)
-    contents = Parser.new.load("./data/merchants_test.csv")
+    contents = Loader.load("./data/merchants_test.csv")
     actual = test_merchant_repository.populate(contents)
     assert_equal 9, actual.length
   end
 
   def test_initialization_populates_the_repository
-    contents = Parser.new.load("./data/merchants_test.csv")
+    contents = Loader.load("./data/merchants_test.csv")
     test_merchant_repository = MerchantRepository.new(contents, sales_engine)
     assert_equal 9, test_merchant_repository.all.length
     refute_equal 0, test_merchant_repository.count
