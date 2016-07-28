@@ -43,6 +43,38 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = SalesAnalyst.new(sales_engine)
 
     assert_equal [1, 3, 5], sales_analyst.find_how_many_items_merchants_sell
-    # returns array of the number of items each merchant in a data set sells
+  end
+
+  def test_it_can_find_average_of_items_sold
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./test/fixtures/sales_analyst_items_for_finding_average.csv",
+                           :merchants => "./test/fixtures/sales_analyst_merchants_for_finding_average.csv",
+                         })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    assert_equal 3.0, sales_analyst.average_items_per_merchant
+  end
+
+  def test_it_finds_the_variance_of_items
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./test/fixtures/sales_analyst_items_for_finding_average.csv",
+                           :merchants => "./test/fixtures/sales_analyst_merchants_for_finding_average.csv",
+                         })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+    sales_analyst.find_how_many_items_merchants_sell
+
+    assert_equal 2.6666666666666665, sales_analyst.find_variance_of_items_sold
+  end
+
+  def test_it_finds_standard_deviation_of_items_sold
+    sales_engine = SalesEngine.from_csv({
+                           :items     => "./test/fixtures/sales_analyst_items_for_finding_average.csv",
+                           :merchants => "./test/fixtures/sales_analyst_merchants_for_finding_average.csv",
+                         })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+    sales_analyst.find_how_many_items_merchants_sell
+    sales_analyst.find_variance_of_items_sold
+
+    assert_equal 1.632993161855452, sales_analyst.average_items_per_merchant_standard_deviation
   end
 end
