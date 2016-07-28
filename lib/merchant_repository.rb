@@ -22,8 +22,12 @@ class MerchantRepository
     repository.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+  # def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
+
+  def find_items_by_merchant(merchant_id)
+    parent.find_items_by_merchant(merchant_id)
   end
 
 
