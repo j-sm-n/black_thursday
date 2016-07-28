@@ -12,15 +12,14 @@ class SalesAnalyst
   def initialize(sales_engine)
     @merchant_repo = sales_engine.merchants # returns instance of MR
     @items_per_merchant = [] # to collect number of items per merchant to calculate average
-    @merchant_array = merchant_repo.repository
+    @merchants = merchant_repo.repository
     @item_repo = sales_engine.items
-    @item_array = item_repo.repository
+    @items = item_repo.repository
   end
 
   def find_how_many_items_merchants_sell
-    @items_per_merchant = @merchant_array.map do |merchant|
-      merchant_item_array = merchant.items
-      merchant_item_array.length
+    @items_per_merchant = @merchants.map do |merchant|
+      merchant_items = merchant.items.length
     end
   end
 end
