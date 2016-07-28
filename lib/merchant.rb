@@ -16,4 +16,7 @@ class Merchant
     @updated_at  = Date.parse(merchant_data[:updated_at])
   end
 
+  def items
+    parent.find_items_by_merchant(id)
+  end
 end
