@@ -386,7 +386,6 @@
       ],
       "/Users/JesseSpevack/turing/1module/black_thursday/lib/merchant.rb": [
         1,
-        1,
         null,
         1,
         1,
@@ -571,7 +570,6 @@
         null
       ],
       "/Users/JesseSpevack/turing/1module/black_thursday/test/merchant_test.rb": [
-        1,
         1,
         1,
         1,
@@ -818,6 +816,6 @@
         1
       ]
     },
-    "timestamp": 1469724940
+    "timestamp": 1469725079
   }
 }

@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/merchant'
 require './lib/loader'
-require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   attr_reader :test_merchant,
