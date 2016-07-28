@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/sales_engine'
+require 'pry'
 
 class SalesEngineTest < Minitest::Test
   attr_reader :test_sales_engine
@@ -28,6 +29,18 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, this_sales_engine.merchants.class
     refute_equal 0, this_sales_engine.items.count
     refute_equal 0, this_sales_engine.merchants.count
+  end
+
+  def test_it_can_return_merchant_if_items_is_called_on_merchants
+    sales_engine = SalesEngine.from_csv({
+                            :items => "./data/items.csv",
+                            :merchants => "./data/merchants.csv"
+                          })
+    ir = sales_engine.items.find_all_by_merchant_id(12337411)
+    item = ir[0]
+    merchant_instance = item.merchant
+
+    assert_equal Merchant, merchant_instance.class
   end
 
 end

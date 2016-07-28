@@ -50,4 +50,16 @@ class ItemTest < Minitest::Test
   def test_item_has_parent
     assert_equal test_item_repository, test_item.parent
   end
+
+  def test_item_returns_merchant_it_is_sold_by
+    sales_engine = SalesEngine.from_csv({
+               :items     => "./data/items.csv",
+               :merchants => "./data/merchants.csv",
+             })
+    item_repo = sales_engine.items
+    item = item_repo.find_by_id(263395237)
+
+    assert_equal "jejum", item.merchant.name
+    assert_instance_of Merchant, item.merchant
+  end
 end

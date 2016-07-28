@@ -15,4 +15,8 @@ class SalesEngine
   def self.from_csv(hash_of_file_paths)
     SalesEngine.new(hash_of_file_paths[:items], hash_of_file_paths[:merchants])
   end
+
+  def find_merchant_by_merchant_id(id)
+    @merchants.find_by_id(id)
+  end
 end

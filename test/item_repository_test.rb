@@ -82,4 +82,15 @@ class ItemRepositoryTest < Minitest::Test
     actual = test_item_repository.find_all_by_merchant_id(12335215)
     assert_equal 263440155, actual[0].id
   end
+
+  def test_it_will_find_merchant_by_id
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    item_repo = se.items
+    merchant = item_repo.find_merchant_by_merchant_id(12334105)
+    assert_equal Merchant, merchant.class
+    assert_equal 12334105, merchant.id
+  end
 end
