@@ -70,5 +70,4 @@ class RepositoryTest < Minitest::Test
       end
     end
   end
-
 end
