@@ -1,5 +1,5 @@
-require './lib/merchant'
-require './lib/repository'
+require_relative '../lib/merchant'
+require_relative '../lib/repository'
 
 class MerchantRepository
   include Repository
@@ -21,5 +21,10 @@ class MerchantRepository
   def find_all_by_name(name)
     repository.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 
 end
