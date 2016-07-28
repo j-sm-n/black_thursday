@@ -1,8 +1,6 @@
 require './test/test_helper'
 require './lib/item_repository'
 require './lib/loader'
-require './lib/sales_engine'
-require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :parent,
