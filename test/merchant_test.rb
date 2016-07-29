@@ -39,6 +39,7 @@ class MerchantTest < Minitest::Test
 
     assert_equal 12334407, test_merchant.id
     assert_equal "MisisJuliBebe", test_merchant.name
+    assert_equal "MisisJuliBebe".downcase, test_merchant.case_insensitive_name
     assert_equal Date.parse(date_1), test_merchant.created_at
     assert_equal Date.parse(date_2), test_merchant.updated_at
     parent.expect(:class, MerchantRepository)

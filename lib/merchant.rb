@@ -3,16 +3,18 @@ require "pry"
 class Merchant
   attr_reader :id,
               :name,
+              :case_insensitive_name,
               :parent,
               :created_at,
               :updated_at
 
   def initialize(merchant_data, parent)
-    @id          = merchant_data[:id].to_i
-    @name        = merchant_data[:name]
-    @parent      = parent
-    @created_at  = Date.parse(merchant_data[:created_at])
-    @updated_at  = Date.parse(merchant_data[:updated_at])
+    @id                    = merchant_data[:id].to_i
+    @name                  = merchant_data[:name]
+    @case_insensitive_name = name.downcase
+    @parent                = parent
+    @created_at            = Date.parse(merchant_data[:created_at])
+    @updated_at            = Date.parse(merchant_data[:updated_at])
   end
 
   def items
