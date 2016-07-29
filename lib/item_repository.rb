@@ -16,7 +16,7 @@ class ItemRepository
 
   def find_all_with_description(search_text)
     repository.find_all do |item|
-      item.description.include?(search_text.downcase)
+      item.case_insensitive_description.include?(search_text.downcase)
     end
   end
 
