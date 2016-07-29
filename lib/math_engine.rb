@@ -7,7 +7,7 @@ module MathEngine
   end
 
   def self.mean(numbers)
-    (sum(numbers) / numbers.length)
+    (sum(numbers) / numbers.length).round(2)
   end
 
   def self.square(number)
@@ -27,10 +27,10 @@ module MathEngine
   end
 
   def self.variance(numbers)
-    (variance_numerator(numbers) / (numbers.length - 1)).round(9)
+    (variance_numerator(numbers) / (numbers.length - 1))
   end
 
   def self.standard_deviation(numbers)
-    Math.sqrt(variance(numbers))
+    Math.sqrt(variance(numbers)).round(2)
   end
 end

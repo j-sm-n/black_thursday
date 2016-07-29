@@ -4,21 +4,25 @@ require './lib/math_engine'
 class MathEngineTest < Minitest::Test
 
   def test_it_takes_array_of_integers_and_returns_sum
-    numbers = (1..10).to_a
+    numbers_1 = (1..10).to_a
     expected_sum = 55
 
-    actual_sum = MathEngine.sum(numbers)
+    actual_sum = MathEngine.sum(numbers_1)
 
     assert_equal expected_sum, actual_sum
   end
 
   def test_it_takes_array_of_integers_and_returns_mean
-    numbers = (1..10).to_a
-    expected_mean = 5.5
+    numbers_1 = (1..10).to_a
+    numbers_2 = [1, 2, 3, 4, 5, 6, 7, 8, 15]
+    expected_mean_1 = 5.50
+    expected_mean_2 = 5.67
 
-    actual_mean = MathEngine.mean(numbers)
+    actual_mean_1 = MathEngine.mean(numbers_1)
+    actual_mean_2 = MathEngine.mean(numbers_2)
 
-    assert_equal expected_mean, actual_mean
+    assert_equal expected_mean_1, actual_mean_1
+    assert_equal expected_mean_2, actual_mean_2
   end
 
   def test_it_takes_an_integer_and_returns_integer_squared
@@ -72,7 +76,7 @@ class MathEngineTest < Minitest::Test
     numbers = (1..10).to_a
     expected_variance = 9.166666667
 
-    actual_variance = MathEngine.variance(numbers)
+    actual_variance = MathEngine.variance(numbers).round(9)
 
     assert_equal expected_variance, actual_variance
   end
@@ -80,11 +84,11 @@ class MathEngineTest < Minitest::Test
   def test_it_takes_array_of_integers_and_returns_standard_deviation
     numbers_1 = (1..10).to_a
     numbers_2 = [499, 498, 206, 171, 522, 415, 578, 504, 315, 194]
-    expected_standard_deviation_1 = 3.027650354
-    expected_standard_deviation_2 = 154.8445816
+    expected_standard_deviation_1 = 3.03
+    expected_standard_deviation_2 = 154.84
 
-    actual_standard_deviation_1 = MathEngine.standard_deviation(numbers_1).round(9)
-    actual_standard_deviation_2 = MathEngine.standard_deviation(numbers_2).round(7)
+    actual_standard_deviation_1 = MathEngine.standard_deviation(numbers_1)
+    actual_standard_deviation_2 = MathEngine.standard_deviation(numbers_2)
 
     assert_equal expected_standard_deviation_1, actual_standard_deviation_1
     assert_equal expected_standard_deviation_2, actual_standard_deviation_2
