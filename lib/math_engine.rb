@@ -3,11 +3,11 @@ require 'pry'
 module MathEngine
 
   def self.sum(numbers)
-    numbers.reduce(:+)
+    numbers.reduce(0) { |result, number| result += number.to_f}
   end
 
   def self.mean(numbers)
-    BigDecimal.new(sum(numbers) / numbers.length)
+    (sum(numbers) / numbers.length)
   end
 
   def self.square(number)
@@ -18,12 +18,19 @@ module MathEngine
     number - mean
   end
 
+  def self.square_deviation(number, mean)
+    square(deviation(number, mean))
+  end
+
+  def self.variance_numerator(numbers)
+    sum(numbers.map { |number| square(deviation(number, mean(numbers))) })
+  end
+
   def self.variance(numbers)
-    sum(numbers.map { |number| square(deviation(number, mean(numbers))) }) / (numbers.length - 1)
+    (variance_numerator(numbers) / (numbers.length - 1)).round(9)
   end
 
   def self.standard_deviation(numbers)
-    Math.sqrt(variance(numbers)).to_f
+    Math.sqrt(variance(numbers)).round(9)
   end
-
 end

@@ -14,7 +14,7 @@ class MathEngineTest < Minitest::Test
 
   def test_it_takes_array_of_integers_and_returns_mean
     numbers = (1..10).to_a
-    expected_mean = 5
+    expected_mean = 5.5
 
     actual_mean = MathEngine.mean(numbers)
 
@@ -49,8 +49,27 @@ class MathEngineTest < Minitest::Test
     assert_equal 44321, actual_deviation_2
   end
 
+  def test_it_takes_an_integer_and_mean_and_returns_square_deviation
+    mean = 5.5
+    number = 1
+    expected = 20.25
+
+    actual = MathEngine.square_deviation(number, mean)
+
+    assert_equal expected, actual
+  end
+
+  def test_it_takes_array_of_integers_and_returns_numerator_of_variance
+    numbers = (1..10).to_a
+    expected = 82.5
+
+    actual = MathEngine.variance_numerator(numbers)
+
+    assert_equal expected, actual
+  end
+
   def test_it_takes_array_of_integers_and_returns_variance
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    numbers = (1..10).to_a
     expected_variance = 9.166666667
 
     actual_variance = MathEngine.variance(numbers)
@@ -59,7 +78,7 @@ class MathEngineTest < Minitest::Test
   end
 
   def test_it_takes_array_of_integers_and_returns_standard_deviation
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    numbers = (1..10).to_a
     expected_standard_deviation = 3.027650354
 
     actual_standard_deviation = MathEngine.standard_deviation(numbers)
