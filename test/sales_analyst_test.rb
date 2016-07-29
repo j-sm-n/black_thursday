@@ -61,7 +61,6 @@ class SalesAnalystTest < Minitest::Test
                            :merchants => "./test/fixtures/sales_analyst_merchants_for_finding_average.csv",
                          })
     sales_analyst = SalesAnalyst.new(sales_engine)
-    sales_analyst.find_how_many_items_merchants_sell
 
     assert_equal 2.6666666666666665, sales_analyst.find_variance_of_items_sold
   end
@@ -72,20 +71,20 @@ class SalesAnalystTest < Minitest::Test
                            :merchants => "./test/fixtures/sales_analyst_merchants_for_finding_average.csv",
                          })
     sales_analyst = SalesAnalyst.new(sales_engine)
-    sales_analyst.find_how_many_items_merchants_sell
     sales_analyst.find_variance_of_items_sold
 
     assert_equal 1.632993161855452, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
-  def test_can_produce_list_of_merchants_who_sell_like_ballers
+  def test_can_produce_list_of_merchants_who_sell_the_most
     sales_engine = SalesEngine.from_csv({
                            :items     => "./test/fixtures/sales_analyst_items_for_finding_average.csv",
                            :merchants => "./test/fixtures/sales_analyst_merchants_for_finding_average.csv",
                          })
     sales_analyst = SalesAnalyst.new(sales_engine)
-    sales_analyst.find_how_many_items_merchants_sell
-    sales_analyst.find_variance_of_items_sold
+
+    assert_equal [sales_analyst.merchants[2]], sales_analyst.merchants_with_high_item_count
+    refute_equal [sales_analyst.merchants[0]], sales_analyst.merchants_with_high_item_count
   end
 
   def test_it_knows_the_average_price_sold_by_merchant

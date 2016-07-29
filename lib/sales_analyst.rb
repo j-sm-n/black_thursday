@@ -6,14 +6,17 @@ class SalesAnalyst
   attr_reader :merchants,
               :items,
               :item_count_per_merchant,
-              :sales_engine
+              :sales_engine,
+              :item_count_average,
+              :item_standard_deviation
 
   def initialize(sales_engine)
     @merchants = sales_engine.merchants.repository
-    @item_count_per_merchant = find_how_many_items_merchants_sell # to collect number of items per merchant to calculate average
+    @item_count_per_merchant = find_how_many_items_merchants_sell
     @items = sales_engine.items.repository
-
     @sales_engine = sales_engine
+    @item_count_average = average_item_count_per_merchant
+    @item_standard_deviation = average_items_per_merchant_standard_deviation
   end
 
   def find_how_many_items_merchants_sell
@@ -22,7 +25,7 @@ class SalesAnalyst
     end
   end
 
-  def average_item_count_per_merchant #=> mean
+  def average_item_count_per_merchant #=> average
     (item_count_per_merchant.reduce(:+)/item_count_per_merchant.count).to_f
   end
 
@@ -32,13 +35,10 @@ class SalesAnalyst
     end.reduce(:+)
   end
 
-  def average_items_per_merchant_standard_deviation #=> st deviation
+  def average_items_per_merchant_standard_deviation
     Math.sqrt(find_variance_of_items_sold)
   end
 
-  # def merchants_with_high_item_count
-  #   # array of merchants who sell more than mean + standard deviation
-  # end
   require_relative "../lib/math_engine"
   def average_item_price_for_merchant(merchant_id)
     this_merchants_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
@@ -65,4 +65,13 @@ class SalesAnalyst
 #
 # sa.golden_items # => [<item>, <item>, <item>, <item>]
 
+  def merchants_with_high_item_count
+    high_item_count_merchants = []
+    item_count_per_merchant.each_with_index do |count, index|
+      if count > (item_count_average + item_standard_deviation)
+        high_item_count_merchants << merchants[index]
+      end
+    end
+    high_item_count_merchants
+  end
 end
