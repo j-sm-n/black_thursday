@@ -1,4 +1,3 @@
-require 'bigdecimal'
 require 'pry'
 module MathEngine
 
