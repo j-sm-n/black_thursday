@@ -19,22 +19,25 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_all_the_properties_of_an_item
-    expected_id          = 263406193
-    expected_name        = "Shimmering Peacock"
-    expected_description = "this decorative lighted wine bottle with 50 "\
-                           "lights will brighten up your home, bar area "\
-                           "and even act as a night light. use your ima"\
-                           "gination! it would be a great conversation "\
-                           "piece, a thoughtful gift, or an inspiration"\
-                           "al piece. this is a unique, one of a kind b"\
-                           "eautifully handcrafted wine bottle -- ready "\
-                           "to display and enjoy. the individual desig"\
-                           "n is the work of one artist and is inspired "\
-                           "from the artist’s lakeside retreat."
-    expected_unit_price  = BigDecimal.new("4500")/100
-    expected_created_at  = Time.parse("2016-01-11 16:19:54 UTC")
-    expected_updated_at  = Time.parse("1973-04-25 05:41:41 UTC")
-    expected_merchant_id = 12334703
+    description    = "This decorative lighted wine bottle with 50 "\
+                     "lights will brighten up your home, bar area "\
+                     "and even act as a night light. Use your imag"\
+                     "ination! It would be a great conversation pi"\
+                     "ece, a thoughtful gift, or an inspirational "\
+                     "piece. This is a unique, one of a kind beaut"\
+                     "ifully handcrafted wine bottle -- ready to d"\
+                     "isplay and enjoy. The individual design is t"\
+                     "he work of one artist and is inspired from t"\
+                     "he artist’s lakeside retreat."
+
+    expected_id                           = 263406193
+    expected_name                         = "Shimmering Peacock"
+    expected_description                  = description
+    expected_case_insensitive_description = description.downcase
+    expected_unit_price                   = BigDecimal.new("4500")/100
+    expected_created_at                   = Time.parse("2016-01-11 16:19:54 UTC")
+    expected_updated_at                   = Time.parse("1973-04-25 05:41:41 UTC")
+    expected_merchant_id                  = 12334703
 
     assert_equal expected_id, test_item.id
     assert_equal expected_name, test_item.name

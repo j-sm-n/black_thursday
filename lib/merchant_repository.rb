@@ -13,7 +13,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    repository.find_all { |merchant| merchant.name.include?(name.downcase) }
+    repository.find_all { |merchant| merchant.case_insensitive_name.include?(name.downcase) }
   end
 
   def find_items_by_merchant(merchant_id)
