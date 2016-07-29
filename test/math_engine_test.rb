@@ -78,11 +78,15 @@ class MathEngineTest < Minitest::Test
   end
 
   def test_it_takes_array_of_integers_and_returns_standard_deviation
-    numbers = (1..10).to_a
-    expected_standard_deviation = 3.027650354
+    numbers_1 = (1..10).to_a
+    numbers_2 = [499, 498, 206, 171, 522, 415, 578, 504, 315, 194]
+    expected_standard_deviation_1 = 3.027650354
+    expected_standard_deviation_2 = 154.8445816
 
-    actual_standard_deviation = MathEngine.standard_deviation(numbers)
+    actual_standard_deviation_1 = MathEngine.standard_deviation(numbers_1).round(9)
+    actual_standard_deviation_2 = MathEngine.standard_deviation(numbers_2).round(7)
 
-    assert_equal expected_standard_deviation, actual_standard_deviation
+    assert_equal expected_standard_deviation_1, actual_standard_deviation_1
+    assert_equal expected_standard_deviation_2, actual_standard_deviation_2
   end
 end

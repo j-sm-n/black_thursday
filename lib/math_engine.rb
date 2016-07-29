@@ -31,6 +31,6 @@ module MathEngine
   end
 
   def self.standard_deviation(numbers)
-    Math.sqrt(variance(numbers)).round(9)
+    Math.sqrt(variance(numbers))
   end
 end
