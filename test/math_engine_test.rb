@@ -120,7 +120,7 @@ class MathEngineTest < Minitest::Test
     assert_equal expected_standard_deviation_2, actual_standard_deviation_2
   end
 
-  def test_it_can_find_outliers
+  def test_it_can_find_top_outliers
     numbers_1 = [81, 2, 13, 71, 78, 80, 12, 36]
     numbers_2 = ACTUAL_ITEM_COUNT_PER_MERCHANT
 
