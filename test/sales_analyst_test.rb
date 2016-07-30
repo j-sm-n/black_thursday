@@ -120,7 +120,8 @@ class SalesAnalystTest < Minitest::Test
     # merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
     item_path = "./data/items.csv"
     merchant_path = "./data/merchants.csv"
-    test_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
+    invoice_path = "./data/invoices.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path, :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     # expected_mean_of_means = 14.89
