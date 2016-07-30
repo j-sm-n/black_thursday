@@ -79,8 +79,8 @@ class SalesAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/high_item_count_merchant_merchant_repo_data.csv"
     invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
     test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     expected_id_1 = [12334123]
@@ -102,8 +102,8 @@ class SalesAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
     invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
     test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     merchant_id_1 = 12334141
@@ -150,8 +150,8 @@ class SalesAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
     invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
     test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     expected_golden_item_ids = [263426247, 263426657]
@@ -168,8 +168,8 @@ class SalesAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
     invoice_path = "./test/fixtures/invoices_iteration_2.csv"
     test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
     expected_invoice_counts_per_merchant = [4, 3, 5, 10, 10, 11, 10, 20, 21]
 
@@ -182,11 +182,12 @@ class SalesAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
     invoice_path = "./test/fixtures/invoices_iteration_2.csv"
     test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
     expected_mean_of_invoices_per_merchant = 10.44
     actual_mean_of_invoices_per_merchant = test_sales_analyst.average_invoices_per_merchant
+
     assert_equal expected_mean_of_invoices_per_merchant, actual_mean_of_invoices_per_merchant
   end
 
@@ -195,11 +196,30 @@ class SalesAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
     invoice_path = "./test/fixtures/invoices_iteration_2.csv"
     test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
     expected_standard_deviation = 6.42
     actual_standard_deviation = test_sales_analyst.average_invoices_per_merchant_standard_deviation
+
     assert_equal expected_standard_deviation, actual_standard_deviation
+  end
+
+  def test_it_knows_which_merchants_have_the_most_invoices
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    expected_id_1 = [12334146, 12334176]
+
+    merchants = test_sales_analyst.top_merchants_by_invoice_count
+
+    assert_equal false, merchants.empty?
+    assert_equal 2, merchants.count
+    assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
   end
 end
