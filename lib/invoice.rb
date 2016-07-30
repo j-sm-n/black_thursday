@@ -1,3 +1,5 @@
+require_relative '../lib/invoice_repository'
+
 class Invoice
   attr_reader :id,
               :customer_id,

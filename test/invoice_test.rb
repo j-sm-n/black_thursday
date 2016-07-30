@@ -31,7 +31,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_item_has_parent
-    skip
     parent.expect(:class, InvoiceRepository)
     assert_equal InvoiceRepository, test_invoice.parent.class
     assert parent.verify
