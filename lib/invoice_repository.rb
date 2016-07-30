@@ -21,11 +21,15 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    repository.find_all { |invoice| invoice.status.to_s == status }
+    repository.find_all { |invoice| invoice.status == status }
   end
 
   def find_merchant_by_merchant_id(merchant_id)
     @parent.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
   end
 
 end
