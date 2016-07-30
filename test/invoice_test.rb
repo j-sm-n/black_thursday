@@ -14,7 +14,7 @@ class InvoiceTest < Minitest::Test
     end
   end
 
-  def test_it_has_all_the_properties_of_an_item
+  def test_it_has_all_the_properties_of_an_invoice
     expected_id                           = 181
     expected_customer_id                  = 35
     expected_status                       = :returned
@@ -30,9 +30,28 @@ class InvoiceTest < Minitest::Test
     assert_equal expected_merchant_id, test_invoice.merchant_id
   end
 
-  def test_item_has_parent
+  def test_invoice_has_parent
     parent.expect(:class, InvoiceRepository)
     assert_equal InvoiceRepository, test_invoice.parent.class
+    assert parent.verify
+  end
+
+  def test_invoice_returns_merchant_it_is_associated_to
+    invalid_invoice = Invoice.new({
+      id:           "2",
+      customer_id:  "000",
+      status:       "pending",
+      created_at:   "2016-04-25",
+      updated_at:   "2016-07-25",
+      merchant_id:  "2"}, parent)
+
+    parent.expect(:find_merchant_by_merchant_id, "this_merchant", [12334420])
+    parent.expect(:find_merchant_by_merchant_id, nil, [2])
+
+    actual_merchant = test_invoice.merchant
+
+    assert_equal "this_merchant", actual_merchant
+    assert_equal nil, invalid_invoice.merchant
     assert parent.verify
   end
 

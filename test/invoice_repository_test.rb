@@ -74,4 +74,15 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], actual_invoices_w_status_4
   end
 
+  def test_it_will_find_merchant_by_id
+    parent.expect(:find_merchant_by_merchant_id, "this_merchant", [263395237])
+    parent.expect(:find_merchant_by_merchant_id, nil, [11111111])
+
+    actual_merchants_1 = test_invoice_repository.find_merchant_by_merchant_id(263395237)
+    actual_merchants_2 = test_invoice_repository.find_merchant_by_merchant_id(11111111)
+
+    assert_equal "this_merchant", actual_merchants_1
+    assert_equal nil, actual_merchants_2
+    assert parent.verify
+  end
 end

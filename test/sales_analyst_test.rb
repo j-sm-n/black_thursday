@@ -8,7 +8,10 @@ class SalesAnalystTest < Minitest::Test
   def setup
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
-    @test_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
+    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
+    @test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path})
     @test_sales_analyst = SalesAnalyst.new(test_sales_engine)
   end
 
@@ -61,7 +64,10 @@ class SalesAnalystTest < Minitest::Test
   def test_it_knows_which_merchants_sell_the_most_items
     item_path = "./test/fixtures/high_item_count_merchant_item_repo_data.csv"
     merchant_path = "./test/fixtures/high_item_count_merchant_merchant_repo_data.csv"
-    test_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
+    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     expected_id_1 = [12334123]
@@ -71,16 +77,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected_id_1, actual_id_1
   end
 
-  def test_it_knows_the_average_price_of_a_merchants_items
-
-
-  end
+  # def test_it_knows_the_average_price_of_a_merchants_items
+  #
+  #
+  # end
 
   def test_it_knows_the_average_price_sold_by_merchant
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
-    teste_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
-    test_sales_analyst = SalesAnalyst.new(teste_sales_engine)
+    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     merchant_id_1 = 12334141
     merchant_id_2 = 12334105
@@ -107,8 +116,11 @@ class SalesAnalystTest < Minitest::Test
   def test_it_knows_the_average_average_price_across_all_merchants
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
-    teste_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
-    test_sales_analyst = SalesAnalyst.new(teste_sales_engine)
+    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     expected_mean_of_means = BigDecimal.new(14.89,2)
 
@@ -120,8 +132,11 @@ class SalesAnalystTest < Minitest::Test
   def test_it_knows_golden_items
     item_path = "./test/fixtures/sales_analyst_golden_items.csv"
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
-    teste_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
-    test_sales_analyst = SalesAnalyst.new(teste_sales_engine)
+    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     expected_golden_item_ids = [263426247, 263426657]
 
