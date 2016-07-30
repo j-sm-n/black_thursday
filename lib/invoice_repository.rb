@@ -16,4 +16,12 @@ class InvoiceRepository
     repository.find_all { |invoice| invoice.customer_id.to_i == customer_id }
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    repository.find_all { |invoice| invoice.merchant_id.to_i == merchant_id }
+  end
+
+  def find_all_by_status(status)
+    repository.find_all { |invoice| invoice.status.to_s == status }
+  end
+
 end
