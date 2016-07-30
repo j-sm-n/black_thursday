@@ -63,4 +63,12 @@ class SalesAnalyst
     end
   end
 
+  def invoice_counts_for_all_merchants
+    merchants.repository.map { |merchant| merchant.invoices.length }
+  end
+
+  def average_invoices_per_merchant
+    MathEngine.mean(invoice_counts_for_all_merchants).to_f
+  end
+
 end
