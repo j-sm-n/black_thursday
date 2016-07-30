@@ -13,6 +13,10 @@ module MathEngine
     number ** 2
   end
 
+  def self.double(number)
+    number * 2
+  end
+
   def self.deviation(number, mean)
     number - mean
   end
@@ -31,5 +35,9 @@ module MathEngine
 
   def self.standard_deviation(numbers)
     Math.sqrt(variance(numbers)).round(2)
+  end
+
+  def self.outlier?(number, numbers, deviations)
+    number > sum([mean(numbers), (standard_deviation(numbers) * deviations)])
   end
 end
