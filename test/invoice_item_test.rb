@@ -14,7 +14,7 @@ class InvoiceItemTest < Minitest::Test
     end
   end
 
-  def test_it_has_all_the_properties_of_an_invoice
+  def test_it_has_all_the_properties_of_an_invoice_item
     expected_id          = 21830
     expected_item_id     = 263519844
     expected_invoice_id  = 4985
