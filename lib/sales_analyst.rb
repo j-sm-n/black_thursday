@@ -18,6 +18,10 @@ class SalesAnalyst
     sales_engine.merchants
   end
 
+  def invoices
+    sales_engine.invoices
+  end
+
   def item_counts_for_all_merchants
     merchants.repository.map { |merchant| merchant.items.length }
   end

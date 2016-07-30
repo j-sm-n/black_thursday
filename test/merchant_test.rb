@@ -62,4 +62,19 @@ class MerchantTest < Minitest::Test
     assert_equal nil, invalid_merchant.items
     assert parent.verify
   end
+
+  def test_it_finds_invoices_by_merchant_id
+    invalid_merchant = Merchant.new({
+      id: 1,
+      created_at:"2010-01-11",
+      updated_at:"2011-09-24",
+      name:"invalid_merchant"}, parent)
+
+    parent.expect(:find_invoices_by_merchant, "this_merchants_invoices", [12334407])
+    parent.expect(:find_invoices_by_merchant, nil, [1])
+    actual_invoices = test_merchant.invoices
+    assert_equal "this_merchants_invoices", actual_invoices
+    assert_equal nil, invalid_merchant.invoices
+    assert parent.verify
+  end
 end

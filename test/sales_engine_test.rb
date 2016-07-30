@@ -7,7 +7,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
-    @test_sales_engine = SalesEngine.new(item_path, merchant_path)
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    @test_sales_engine = SalesEngine.new(item_path, merchant_path, invoice_path)
   end
 
   def test_it_exists
@@ -22,9 +23,14 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, test_sales_engine.merchants
   end
 
+  def test_it_has_invoices
+    assert_instance_of InvoiceRepository, test_sales_engine.invoices
+  end
+
   def test_it_can_parse_items_from_given_file_path
     assert_equal 9, test_sales_engine.items.count
     assert_equal 3, test_sales_engine.merchants.count
+    assert_equal 96, test_sales_engine.invoices.count
   end
 
   def test_it_can_find_merchants_by_id
@@ -39,5 +45,12 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal 263396209, item.id
     assert_equal "Vogue Paris Original Givenchy 2307", item.name
+  end
+
+  def test_it_can_find_invoices_by_id
+    invoice = test_sales_engine.invoices.find_by_id(478)
+
+    assert_equal 478, invoice.id
+    assert_equal :shipped, invoice.status
   end
 end
