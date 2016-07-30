@@ -20,7 +20,7 @@ class MerchantRepository
     parent.find_items_by_merchant(merchant_id)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@merchants.size} rows>"
-  # end
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
+  end
 end
