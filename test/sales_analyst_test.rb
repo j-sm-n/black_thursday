@@ -171,9 +171,10 @@ class SalesAnalystTest < Minitest::Test
                                               :merchants => merchant_path,
                                               :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-    expected_invoice_counts_per_merchant = [4, 3, 5, 10, 10, 11, 10, 20, 21]
+    expected_invoice_counts_per_merchant = [4, 3, 5, 10, 10, 11, 10, 20, 32]
 
     actual_invoice_counts_per_merchant = test_sales_analyst.invoice_counts_for_all_merchants
+
     assert_equal expected_invoice_counts_per_merchant, actual_invoice_counts_per_merchant
   end
 
@@ -185,7 +186,7 @@ class SalesAnalystTest < Minitest::Test
                                               :merchants => merchant_path,
                                               :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-    expected_mean_of_invoices_per_merchant = 10.44
+    expected_mean_of_invoices_per_merchant = 11.67
     actual_mean_of_invoices_per_merchant = test_sales_analyst.average_invoices_per_merchant
 
     assert_equal expected_mean_of_invoices_per_merchant, actual_mean_of_invoices_per_merchant
@@ -199,7 +200,7 @@ class SalesAnalystTest < Minitest::Test
                                               :merchants => merchant_path,
                                               :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-    expected_standard_deviation = 6.42
+    expected_standard_deviation = 9.15
     actual_standard_deviation = test_sales_analyst.average_invoices_per_merchant_standard_deviation
 
     assert_equal expected_standard_deviation, actual_standard_deviation
@@ -214,12 +215,29 @@ class SalesAnalystTest < Minitest::Test
                                               :invoices => invoice_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    expected_id_1 = [12334146, 12334176]
+    expected_id_1 = [12334176]
 
     merchants = test_sales_analyst.top_merchants_by_invoice_count
 
     assert_equal false, merchants.empty?
-    assert_equal 2, merchants.count
+    assert_equal 1, merchants.count
+    assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
+  end
+
+  def test_it_knows_which_merchants_have_the_fewest_invoices
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    expected_id_1 = []
+
+    merchants = test_sales_analyst.bottom_merchants_by_invoice_count
+    assert_equal true, merchants.empty?
+    assert_equal 0, merchants.count
     assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
   end
 end

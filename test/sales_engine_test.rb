@@ -30,7 +30,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_parse_items_from_given_file_path
     assert_equal 9, test_sales_engine.items.count
     assert_equal 3, test_sales_engine.merchants.count
-    assert_equal 96, test_sales_engine.invoices.count
+    assert_equal 107, test_sales_engine.invoices.count
   end
 
   def test_it_can_find_merchants_by_id

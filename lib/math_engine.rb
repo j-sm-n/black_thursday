@@ -39,6 +39,10 @@ module MathEngine
   end
 
   def self.outlier?(number, mean, standard_deviation, deviations)
-    number > sum([mean, standard_deviation * deviations])
+    if deviations < 0
+      number < sum([mean, standard_deviation * deviations])
+    else
+      number > sum([mean, standard_deviation * deviations])
+    end
   end
 end

@@ -79,7 +79,15 @@ class SalesAnalyst
     mean = MathEngine.mean(invoice_counts_for_all_merchants)
     standard_deviation = MathEngine.standard_deviation(invoice_counts_for_all_merchants)
     merchants.all.find_all do |merchant|
-      MathEngine.outlier?(merchant.invoices.count, mean, standard_deviation, 1)
+      MathEngine.outlier?(merchant.invoices.count, mean, standard_deviation, 2)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean = MathEngine.mean(invoice_counts_for_all_merchants)
+    standard_deviation = MathEngine.standard_deviation(invoice_counts_for_all_merchants)
+    merchants.all.find_all do |merchant|
+      MathEngine.outlier?(merchant.invoices.count, mean, standard_deviation, -2)
     end
   end
 
