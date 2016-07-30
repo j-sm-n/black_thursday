@@ -18,8 +18,8 @@ class InvoiceTest < Minitest::Test
     expected_id                           = 181
     expected_customer_id                  = 35
     expected_status                       = :returned
-    expected_created_at                   = Date.parse("2013-08-20")
-    expected_updated_at                   = Date.parse("2015-04-01")
+    expected_created_at                   = Time.parse("2013-08-20")
+    expected_updated_at                   = Time.parse("2015-04-01")
     expected_merchant_id                  = 12334420
 
     assert_equal expected_id, test_invoice.id

@@ -54,10 +54,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_status
-    status_1 = "pending"
-    status_2 = "returned"
-    status_3 = "shipped"
-    status_4 = ""
+    status_1 = :pending
+    status_2 = :returned
+    status_3 = :shipped
+    status_4 = :sold
 
     actual_invoices_w_status_1 = test_invoice_repository.find_all_by_status(status_1)
     actual_invoices_w_status_2 = test_invoice_repository.find_all_by_status(status_2)

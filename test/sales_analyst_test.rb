@@ -15,7 +15,7 @@ class SalesAnalystTest < Minitest::Test
     @test_sales_analyst = SalesAnalyst.new(test_sales_engine)
   end
 
-  def test_sales_analyst_exitst
+  def test_sales_analyst_exits
     assert_instance_of SalesAnalyst, test_sales_analyst
   end
 
