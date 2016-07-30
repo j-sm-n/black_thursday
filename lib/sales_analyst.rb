@@ -31,8 +31,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     merchants.all.reduce([]) do |result, merchant|
-      if MathEngine.outlier?(merchant.items.count,
-                             item_counts_for_all_merchants, 1)
+      if MathEngine.outlier?(merchant.items.count, item_counts_for_all_merchants, 1)
         result << merchant
       end
       result
@@ -42,7 +41,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     this_merchants_items = items.find_all_by_merchant_id(merchant_id)
     prices_of_this_merchants_items = this_merchants_items.map do |item|
-      item.unit_price#_to_dollars
+      item.unit_price_to_dollars
     end
     BigDecimal.new(MathEngine.mean(prices_of_this_merchants_items),4) unless prices_of_this_merchants_items.empty?
   end

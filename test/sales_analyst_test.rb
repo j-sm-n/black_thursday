@@ -107,12 +107,15 @@ class SalesAnalystTest < Minitest::Test
 
 
   def test_it_knows_the_average_average_price_across_all_merchants
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
-    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    # item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    # merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    item_path = "./data/items.csv"
+    merchant_path = "./data/merchants.csv"
     teste_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
     test_sales_analyst = SalesAnalyst.new(teste_sales_engine)
 
-    expected_mean_of_means = 14.89
+    # expected_mean_of_means = 14.89
+    expected_mean_of_means = 350.29
 
     actual_mean_of_means = test_sales_analyst.average_average_price_per_merchant
 
