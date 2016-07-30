@@ -39,6 +39,20 @@ class MathEngineTest < Minitest::Test
     assert_equal 100, actual_square_3
   end
 
+  def test_it_takes_an_integer_and_returns_integer_doubled
+    number_1 = 0
+    number_2 = 5
+    number_3 = 10
+
+    actual_double_1 = MathEngine.double(number_1)
+    actual_double_2 = MathEngine.double(number_2)
+    actual_double_3 = MathEngine.double(number_3)
+
+    assert_equal 0, actual_double_1
+    assert_equal 10, actual_double_2
+    assert_equal 20, actual_double_3
+  end
+
   def test_it_takes_a_number_and_mean_and_returns_deviation
     number_1 = 10
     mean_1 = 9
@@ -92,5 +106,20 @@ class MathEngineTest < Minitest::Test
 
     assert_equal expected_standard_deviation_1, actual_standard_deviation_1
     assert_equal expected_standard_deviation_2, actual_standard_deviation_2
+  end
+
+  def test_it_can_find_outliers
+    numbers_1 = [81, 2, 13, 71, 78, 80, 12, 36]
+    test_case_1 = 82
+    test_case_2 = 116
+    test_case_3 = 150
+
+    assert_equal true, MathEngine.outlier?(test_case_1, numbers_1, 1)
+    assert_equal true, MathEngine.outlier?(test_case_2, numbers_1, 2)
+    assert_equal true, MathEngine.outlier?(test_case_3, numbers_1, 3)
+
+    assert_equal false, MathEngine.outlier?(test_case_1, numbers_1, 2)
+    assert_equal false, MathEngine.outlier?(test_case_2, numbers_1, 3)
+    assert_equal false, MathEngine.outlier?(test_case_3, numbers_1, 4)
   end
 end

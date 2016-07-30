@@ -1,47 +1,47 @@
-require_relative "../lib/sales_engine"
+require "./lib/sales_engine"
+require "./lib/math_engine"
 require 'pry'
 require 'bigdecimal'
 
 class SalesAnalyst
-  attr_reader :merchants,
-              :items,
-              :item_count_per_merchant,
-              :sales_engine,
-              :item_count_average,
-              :item_standard_deviation
+  attr_reader :sales_engine
 
   def initialize(sales_engine)
-    @merchants = sales_engine.merchants.repository
-    @item_count_per_merchant = find_how_many_items_merchants_sell
-    @items = sales_engine.items.repository
     @sales_engine = sales_engine
-    @item_count_average = average_item_count_per_merchant
-    @item_standard_deviation = average_items_per_merchant_standard_deviation
   end
 
-  def find_how_many_items_merchants_sell
-    @merchants.map do |merchant|
-      merchant.items.length
-    end
+  def items
+    sales_engine.items
   end
 
-  def average_item_count_per_merchant #=> average
-    (item_count_per_merchant.reduce(:+)/item_count_per_merchant.count).to_f
+  def merchants
+    sales_engine.merchants
   end
 
-  def find_variance_of_items_sold
-    item_count_per_merchant.map do |item_count|
-      ((item_count - average_item_count_per_merchant) ** 2) / item_count_per_merchant.length
-    end.reduce(:+)
+  def item_counts_for_all_merchants
+    merchants.repository.map { |merchant| merchant.items.length }
+  end
+
+  def average_items_per_merchant
+    MathEngine.mean(item_counts_for_all_merchants)
   end
 
   def average_items_per_merchant_standard_deviation
-    Math.sqrt(find_variance_of_items_sold)
+    MathEngine.standard_deviation(item_counts_for_all_merchants)
   end
 
-  require_relative "../lib/math_engine"
+  def merchants_with_high_item_count
+    merchants.all.reduce([]) do |result, merchant|
+      if MathEngine.outlier?(merchant.items.count,
+                             item_counts_for_all_merchants, 1)
+        result << merchant.id
+      end
+      result
+    end
+  end
+
   def average_item_price_for_merchant(merchant_id)
-    this_merchants_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    this_merchants_items = items.find_all_by_merchant_id(merchant_id)
     prices_of_this_merchants_items = this_merchants_items.map do |item|
       item.unit_price_to_dollars
     end
@@ -49,29 +49,16 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    MathEngine.mean(merchants.map { |merchant| average_item_price_for_merchant(merchant.id) })
+    MathEngine.mean(merchants.repository.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end)
   end
 
   def golden_items
-    all_the_items = sales_engine.items.all
-    average_item_price = MathEngine.mean(all_the_items.map { |item| item.unit_price })
-    standard_deviation = MathEngine.standard_deviation(all_the_items.map { |item| item.unit_price })
-    golend_items = all_the_items.find_all { |item| item.unit_price >= average_item_price + standard_deviation + standard_deviation}
-  end
-
-#   Which are our Golden Items?
-#
-# Given that our platform is going to charge merchants based on their sales, expensive items are extra exciting to us. Which are our "Golden Items", those two standard-deviations above the average item price? Return the item objects of these "Golden Items".
-#
-# sa.golden_items # => [<item>, <item>, <item>, <item>]
-
-  def merchants_with_high_item_count
-    high_item_count_merchants = []
-    item_count_per_merchant.each_with_index do |count, index|
-      if count > (item_count_average + item_standard_deviation)
-        high_item_count_merchants << merchants[index]
-      end
+    items.repository.find_all do |item|
+      MathEngine.outlier?(item.unit_price,
+                          items.repository.map { |item| item.unit_price }, 2)
     end
-    high_item_count_merchants
   end
+
 end
