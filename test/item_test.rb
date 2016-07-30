@@ -32,8 +32,6 @@ class ItemTest < Minitest::Test
 
     expected_id                           = 263406193
     expected_name                         = "Shimmering Peacock"
-    expected_description                  = description
-    expected_case_insensitive_description = description.downcase
     expected_unit_price                   = BigDecimal.new("4500")/100
     expected_created_at                   = Time.parse("2016-01-11 16:19:54 UTC")
     expected_updated_at                   = Time.parse("1973-04-25 05:41:41 UTC")
