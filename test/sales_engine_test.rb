@@ -7,7 +7,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
-    @test_sales_engine = SalesEngine.new(item_path, merchant_path)
+    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
+    @test_sales_engine = SalesEngine.new(item_path, merchant_path, invoice_path)
   end
 
   def test_it_exists
@@ -20,6 +21,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_has_merchants
     assert_instance_of MerchantRepository, test_sales_engine.merchants
+  end
+
+  def test_it_has_invoices
+    assert_instance_of InvoiceRepository, test_sales_engine.invoices
   end
 
   def test_it_can_parse_items_from_given_file_path
