@@ -42,9 +42,9 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     this_merchants_items = items.find_all_by_merchant_id(merchant_id)
     prices_of_this_merchants_items = this_merchants_items.map do |item|
-      item.unit_price_to_dollars
+      item.unit_price#_to_dollars
     end
-    BigDecimal(MathEngine.mean(prices_of_this_merchants_items),2) unless prices_of_this_merchants_items.empty?
+    BigDecimal.new(MathEngine.mean(prices_of_this_merchants_items),4) unless prices_of_this_merchants_items.empty?
   end
 
   def average_average_price_per_merchant

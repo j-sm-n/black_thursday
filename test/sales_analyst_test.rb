@@ -90,7 +90,7 @@ class SalesAnalystTest < Minitest::Test
     merchant_id_4 = 11111111
 
     expected_mean_1 = BigDecimal.new(12)
-    expected_mean_2 = BigDecimal.new(16.66, 2)
+    expected_mean_2 = BigDecimal.new(16.66, 4)
     expected_mean_3 = BigDecimal.new(16)
     expected_mean_4 = nil
 
@@ -112,7 +112,7 @@ class SalesAnalystTest < Minitest::Test
     teste_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
     test_sales_analyst = SalesAnalyst.new(teste_sales_engine)
 
-    expected_mean_of_means = BigDecimal.new(14.89,2)
+    expected_mean_of_means = 14.89
 
     actual_mean_of_means = test_sales_analyst.average_average_price_per_merchant
 
