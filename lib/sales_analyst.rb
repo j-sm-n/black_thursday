@@ -1,6 +1,5 @@
-require "./lib/sales_engine"
-require "./lib/math_engine"
-require 'pry'
+require_relative "../lib/sales_engine"
+require_relative "../lib/math_engine"
 require 'bigdecimal'
 
 class SalesAnalyst
@@ -27,7 +26,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    MathEngine.mean(item_counts_for_all_merchants)
+    MathEngine.mean(item_counts_for_all_merchants).to_f
   end
 
   def average_items_per_merchant_standard_deviation
@@ -35,12 +34,10 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merchants.all.reduce([]) do |result, merchant|
-      if MathEngine.outlier?(merchant.items.count,
-                             item_counts_for_all_merchants, 1)
-        result << merchant.id
-      end
-      result
+    mean = MathEngine.mean(item_counts_for_all_merchants)
+    standard_deviation = MathEngine.standard_deviation(item_counts_for_all_merchants)
+    merchants.all.find_all do |merchant|
+      MathEngine.outlier?(merchant.items.count, mean, standard_deviation, 1)
     end
   end
 
@@ -49,7 +46,7 @@ class SalesAnalyst
     prices_of_this_merchants_items = this_merchants_items.map do |item|
       item.unit_price_to_dollars
     end
-    BigDecimal(MathEngine.mean(prices_of_this_merchants_items),2) unless prices_of_this_merchants_items.empty?
+    BigDecimal.new(MathEngine.mean(prices_of_this_merchants_items),4) unless prices_of_this_merchants_items.empty?
   end
 
   def average_average_price_per_merchant
@@ -59,9 +56,10 @@ class SalesAnalyst
   end
 
   def golden_items
+    mean = MathEngine.mean(items.repository.map { |item| item.unit_price })
+    standard_deviation = MathEngine.standard_deviation(items.repository.map { |item| item.unit_price })
     items.repository.find_all do |item|
-      MathEngine.outlier?(item.unit_price,
-                          items.repository.map { |item| item.unit_price }, 2)
+      MathEngine.outlier?(item.unit_price, mean, standard_deviation, 2)
     end
   end
 

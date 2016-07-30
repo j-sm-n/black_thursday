@@ -1,12 +1,13 @@
+require 'bigdecimal'
 require 'pry'
 module MathEngine
 
   def self.sum(numbers)
-    numbers.reduce(0) { |result, number| result += number.to_f}
+    numbers.reduce(0.0) { |result, number| result += number}
   end
 
   def self.mean(numbers)
-    (sum(numbers) / numbers.length).round(2)
+    BigDecimal.new(((sum(numbers) / numbers.length)).round(2),10)
   end
 
   def self.square(number)
@@ -37,7 +38,7 @@ module MathEngine
     Math.sqrt(variance(numbers)).round(2)
   end
 
-  def self.outlier?(number, numbers, deviations)
-    number > sum([mean(numbers), (standard_deviation(numbers) * deviations)])
+  def self.outlier?(number, mean, standard_deviation, deviations)
+    number > sum([mean, standard_deviation * deviations])
   end
 end

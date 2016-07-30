@@ -24,7 +24,7 @@ class MerchantRepository
     parent.find_invoices_by_merchant(id)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@merchants.size} rows>"
-  # end
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
+  end
 end

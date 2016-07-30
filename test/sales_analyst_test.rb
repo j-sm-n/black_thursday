@@ -72,9 +72,11 @@ class SalesAnalystTest < Minitest::Test
 
     expected_id_1 = [12334123]
 
-    actual_id_1 = test_sales_analyst.merchants_with_high_item_count
+    merchants = test_sales_analyst.merchants_with_high_item_count
 
-    assert_equal expected_id_1, actual_id_1
+    assert_equal false, merchants.empty?
+    assert_equal 1, merchants.count
+    assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
   end
 
   # def test_it_knows_the_average_price_of_a_merchants_items
@@ -97,7 +99,7 @@ class SalesAnalystTest < Minitest::Test
     merchant_id_4 = 11111111
 
     expected_mean_1 = BigDecimal.new(12)
-    expected_mean_2 = BigDecimal.new(16.66, 2)
+    expected_mean_2 = BigDecimal.new(16.66, 4)
     expected_mean_3 = BigDecimal.new(16)
     expected_mean_4 = nil
 
@@ -114,15 +116,15 @@ class SalesAnalystTest < Minitest::Test
 
 
   def test_it_knows_the_average_average_price_across_all_merchants
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
-    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
-    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
-    test_sales_engine = SalesEngine.from_csv({:items => item_path,
-                                               :merchants => merchant_path,
-                                               :invoices => invoice_path})
+    # item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    # merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    item_path = "./data/items.csv"
+    merchant_path = "./data/merchants.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path, :merchants => merchant_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    expected_mean_of_means = BigDecimal.new(14.89,2)
+    # expected_mean_of_means = 14.89
+    expected_mean_of_means = 350.29
 
     actual_mean_of_means = test_sales_analyst.average_average_price_per_merchant
 
