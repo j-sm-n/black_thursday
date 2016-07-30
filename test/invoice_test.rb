@@ -30,4 +30,11 @@ class InvoiceTest < Minitest::Test
     assert_equal expected_merchant_id, test_invoice.merchant_id
   end
 
+  def test_item_has_parent
+    skip
+    parent.expect(:class, InvoiceRepository)
+    assert_equal InvoiceRepository, test_invoice.parent.class
+    assert parent.verify
+  end
+
 end
