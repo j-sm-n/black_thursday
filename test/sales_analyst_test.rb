@@ -66,9 +66,11 @@ class SalesAnalystTest < Minitest::Test
 
     expected_id_1 = [12334123]
 
-    actual_id_1 = test_sales_analyst.merchants_with_high_item_count
+    merchants = test_sales_analyst.merchants_with_high_item_count
 
-    assert_equal expected_id_1, actual_id_1
+    assert_equal false, merchants.empty?
+    assert_equal 1, merchants.count
+    assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
   end
 
   def test_it_knows_the_average_price_of_a_merchants_items

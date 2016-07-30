@@ -1,6 +1,5 @@
-require "./lib/sales_engine"
-require "./lib/math_engine"
-require 'pry'
+require_relative "../lib/sales_engine"
+require_relative "../lib/math_engine"
 require 'bigdecimal'
 
 class SalesAnalyst
@@ -34,7 +33,7 @@ class SalesAnalyst
     merchants.all.reduce([]) do |result, merchant|
       if MathEngine.outlier?(merchant.items.count,
                              item_counts_for_all_merchants, 1)
-        result << merchant.id
+        result << merchant
       end
       result
     end
