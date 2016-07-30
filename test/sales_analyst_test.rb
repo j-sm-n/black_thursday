@@ -189,4 +189,17 @@ class SalesAnalystTest < Minitest::Test
     actual_mean_of_invoices_per_merchant = test_sales_analyst.average_invoices_per_merchant
     assert_equal expected_mean_of_invoices_per_merchant, actual_mean_of_invoices_per_merchant
   end
+
+  def test_it_knows_average_invoices_per_merchant_standard_deviation
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+    expected_standard_deviation = 6.42
+    actual_standard_deviation = test_sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal expected_standard_deviation, actual_standard_deviation
+  end
 end

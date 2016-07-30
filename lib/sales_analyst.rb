@@ -71,4 +71,8 @@ class SalesAnalyst
     MathEngine.mean(invoice_counts_for_all_merchants).to_f
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    MathEngine.standard_deviation(invoice_counts_for_all_merchants)
+  end
+
 end
