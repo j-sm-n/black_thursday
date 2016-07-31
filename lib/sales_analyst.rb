@@ -46,7 +46,9 @@ class SalesAnalyst
     prices_of_this_merchants_items = this_merchants_items.map do |item|
       item.unit_price_to_dollars
     end
-    BigDecimal.new(MathEngine.mean(prices_of_this_merchants_items),4) unless prices_of_this_merchants_items.empty?
+    unless prices_of_this_merchants_items.empty?
+      BigDecimal.new(MathEngine.mean(prices_of_this_merchants_items),4)
+    end
   end
 
   def average_average_price_per_merchant
@@ -57,7 +59,8 @@ class SalesAnalyst
 
   def golden_items
     mean = MathEngine.mean(items.repository.map { |item| item.unit_price })
-    standard_deviation = MathEngine.standard_deviation(items.repository.map { |item| item.unit_price })
+    unit_price_total = items.repository.map { |item| item.unit_price }
+    standard_deviation = MathEngine.standard_deviation(unit_price_total)
     items.repository.find_all do |item|
       MathEngine.outlier?(item.unit_price, mean, standard_deviation, 2)
     end
@@ -161,7 +164,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    number = invoice_status_counts[status] 
+    number = invoice_status_counts[status]
     MathEngine.percentage(number, total_invoices)
   end
 end
