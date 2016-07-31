@@ -321,19 +321,12 @@ class SalesAnalystTest < Minitest::Test
                                               :transactions => transaction_path,
                                               :customers => customer_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-    invoice_days = test_sales_analyst.day_per_invoice_created
+    invoice_days = test_sales_analyst.invoice_count_per_day
 
-    expected_day_per_invoice = [4, 1, 0, 4, 4, 3, 3, 1, 1, 3, 6, 1, 1, 3, 6,
-                                5, 1, 2, 2, 5, 0, 4, 4, 4, 5, 6, 1, 2, 1, 1,
-                                1, 5, 0, 0, 2, 2, 5, 6, 0, 4, 3, 4, 0, 3, 1,
-                                6, 2, 4, 3, 6, 1, 4, 2, 3, 1, 2, 4, 5, 6, 6,
-                                2, 5, 2, 5, 0, 3, 3, 4, 6, 2, 0, 3, 6, 1, 1,
-                                0, 2, 5, 5, 1, 5, 5, 4, 0, 6, 4, 6, 4, 6, 6,
-                                0, 6, 3, 6, 2, 5, 6, 2, 0, 6, 4, 4, 0, 6, 4,
-                                6, 4]
+    expected_day_per_invoice = [13, 16, 14, 12, 19, 13, 20]
 
     assert_equal false, invoice_days.empty?
-    assert_equal 107, invoice_days.count
+    assert_equal 7, invoice_days.count
     assert_equal expected_day_per_invoice, invoice_days
   end
 
@@ -352,8 +345,8 @@ class SalesAnalystTest < Minitest::Test
                                               :customers => customer_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    assert_equal 3, test_sales_analyst.average_day_invoice_is_created
-    refute_equal 1, test_sales_analyst.average_day_invoice_is_created
+    assert_equal 15.29, test_sales_analyst.average_invoices_per_day_created
+    refute_equal 1, test_sales_analyst.average_invoices_per_day_created
   end
 
   def test_it_knows_average_invoices_per_day_standard_deviation
