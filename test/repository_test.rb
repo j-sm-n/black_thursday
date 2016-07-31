@@ -70,22 +70,22 @@ class RepositoryTest < Minitest::Test
     end
   end
 
-  def test_it_can_return_item_invoices_that_contain_given_item_id
+  def test_it_can_return_item_invoices_that_contain_given_invoice_id
     file_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     parent = Minitest::Mock.new
     test_invoice_item_repository = InvoiceItemRepository.new
     test_invoice_item_repository.from_csv(file_path, parent)
 
-    item_id = 263408101
-    expected_id = [3356, 8193, 8362, 10215, 11894, 14898, 14982,
-                  15035, 16392, 20508, 21456]
+    invoice_id = 100
+    expected_id = [468, 469, 470]
 
-    actual = test_invoice_item_repository.find_all_by_item_id(item_id)
+    actual = test_invoice_item_repository.find_all_by_invoice_id(invoice_id)
 
-    assert_equal 11, actual.length
+    assert_equal 3, actual.length
     assert_equal InvoiceItem, actual.first.class
     actual.each do |invoice_item|
       assert_equal true, expected_id.include?(invoice_item.id)
     end
   end
+
 end

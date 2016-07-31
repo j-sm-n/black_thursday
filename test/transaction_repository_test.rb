@@ -23,6 +23,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert parent.verify
   end
 
+  # def test_it_can_find_all_by_invoice_id
+  #
+  # end
+
   def test_it_can_find_all_by_credit_card_number
     credit_card_number = 4848466917766329
 
