@@ -124,16 +124,28 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day_standard_deviation
-    MathEngine.standard_deviation(day_per_invoice_created)
+    MathEngine.standard_deviation(invoice_count_per_day)
   end
 
-  # def top_days_by_invoice_count
-  #   mean = average_day_invoice_is_created
-  #   standard_deviation = average_invoices_per_day_standard_deviation
-  #   invoices.all.find_all do |invoice|
-  #     MathEngine.outlier?(invoice.day_per_invoice_created.count, mean, standard_deviation, 1)
-  #   end
-  # end
+  def top_days_by_invoice_count_one # <= NEED TO RENAME
+    mean = average_invoices_per_day_created
+    standard_deviation = average_invoices_per_day_standard_deviation
+    invoice_count_per_day.find_all do |number|
+      MathEngine.outlier?(number, mean, standard_deviation, 1)
+    end
+  end
+
+  def top_days_by_invoice_count_two # <= NEED TO RENAME
+    days_index = []
+    invoice_count_per_day.each_with_index do |number, index|
+      days_index << index if top_days_by_invoice_count_one.include?(number)
+    end
+    days_index
+  end
+
+  def top_days_by_invoice_count
+
+  end
 
 
 end
