@@ -321,19 +321,12 @@ class SalesAnalystTest < Minitest::Test
                                               :transactions => transaction_path,
                                               :customers => customer_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-    invoice_days = test_sales_analyst.day_per_invoice_created
+    invoice_days = test_sales_analyst.invoice_count_per_day
 
-    expected_day_per_invoice = [4, 1, 0, 4, 4, 3, 3, 1, 1, 3, 6, 1, 1, 3, 6,
-                                5, 1, 2, 2, 5, 0, 4, 4, 4, 5, 6, 1, 2, 1, 1,
-                                1, 5, 0, 0, 2, 2, 5, 6, 0, 4, 3, 4, 0, 3, 1,
-                                6, 2, 4, 3, 6, 1, 4, 2, 3, 1, 2, 4, 5, 6, 6,
-                                2, 5, 2, 5, 0, 3, 3, 4, 6, 2, 0, 3, 6, 1, 1,
-                                0, 2, 5, 5, 1, 5, 5, 4, 0, 6, 4, 6, 4, 6, 6,
-                                0, 6, 3, 6, 2, 5, 6, 2, 0, 6, 4, 4, 0, 6, 4,
-                                6, 4]
+    expected_day_per_invoice = {4=>19, 1=>16, 0=>13, 3=>12, 6=>20, 5=>13, 2=>14}
 
     assert_equal false, invoice_days.empty?
-    assert_equal 107, invoice_days.count
+    assert_equal 7, invoice_days.count
     assert_equal expected_day_per_invoice, invoice_days
   end
 
@@ -352,12 +345,11 @@ class SalesAnalystTest < Minitest::Test
                                               :customers => customer_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    assert_equal 3, test_sales_analyst.average_day_invoice_is_created
-    refute_equal 1, test_sales_analyst.average_day_invoice_is_created
+    assert_equal 15.29, test_sales_analyst.average_invoices_per_day_created
+    refute_equal 1, test_sales_analyst.average_invoices_per_day_created
   end
 
   def test_it_knows_average_invoices_per_day_standard_deviation
-    skip
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
     invoice_path = "./test/fixtures/invoices_iteration_2.csv"
@@ -371,10 +363,49 @@ class SalesAnalystTest < Minitest::Test
                                               :transactions => transaction_path,
                                               :customers => customer_path})
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-    expected_standard_deviation = 2.04 # <= do I want this to be a Fixnum?
+    expected_standard_deviation = 3.15 # <= do I want this to be a Fixnum?
     actual_standard_deviation = test_sales_analyst.average_invoices_per_day_standard_deviation
 
     assert_equal expected_standard_deviation, actual_standard_deviation
   end
 
+  def test_it_can_return_invoice_counts_that_are_more_than_one_std_dev_above
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/customer_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path,
+                                              :invoice_items => invoice_item_path,
+                                              :transactions => transaction_path,
+                                              :customers => customer_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+    expected_result = {4=>19, 6=>20}
+    actual_result = test_sales_analyst.top_days_more_than_one_std_deviation
+
+    assert_equal expected_result, actual_result
+  end
+
+  def test_it_can_find_days_of_the_week_by_top_sales
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/customer_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path,
+                                              :invoice_items => invoice_item_path,
+                                              :transactions => transaction_path,
+                                              :customers => customer_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+    expected_days = ["Thursday", "Saturday"]
+    actual_days = test_sales_analyst.top_days_by_invoice_count
+
+    assert_equal expected_days, actual_days
+  end
 end
