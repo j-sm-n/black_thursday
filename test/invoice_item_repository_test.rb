@@ -1,9 +1,5 @@
 require './test/test_helper'
 require './lib/invoice_item_repository'
-require './lib/invoice_item'
-require './lib/loader'
-require './lib/repository'
-require 'pry'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   attr_reader :test_invoice_item_repository,
