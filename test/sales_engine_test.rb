@@ -40,4 +40,5 @@ class SalesEngineTest < Minitest::Test
     assert_equal 3, test_sales_engine.merchants.count
     assert_equal 107, test_sales_engine.invoices.count
   end
+
 end
