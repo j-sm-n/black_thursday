@@ -4,9 +4,12 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/customer_repository'
+require_relative '../lib/relationships'
 require_relative '../lib/loader'
 
 class SalesEngine
+  include Relationships
+
   attr_reader :items,
               :merchants,
               :invoices,
@@ -38,15 +41,4 @@ class SalesEngine
 
   end
 
-  def find_merchant_by_merchant_id(id)
-    merchants.find_by_id(id)
-  end
-
-  def find_items_by_merchant(merchant_id)
-    items.find_all_by_merchant_id(merchant_id)
-  end
-
-  def find_invoices_by_merchant(merchant_id)
-    invoices.find_all_by_merchant_id(merchant_id)
-  end
 end
