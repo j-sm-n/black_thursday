@@ -67,4 +67,12 @@ class MerchantRepositoryTest < Minitest::Test
     actual_invoices_2 = test_repository.find_invoices_by_merchant(11111111)
     assert parent.verify
   end
+
+  def test_it_can_find_customers_of_merchant
+    parent.expect(:find_customers_of_merchant, "these_customers",
+                  ["this_merchant"])
+
+    assert_equal "these_customers",
+                 test_repository.find_customers_of_merchant("this_merchant")
+  end
 end
