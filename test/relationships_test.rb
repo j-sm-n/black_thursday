@@ -42,4 +42,15 @@ class RelationshipsTest < Minitest::Test
     assert_equal 478, invoice.id
     assert_equal :shipped, invoice.status
   end
+
+  def test_it_can_find_items_by_invoice_id
+    invoice = test_sales_engine.invoices.find_by_id(106)
+
+    actual_items_1 = invoice.items
+
+    assert_equal 7, actual_items_1.length
+    assert_equal Item, actual_items_1.first.class
+  end
+
+
 end

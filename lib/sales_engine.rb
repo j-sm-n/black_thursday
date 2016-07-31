@@ -19,6 +19,7 @@ class SalesEngine
 
   def initialize(item_path, merchant_path, invoice_path, invoice_item_path,
                  transaction_path, customer_path)
+                 
     @items         = ItemRepository.new(Loader.load(item_path), self)
     @merchants     = MerchantRepository.new(Loader.load(merchant_path), self)
     @invoices      = InvoiceRepository.new(Loader.load(invoice_path), self)
@@ -40,5 +41,4 @@ class SalesEngine
                     hash_of_file_paths[:customers])
 
   end
-
 end
