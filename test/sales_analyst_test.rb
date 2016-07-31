@@ -279,6 +279,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_knows_average_invoices_per_day_standard_deviation
+    skip
     item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
     invoice_path = "./test/fixtures/invoices_iteration_2.csv"
