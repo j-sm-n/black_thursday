@@ -26,7 +26,3 @@ module Relationships
   end
 
 end
-
-
-# invoice.transactions # => [transaction, transaction]
-# invoice.customer # => customer
