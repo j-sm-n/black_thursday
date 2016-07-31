@@ -9,10 +9,14 @@ class SalesEngineTest < Minitest::Test
     merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
     invoice_path = "./test/fixtures/invoices_iteration_2.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/customer_repository_fixture.csv"
     @test_sales_engine = SalesEngine.from_csv({:items => item_path,
                                                :merchants => merchant_path,
                                                :invoices => invoice_path,
-                                               :invoice_items => invoice_item_path})
+                                               :invoice_items => invoice_item_path,
+                                               :transactions => transaction_path,
+                                               :customers => customer_path})
   end
 
   def test_it_exists
