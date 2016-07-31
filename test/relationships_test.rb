@@ -102,4 +102,22 @@ class RelationshipsTest < Minitest::Test
     assert_equal Customer, actual_customer.class
     assert_equal 22, actual_customer.id
   end
+
+  def test_it_can_find_invoice_from_invoice_id_off_transaction
+    # mock_sales_engine = Minitest::Mock.new
+    # mock_invoice_repository = Minitest::Mock.new
+    # mock_sales_engine.expect(:find_invoice_on_transaction, mock_invoice_repository, ["invoice_id"])
+    # mock_invoice_repository.expect(:find_by_id, "invoice", ["invoice_id"])
+    # an_invoice_repository = mock_sales_engine.find_invoice_on_transaction("invoice_id")
+    # invoice = an_invoice_repository.find_by_id("invoice_id")
+    #
+    # assert_equal "invoice", invoice
+    # assert mock_sales_engine.verify
+    # assert mock_invoice_repository.verify
+
+    assert_equal 941, test_sales_engine.find_invoice_on_transaction(941).id
+  end
+
+
+
 end

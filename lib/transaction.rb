@@ -30,8 +30,4 @@ class Transaction
     parent.find_invoice_on_transaction(self.invoice_id)
   end
 
-#
-#   transaction = se.transactions.find_by_id(40)
-# transaction.invoice # => invoice
-
 end
