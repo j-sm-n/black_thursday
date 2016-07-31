@@ -26,5 +26,12 @@ class Invoice
   def items
     parent.find_items_on_invoice(self.id)
   end
-  
+
+  def transactions
+    parent.find_transactions_on_invoice(self.id)
+  end
+
+  def customer
+    parent.find_customer_on_invoice(self.customer_id)
+  end
 end

@@ -64,4 +64,22 @@ class InvoiceTest < Minitest::Test
     assert parent.verify
   end
 
+  def test_it_knows_all_the_items_on_an_invoice
+    parent.expect(:find_transactions_on_invoice, "Lots of transactions", [181])
+
+    actual_transactions = test_invoice.transactions
+
+    assert_equal "Lots of transactions", actual_transactions
+    assert parent.verify
+  end
+
+  def test_it_knows_all_the_customers_on_an_invoice
+    parent.expect(:find_customer_on_invoice, "customer", [35])
+
+    actual_customer = test_invoice.customer
+
+    assert_equal "customer", actual_customer
+    assert parent.verify
+  end
+
 end

@@ -43,16 +43,63 @@ class RelationshipsTest < Minitest::Test
     assert_equal :shipped, invoice.status
   end
 
-  # def test_it_can_find_items_by_invoice_id
-  #   test_invoice_id = 100
-  #   test_items = test_sales_engine.find_items_on_invoice(test_invoice_id)
-  #   expected_item_ids = [263527150, 263411601, 263430345]
-  #
-  #   assert_equal 3, test_items.length
-  #   assert_equal Item, test_items.first.class
-  #   test_invoice_items.each do |item|
-  #     assert_equal true, expected_item_ids.include?(item.id)
-  #   end
-  # end
+  def test_it_can_find_items_by_invoice_id
+    item_path = "./test/fixtures/relationships_01_iteration_03_item_fixture.csv"
+    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/relationships_01_iteration_03_invoice_item_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/customer_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path,
+                                               :invoice_items => invoice_item_path,
+                                               :transactions => transaction_path,
+                                               :customers => customer_path})
 
+    expected_ids = [263396255, 263503514]
+    items = test_sales_engine.find_items_on_invoice(106)
+    assert_equal 2, items.length
+    assert_equal Item, items.first.class
+    items.each { |item| assert_equal true, expected_ids.include?(item.id) }
+  end
+
+  def test_it_can_find_transactions_on_invoice
+    item_path = "./test/fixtures/relationships_01_iteration_03_item_fixture.csv"
+    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/relationships_01_iteration_03_invoice_item_fixture.csv"
+    transaction_path = "./test/fixtures/relationships_01_iteration_03_transaction_fixture.csv"
+    customer_path = "./test/fixtures/relationships_01_iteration_03_customer_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path,
+                                               :invoice_items => invoice_item_path,
+                                               :transactions => transaction_path,
+                                               :customers => customer_path})
+    expected_transaction_id = 4705
+    actual_transactions = test_sales_engine.find_transactions_on_invoice(106)
+    assert_equal 1, actual_transactions.length
+    assert_equal 4705, actual_transactions.first.id
+  end
+
+  def test_it_can_find_customers_by_invoice_id
+    item_path = "./test/fixtures/relationships_01_iteration_03_item_fixture.csv"
+    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/relationships_01_iteration_03_invoice_item_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/relationships_01_iteration_03_customer_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path,
+                                               :invoice_items => invoice_item_path,
+                                               :transactions => transaction_path,
+                                               :customers => customer_path})
+
+    expected_customer_id = 22
+    actual_customer = test_sales_engine.find_customer_on_invoice(22)
+    assert_equal Customer, actual_customer.class
+    assert_equal 22, actual_customer.id
+  end
 end

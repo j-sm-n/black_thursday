@@ -41,37 +41,4 @@ class SalesEngineTest < Minitest::Test
     assert_equal 107, test_sales_engine.invoices.count
   end
 
-  def test_it_can_find_items_by_invoice_id
-    test_sales_engine = Minitest::Mock.new
-    test_sales_engine.expect(:find_items_on_invoice,
-                            "An array of items on invoice",
-                            [100])
-
-    items = test_sales_engine.find_items_on_invoice(100)
-
-    assert_equal "An array of items on invoice", items
-    assert test_sales_engine.verify
-    # invoice_items = Minitest::Mock.new
-    # array_of_invoice_items = Minitest::Mock.new
-    # invoice_items.expect(:find_all_by_invoice_id, array_of_invoice_items ,[100])
-    # array_of_invoice_items.
-    #
-    # actual_items = test_invoice.items
-    #
-    # assert_equal "Lots of items", actual_items
-    # assert parent.verify
-    #
-    #
-    #
-    # test_invoice_id = 100
-    # test_items = test_sales_engine.find_items_on_invoice(test_invoice_id)
-    # expected_item_ids = [263527150, 263411601, 263430345]
-    #
-    # assert_equal 3, test_items.length
-    # binding.pry
-    # assert_equal Item, test_items.first.class
-    # test_invoice_items.each do |item|
-    #   assert_equal true, expected_item_ids.include?(item.id)
-    # end
-  end
 end

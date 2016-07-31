@@ -89,6 +89,19 @@ class InvoiceRepositoryTest < Minitest::Test
     parent.expect(:find_items_on_invoice, "Lots of items", [181])
     actual_items = test_invoice_repository.find_items_on_invoice(181)
     assert_equal "Lots of items", actual_items
+    parent.verify
+  end
+
+  def test_it_knows_all_the_transactions_on_an_invoice
+    parent.expect(:find_transactions_on_invoice, "transactions", [181])
+    actual_transactions = test_invoice_repository.find_transactions_on_invoice(181)
+    assert_equal "transactions", actual_transactions
+  end
+
+  def test_it_knows_the_customer_on_an_invoice
+    parent.expect(:find_customer_on_invoice, "customer", [35])
+    actual_customer = test_invoice_repository.find_customer_on_invoice(35)
+    assert_equal "customer", actual_customer
   end
 
 end
