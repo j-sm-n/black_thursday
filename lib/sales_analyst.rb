@@ -91,61 +91,65 @@ class SalesAnalyst
     end
   end
 
-  def invoice_count_per_day
-    sun_count = 0
-    mon_count = 0
-    tue_count = 0
-    wed_count = 0
-    thur_count = 0
-    fri_count = 0
-    sat_count = 0
-    invoices.repository.each do |invoice|
-      if invoice.created_at.wday == 0
-        sun_count += 1
-      elsif invoice.created_at.wday == 1
-        mon_count += 1
-      elsif invoice.created_at.wday == 2
-        tue_count += 1
-      elsif invoice.created_at.wday == 3
-        wed_count += 1
-      elsif invoice.created_at.wday == 4
-        thur_count += 1
-      elsif invoice.created_at.wday == 5
-        fri_count += 1
-      else
-        sat_count += 1
-      end
+  def days_of_the_week_invoices_were_made_on
+    invoices.repository.map do |invoice|
+      invoice.created_at.wday
     end
-    [sun_count, mon_count, tue_count, wed_count, thur_count, fri_count, sat_count]
+  end
+
+  def invoice_count_per_day
+     invoice_counts = Hash.new(0)
+     days_of_the_week_invoices_were_made_on.each do |day|
+       invoice_counts[day] += 1
+     end
+     invoice_counts
   end
 
   def average_invoices_per_day_created
-    MathEngine.mean(invoice_count_per_day).to_f
+    MathEngine.mean(invoice_count_per_day.values).to_f
   end
 
   def average_invoices_per_day_standard_deviation
-    MathEngine.standard_deviation(invoice_count_per_day)
+    MathEngine.standard_deviation(invoice_count_per_day.values)
   end
 
-  def top_days_by_invoice_count_one # <= NEED TO RENAME
+  def top_days_more_than_one_std_deviation 
     mean = average_invoices_per_day_created
     standard_deviation = average_invoices_per_day_standard_deviation
-    invoice_count_per_day.find_all do |number|
-      MathEngine.outlier?(number, mean, standard_deviation, 1)
+
+    invoice_count_per_day.select do |key, value|
+      MathEngine.outlier?(value, mean, standard_deviation, 1)
     end
   end
 
   def top_days_by_invoice_count_two # <= NEED TO RENAME
     days_index = []
     invoice_count_per_day.each_with_index do |number, index|
-      days_index << index if top_days_by_invoice_count_one.include?(number)
+      days_index << index if top_days_more_than_one_std_deviation.include?(number)
     end
     days_index
   end
 
   def top_days_by_invoice_count
-
+    top_days_by_invoice_count_two.map do |number|
+      if number == 0
+        "Sunday"
+      elsif number == 1
+        "Monday"
+      elsif number == 2
+        "Tuesday"
+      elsif number == 3
+        "Wednesday"
+      elsif number == 4
+        "Thursday"
+      elsif number == 5
+        "Friday"
+      else
+        "Saturday"
+      end
+    end
   end
 
-
+  # def invoice_status(status)
+  # end
 end
