@@ -25,8 +25,8 @@ module Relationships
     customers.find_by_id(customer_id)
   end
 
+  def find_invoice_on_transaction(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
 end
-
-
-# invoice.transactions # => [transaction, transaction]
-# invoice.customer # => customer

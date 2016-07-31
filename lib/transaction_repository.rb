@@ -26,6 +26,10 @@ class TransactionRepository
     repository.find_all { |transaction| transaction.result == result }
   end
 
+  def find_invoice_on_transaction(invoice_id)
+    parent.find_invoice_on_transaction(invoice_id)
+  end
+
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end

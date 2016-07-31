@@ -26,4 +26,8 @@ class Transaction
     expiration_date.length == 3 ? "0" + expiration_date : expiration_date
   end
 
+  def invoice
+    parent.find_invoice_on_transaction(self.invoice_id)
+  end
+
 end

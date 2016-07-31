@@ -51,4 +51,13 @@ class TransactionTest < Minitest::Test
     assert_equal expected_2, test_transaction.scrub_expiration_date(test_date_2)
   end
 
+  def test_transaction_can_return_invoice
+    parent.expect(:find_invoice_on_transaction, "invoice", [3791])
+
+    actual_invoice = test_transaction.invoice
+
+    assert_equal "invoice", actual_invoice
+    assert parent.verify
+  end
+
 end

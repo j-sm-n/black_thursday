@@ -48,4 +48,10 @@ class TransactionRepositoryTest < Minitest::Test
     actual_2.each { |transaction| assert_equal Transaction, transaction.class }
     actual_2.each { |transaction| assert_equal result_2, transaction.result }
   end
+
+  def test_it_knows_the_customer_on_an_invoice
+    parent.expect(:find_invoice_on_transaction, "invoice", ["invoice_id"])
+    actual_invoice = test_transaction_repository.find_invoice_on_transaction("invoice_id")
+    assert_equal "invoice", actual_invoice
+  end
 end
