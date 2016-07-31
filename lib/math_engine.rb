@@ -10,6 +10,10 @@ module MathEngine
     BigDecimal.new(((sum(numbers) / numbers.length)).round(2),10)
   end
 
+  def self.percentage(number, total)
+    ((number / (total).to_f) * 100).round(2)
+  end
+
   def self.square(number)
     number ** 2
   end

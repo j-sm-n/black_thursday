@@ -37,6 +37,22 @@ class MathEngineTest < Minitest::Test
     assert_equal expected_mean_3, actual_mean_3
   end
 
+  def test_it_takes_total_and_integer_and_returns_percentage
+    number_1 = 0
+    number_2 = 5
+    number_3 = 10
+
+    total = 50
+
+    actual_percentage_1 = MathEngine.percentage(number_1, total)
+    actual_percentage_2 = MathEngine.percentage(number_2, total)
+    actual_percentage_3 = MathEngine.percentage(number_3, total)
+
+    assert_equal 0, actual_percentage_1
+    assert_equal 10, actual_percentage_2
+    assert_equal 20, actual_percentage_3
+  end
+
   def test_it_takes_an_integer_and_returns_integer_squared
     number_1 = 0
     number_2 = 5
