@@ -83,6 +83,12 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal "this_merchant", actual_merchants_1
     assert_equal nil, actual_merchants_2
-    assert parent.verify
   end
+
+  def test_it_knows_all_the_items_on_an_invoice
+    parent.expect(:find_items_on_invoice, "Lots of items", [181])
+    actual_items = test_invoice_repository.find_items_on_invoice(181)
+    assert_equal "Lots of items", actual_items
+  end
+
 end

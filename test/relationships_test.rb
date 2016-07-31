@@ -43,36 +43,16 @@ class RelationshipsTest < Minitest::Test
     assert_equal :shipped, invoice.status
   end
 
-  def test_it_can_find_items_by_invoice_id
-    test_items = Minitest::Mock.new
-    test_sales_engine = Minitest::Mock.new
-    test_sales_engine.expect(:invoices.find_by_id, test_items, [106])
-    test_items.expect(:length, 7)
-    test_items.expect(:first.class, Item)
-
-    some_items = test_sales_engine.invoices.find_by_id(106)
-    assert_equal 7, some_items.length
-    assert_equal Item, some_items.fist.class
-    assert test_sales_engine.verify
-    assert test_items.verify
-
-
-    # skip
-    # invoice_item_directory = "./test/fixtures/"
-    # invoice_item_file = "relationships_01_iteration_03_invoice_item_fixture.csv"
-    # invoice_item_path = invoice_item_directory + invoice_item_file
-    #
-    # item_directory = "./test/fixtures/"
-    # item_file = "relationships_01_iteration_03_invoice_item_fixture.csv"
-    # item_path = invoice_item_directory + invoice_item_file
-    #
-    # invoice = test_sales_engine.invoices.find_by_id(106)
-    #
-    # actual_items_1 = invoice.items
-    #
-    # assert_equal 7, actual_items_1.length
-    # assert_equal Item, actual_items_1.first.class
-  end
-
+  # def test_it_can_find_items_by_invoice_id
+  #   test_invoice_id = 100
+  #   test_items = test_sales_engine.find_items_on_invoice(test_invoice_id)
+  #   expected_item_ids = [263527150, 263411601, 263430345]
+  #
+  #   assert_equal 3, test_items.length
+  #   assert_equal Item, test_items.first.class
+  #   test_invoice_items.each do |item|
+  #     assert_equal true, expected_item_ids.include?(item.id)
+  #   end
+  # end
 
 end
