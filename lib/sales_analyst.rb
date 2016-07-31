@@ -113,7 +113,7 @@ class SalesAnalyst
     MathEngine.standard_deviation(invoice_count_per_day.values)
   end
 
-  def top_days_more_than_one_std_deviation 
+  def top_days_more_than_one_std_deviation
     mean = average_invoices_per_day_created
     standard_deviation = average_invoices_per_day_standard_deviation
 
@@ -122,27 +122,19 @@ class SalesAnalyst
     end
   end
 
-  def top_days_by_invoice_count_two # <= NEED TO RENAME
-    days_index = []
-    invoice_count_per_day.each_with_index do |number, index|
-      days_index << index if top_days_more_than_one_std_deviation.include?(number)
-    end
-    days_index
-  end
-
   def top_days_by_invoice_count
-    top_days_by_invoice_count_two.map do |number|
-      if number == 0
+    top_days_more_than_one_std_deviation.keys.map do |key|
+      if key == 0
         "Sunday"
-      elsif number == 1
+      elsif key == 1
         "Monday"
-      elsif number == 2
+      elsif key == 2
         "Tuesday"
-      elsif number == 3
+      elsif key == 3
         "Wednesday"
-      elsif number == 4
+      elsif key == 4
         "Thursday"
-      elsif number == 5
+      elsif key == 5
         "Friday"
       else
         "Saturday"
