@@ -91,14 +91,36 @@ class SalesAnalyst
     end
   end
 
-  def day_per_invoice_created
-    invoices.repository.map do |invoice|
-      invoice.created_at.wday
+  def day_count_per_invoice_created
+    sun_count = 0
+    mon_count = 0
+    tue_count = 0
+    wed_count = 0
+    thur_count = 0
+    fri_count = 0
+    sat_count = 0
+    invoices.repository.each do |invoice|
+      if invoice.created_at.wday == 0
+        sun_count += 1
+      elsif invoice.created_at.wday == 1
+        mon_count += 1
+      elsif invoice.created_at.wday == 2
+        tue_count += 1
+      elsif invoice.created_at.wday == 3
+        wed_count += 1
+      elsif invoice.created_at.wday == 4
+        thur_count += 1
+      elsif invoice.created_at.wday == 5
+        fri_count += 1
+      else
+        sat_count += 1
+      end
     end
+    [sun_count, mon_count, tue_count, wed_count, thur_count, fri_count, sat_count]
   end
 
   def average_day_invoice_is_created
-    MathEngine.mean(day_per_invoice_created).to_i
+    ([10, 11, 12]) #<
   end
 
   # def average_invoices_per_day_standard_deviation
