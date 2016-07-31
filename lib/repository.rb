@@ -14,4 +14,9 @@ module Repository
   def find_by_name(name)
     repository.find { |child| child.name.downcase == name.downcase }
   end
+
+  def find_all_by_item_id(item_id)
+    repository.find_all { |invoice_item| invoice_item.item_id == item_id }
+  end
+  
 end
