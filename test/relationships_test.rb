@@ -44,6 +44,15 @@ class RelationshipsTest < Minitest::Test
   end
 
   def test_it_can_find_items_by_invoice_id
+    skip
+    invoice_item_directory = "./test/fixtures/"
+    invoice_item_file = "relationships_01_iteration_03_invoice_item_fixture.csv"
+    invoice_item_path = invoice_item_directory + invoice_item_file
+
+    item_directory = "./test/fixtures/"
+    item_file = "relationships_01_iteration_03_invoice_item_fixture.csv"
+    item_path = invoice_item_directory + invoice_item_file
+
     invoice = test_sales_engine.invoices.find_by_id(106)
 
     actual_items_1 = invoice.items
