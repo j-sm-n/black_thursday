@@ -18,12 +18,16 @@ class CustomerTest < Minitest::Test
     expected_id = 1000
     expected_first_name = "Shawn"
     expected_last_name = "Langworth"
+    expected_first_name_downcase = "shawn"
+    expected_last_name_downcase = "langworth"
     expected_created_at  = Time.parse("2012-03-27 14:58:15 UTC")
     expected_updated_at  = Time.parse("2012-03-27 14:58:15 UTC")
 
     assert_equal expected_id, test_customer.id
     assert_equal expected_first_name, test_customer.first_name
     assert_equal expected_last_name, test_customer.last_name
+    assert_equal expected_first_name_downcase, test_customer.first_name_downcase
+    assert_equal expected_last_name_downcase, test_customer.last_name_downcase
     assert_equal expected_created_at, test_customer.created_at
     assert_equal expected_updated_at, test_customer.updated_at
   end
