@@ -28,7 +28,11 @@ module DateAnalyst
   end
 
   def total_revenue_by_date(date)
-    # invoices.find_by
+    invoices_from_date = invoices.find_all_by_created_at(date)
+    invoice_items_from_date = invoices_from_date.map do |invoice|
+      invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    binding.pry
   end
 
 end
