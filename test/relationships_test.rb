@@ -118,6 +118,31 @@ class RelationshipsTest < Minitest::Test
     assert_equal 941, test_sales_engine.find_invoice_on_transaction(941).id
   end
 
+  def test_it_can_find_customers_from_merchant_id
+    item_path = "./test/fixtures/relationships_01_iteration_03_item_fixture.csv"
+    merchant_path = "./test/fixtures/relationships_01_iteration_03_merchant_fixture.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/relationships_01_iteration_03_invoice_item_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/relationships_02_iteration_03_customer_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                               :merchants => merchant_path,
+                                               :invoices => invoice_path,
+                                               :invoice_items => invoice_item_path,
+                                               :transactions => transaction_path,
+                                               :customers => customer_path})
+
+    merchant_id = 12334176
+    customer_id = [30, 96, 121]
+
+    customers = test_sales_engine.find_customers_of_merchant(merchant_id)
+    assert_equal 3, customers.length
+    assert_instance_of Customer, customers.first
+    customers.each do |customer|
+      assert_equal true, customer_id.include?(customer.id)
+    end
+  end
+
 
 
 end
