@@ -19,10 +19,17 @@ class SalesAnalystTest < Minitest::Test
     @test_sales_analyst = SalesAnalyst.new(test_sales_engine)
   end
 
-  def test_it_has_a_sales_engine_and_child_invoice_item_repository
-    assert_instance_of InvoiceItemRepository, test_sales_analyst.invoice_items
+  def test_it_has_a_sales_engine_and_child_item_repository
+    assert_instance_of ItemRepository, test_sales_analyst.items
   end
 
+  def test_it_has_a_sales_engine_and_child_merchant_repository
+    assert_instance_of MerchantRepository, test_sales_analyst.merchants
+  end
+
+  def test_it_has_a_sales_engine_and_child_invoice_repository
+    assert_instance_of InvoiceRepository, test_sales_analyst.invoices
+  end
 
   def test_it_has_a_sales_engine_and_child_invoice_item_repository
     assert_instance_of InvoiceItemRepository, test_sales_analyst.invoice_items
