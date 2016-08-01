@@ -240,4 +240,45 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
   end
 
+  def test_it_finds_all_invoice_totals
+    skip
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/customer_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path,
+                                              :invoice_items => invoice_item_path,
+                                              :transactions => transaction_path,
+                                              :customers => customer_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+    expected_totals = []
+    actual_totals = test_sales_analyst.all_invoice_totals
+
+    assert_equal expected_totals, actual_totals
+  end
+
+  def test_it_finds_the_top_20_performing_merchants
+    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
+    customer_path = "./test/fixtures/customer_repository_fixture.csv"
+    test_sales_engine = SalesEngine.from_csv({:items => item_path,
+                                              :merchants => merchant_path,
+                                              :invoices => invoice_path,
+                                              :invoice_items => invoice_item_path,
+                                              :transactions => transaction_path,
+                                              :customers => customer_path})
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+    expected_merchants = ["merchant"]
+    actual_merchants = test_sales_analyst.top_revenue_earners
+
+    assert_equal expected_merchants, actual_merchants
+  end
+
 end
