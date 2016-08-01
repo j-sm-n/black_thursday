@@ -35,7 +35,7 @@ module Relationships
         result << customers.find_by_id(invoice.customer_id)
       end
       result
-    end
+    end.uniq
   end
 
 end
