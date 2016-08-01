@@ -20,18 +20,33 @@ class Invoice
   end
 
   def merchant
-    parent.find_merchant_by_merchant_id(self.merchant_id)
+    parent.find_merchant_by_merchant_id(merchant_id)
   end
 
   def items
-    parent.find_items_on_invoice(self.id)
+    parent.find_items_on_invoice(id)
   end
 
   def transactions
-    parent.find_transactions_on_invoice(self.id)
+    parent.find_transactions_on_invoice(id)
   end
 
   def customer
-    parent.find_customer_on_invoice(self.customer_id)
+    parent.find_customer_on_invoice(customer_id)
   end
+
+  def is_paid_in_full?
+    transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
+  end
+
+  def invoice_item
+    parent.find_invoice_items_by_invoice(id)
+  end
+
+  def total
+    invoice_item.reduce(0) do |total, invoice_item|
+      total += (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
 end

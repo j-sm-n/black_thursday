@@ -1,6 +1,8 @@
 require './test/test_helper'
 require './lib/loader'
 require './lib/invoice'
+require './lib/sales_engine'
+require 'pry'
 
 class InvoiceTest < Minitest::Test
   attr_reader :test_invoice,
@@ -81,5 +83,62 @@ class InvoiceTest < Minitest::Test
     assert_equal "customer", actual_customer
     assert parent.verify
   end
+
+  def test_it_knows_if_it_is_paid_in_full
+    item_path = "./test/fixtures/item.csv"
+    merchant_path = "./test/fixtures/merchant.csv"
+    invoice_path = "./test/fixtures/business_intelligence_01_iteration_03_invoices_fixture.csv"
+    invoice_item_path = "./test/fixtures/invoice_item_fixture.csv"
+    transaction_path = "./test/fixtures/business_intelligence_01_iteration_03_transactions_fixture.csv"
+    customer_path = "./test/fixtures/customer_fixture.csv"
+    paths = {:items => item_path, :merchants => merchant_path,
+             :invoices => invoice_path, :invoice_items => invoice_item_path,
+             :transactions => transaction_path, :customers => customer_path}
+
+    test_sales_engine = SalesEngine.from_csv(paths)
+
+    test_invoice_1_id = 1
+    test_invoice_2_id = 200
+    test_invoice_3_id = 203
+    test_invoice_4_id = 204
+
+    invoice_1 = test_sales_engine.invoices.find_by_id(test_invoice_1_id)
+    invoice_2 = test_sales_engine.invoices.find_by_id(test_invoice_2_id)
+    invoice_3 = test_sales_engine.invoices.find_by_id(test_invoice_3_id)
+    invoice_4 = test_sales_engine.invoices.find_by_id(test_invoice_4_id)
+
+    assert_equal true, invoice_1.is_paid_in_full?
+    assert_equal true, invoice_2.is_paid_in_full?
+    assert_equal false, invoice_3.is_paid_in_full?
+    assert_equal false, invoice_4.is_paid_in_full?
+  end
+
+  def test_it_knows_total_price_of_invoice
+    item_path = "./test/fixtures/item.csv"
+    merchant_path = "./test/fixtures/merchant.csv"
+    invoice_path = "./test/fixtures/business_intelligence_02_iteration_03_invoices_fixture.csv"
+    invoice_item_path = "./test/fixtures/business_intelligence_02_iteration_03_invoice_items_fixture.csv"
+    transaction_path = "./test/fixtures/transaction_fixture.csv"
+    customer_path = "./test/fixtures/customer_fixture.csv"
+    paths = {:items => item_path, :merchants => merchant_path,
+             :invoices => invoice_path, :invoice_items => invoice_item_path,
+             :transactions => transaction_path, :customers => customer_path}
+
+    test_sales_engine = SalesEngine.from_csv(paths)
+    invoice = test_sales_engine.invoices.all.first
+    expected_total = BigDecimal("21067.77")
+
+    assert_equal expected_total, invoice.total
+  end
+
+  def test_it_knows_all_the_invoice_items_on_an_invoice
+    parent.expect(:find_invoice_items_by_invoice, "invoice_item", [181])
+
+    actual_customer = test_invoice.invoice_item
+
+    assert_equal "invoice_item", actual_customer
+    assert parent.verify
+  end
+
 
 end

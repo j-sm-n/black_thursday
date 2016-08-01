@@ -38,4 +38,8 @@ module Relationships
     end.uniq
   end
 
+  def find_invoice_items_by_invoice(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
 end
