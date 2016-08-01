@@ -80,7 +80,7 @@ class InvoiceRepositoryTest < Minitest::Test
     test_invoice_repository = InvoiceRepository.new(contents, "parent")
 
     expected_ids = [9, 1883, 2585, 3091]
-    date = "2003-03-07"
+    date = Time.parse("2003-03-07")
 
     actual_invoices = test_invoice_repository.find_all_by_created_at(date)
 

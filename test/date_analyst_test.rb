@@ -66,7 +66,7 @@ class DateAnalystTest < Minitest::Test
     test_sales_engine = SalesEngine.from_csv(file_path)
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    date = "2009-02-07"
+    date = Time.parse("2009-02-07")
     expected_total_revenue = BigDecimal.new("21067.77")
 
     actual_total_revenue = test_sales_analyst.total_revenue_by_date(date)
