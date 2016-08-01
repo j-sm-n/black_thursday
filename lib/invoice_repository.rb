@@ -24,6 +24,10 @@ class InvoiceRepository
     repository.find_all { |invoice| invoice.status == status }
   end
 
+  def find_all_by_created_at(date)
+    repository.find_all { |invoice| invoice.created_at == Time.parse(date)}
+  end
+
   def find_merchant_by_merchant_id(merchant_id)
     parent.find_merchant_by_merchant_id(merchant_id)
   end

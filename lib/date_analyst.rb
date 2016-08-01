@@ -27,8 +27,8 @@ module DateAnalyst
     end
   end
 
-  def total_revenu_by_date(date)
-
+  def total_revenue_by_date(date)
+    # invoices.find_by
   end
 
 end

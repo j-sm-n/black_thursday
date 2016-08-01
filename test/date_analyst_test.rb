@@ -59,5 +59,20 @@ class DateAnalystTest < Minitest::Test
     assert_equal expected_days, actual_days
   end
 
+  def test_it_can_find_total_revenue_by_date
+    invoice_items_path = "./test/fixtures/iteration04_total_revenue_by_date_invoice_items.csv"
+    invoice_path = "./test/fixtures/iteration04_total_revenue_by_date_invoices.csv"
+    file_path = {:invoices => invoice_path, :invoice_items => invoice_items_path}
+    test_sales_engine = SalesEngine.from_csv(file_path)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    date = "2009-02-07"
+    expected_total_revenue = BigDecimal.new("21067.77")
+
+    actual_total_revenue = test_sales_analyst.total_revenue_by_date(date)
+
+    assert_equal expected_total_revenue, actual_total_revenue
+  end
+
 
 end
