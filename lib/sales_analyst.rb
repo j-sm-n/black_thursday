@@ -29,5 +29,4 @@ class SalesAnalyst
   def invoices
     sales_engine.invoices
   end
-
 end
