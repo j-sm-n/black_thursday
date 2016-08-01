@@ -226,12 +226,15 @@ class MerchantAnalystTest < Minitest::Test
     # merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
     # invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
     # invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
+    # transaction_path = "WE NEED TRANSACTION TEST DATA"
     merchant_path = "./data/merchants.csv"
     invoice_path = "./data/invoices.csv"
     invoice_item_path = "./data/invoice_items.csv"
+    transaction_path = "./data/transactions.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path,
-                  :invoice_items => invoice_item_path}
+                  :invoice_items => invoice_item_path,
+                  :transactions => transaction_path}
 
     test_sales_engine = SalesEngine.from_csv(file_paths)
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)

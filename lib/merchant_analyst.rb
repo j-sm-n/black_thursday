@@ -67,7 +67,11 @@ module MerchantAnalyst
   def top_revenue_earners(number)
     array_of_earners = merchants.all.map do |merchant|
       revenue = merchant.invoices.map do |invoice|
-        invoice.total
+        if invoice.is_paid_in_full?
+          invoice.total
+        else
+          0
+        end
       end.reduce(:+)
       [merchant, revenue.to_f]
     end
@@ -78,6 +82,7 @@ module MerchantAnalyst
 
     top_earners = sorted_earners[0...number]
     just_the_merchants = top_earners.map { |merchant_revenue| merchant_revenue[0] }
+    binding.pry
   end
 
 end
