@@ -124,4 +124,6 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected_days, actual_days
   end
+
+  
 end

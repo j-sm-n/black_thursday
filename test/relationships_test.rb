@@ -108,7 +108,6 @@ class RelationshipsTest < Minitest::Test
     # assert_equal "invoice", invoice
     # assert mock_sales_engine.verify
     # assert mock_invoice_repository.verify
-
     assert_equal 941, test_sales_engine.find_invoice_on_transaction(941).id
   end
 

@@ -10,36 +10,43 @@ require_relative '../lib/loader'
 class SalesEngine
   include Relationships
 
-  attr_reader :items,
-              :merchants,
-              :invoices,
-              :invoice_items,
-              :transactions,
-              :customers
+  attr_reader :file_paths
 
-  def initialize(item_path, merchant_path, invoice_path, invoice_item_path,
-                 transaction_path, customer_path)
-
-    @items         = ItemRepository.new(Loader.load(item_path), self)
-    @merchants     = MerchantRepository.new(Loader.load(merchant_path), self)
-    @invoices      = InvoiceRepository.new(Loader.load(invoice_path), self)
-    @invoice_items = InvoiceItemRepository.new
-    @transactions  = TransactionRepository.new
-    @customers     = CustomerRepository.new
-
-    invoice_items.from_csv(invoice_item_path, self)
-    transactions.from_csv(transaction_path, self)
-    customers.from_csv(customer_path, self)
+  def initialize(file_paths)
+    @file_paths = file_paths
   end
 
-  def self.from_csv(hash_of_file_paths)
-    SalesEngine.new(hash_of_file_paths[:items],
-                    hash_of_file_paths[:merchants],
-                    hash_of_file_paths[:invoices],
-                    hash_of_file_paths[:invoice_items],
-                    hash_of_file_paths[:transactions],
-                    hash_of_file_paths[:customers])
+  def self.from_csv(file_paths)
+    SalesEngine.new(file_paths)
+  end
 
+  def items
+    @items ||= ItemRepository.new(Loader.load(file_paths[:items]), self)
+  end
+
+  def merchants
+    @merchants ||= MerchantRepository.new(Loader.load(file_paths[:merchants]), self)
+  end
+
+  def invoices
+    @invoices ||= InvoiceRepository.new(Loader.load(file_paths[:invoices]), self)
+  end
+
+  def invoice_items
+    @invoice_items ||= load_repository(file_paths[:invoice_items], InvoiceItemRepository.new)
+  end
+
+  def transactions
+    @transactions ||= load_repository(file_paths[:transactions], TransactionRepository.new)
+  end
+
+  def customers
+    @customers ||= load_repository(file_paths[:customers], CustomerRepository.new)
+  end
+
+  def load_repository(file_path, repository)
+    repository.from_csv(file_path, self)
+    return repository
   end
 
 end
