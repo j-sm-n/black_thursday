@@ -64,15 +64,20 @@ module MerchantAnalyst
     end
   end
 
-  def all_invoice_totals
-    invoices.repository.map do |invoice|
-      invoice.total
+  def top_revenue_earners(number)
+    array_of_earners = merchants.all.map do |merchant|
+      revenue = merchant.invoices.map do |invoice|
+        invoice.total
+      end.reduce(:+)
+      [merchant, revenue.to_f]
     end
-  end
 
-  def top_revenue_earners(top_num = 20)
-    all_invoice_totals
-    #sorted[0...top_num]
+    sorted_earners = array_of_earners.sort_by do |merchant_revenue|
+      merchant_revenue[1]
+    end.reverse
+
+    top_earners = sorted_earners[0...number]
+    just_the_merchants = top_earners.map { |merchant_revenue| merchant_revenue[0] }
   end
 
 end

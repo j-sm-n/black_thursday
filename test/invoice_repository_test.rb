@@ -74,6 +74,20 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], actual_invoices_w_status_4
   end
 
+  def test_it_can_find_all_invoices_by_created_at
+    path = "./test/fixtures/iteration04_total_revenue_by_date_find_all_invoices_by_date_created_invoices.csv"
+    contents = Loader.load(path)
+    test_invoice_repository = InvoiceRepository.new(contents, "parent")
+
+    expected_ids = [9, 1883, 2585, 3091]
+    date = Time.parse("2003-03-07")
+
+    actual_invoices = test_invoice_repository.find_all_by_created_at(date)
+
+    assert_equal 4, actual_invoices.length
+    actual_invoices.each { |invoice| expected_ids.include?(invoice.id) }
+  end
+
   def test_it_will_find_merchant_by_id
     parent.expect(:find_merchant_by_merchant_id, "this_merchant", [263395237])
     parent.expect(:find_merchant_by_merchant_id, nil, [11111111])

@@ -1,17 +1,9 @@
 module DateAnalyst
 
-  def days_of_the_week_invoices_were_made_on
-    invoices.repository.map do |invoice|
-      invoice.created_at.wday
-    end
-  end
-
   def invoice_count_per_day
-     invoice_counts = Hash.new(0)
-     days_of_the_week_invoices_were_made_on.each do |day|
-       invoice_counts[day] += 1
-     end
-     invoice_counts
+    days = invoices.repository.map { |invoice| invoice.created_at.wday }
+    grouped_days = days.group_by { |day| day }
+    grouped_days.each { |key, value| grouped_days[key] = value.length}
   end
 
   def average_invoices_per_day_created
@@ -23,19 +15,26 @@ module DateAnalyst
   end
 
   def top_days_more_than_one_std_deviation
-    mean = average_invoices_per_day_created
-    standard_deviation = average_invoices_per_day_standard_deviation
-
     invoice_count_per_day.select do |key, value|
-      MathEngine.outlier?(value, mean, standard_deviation, 1)
+      MathEngine.outlier?(value, average_invoices_per_day_created,
+                          average_invoices_per_day_standard_deviation, 1)
     end
   end
 
   def top_days_by_invoice_count
-    days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-    top_days_more_than_one_std_deviation.keys.map { |key| days[key] }
+    top_days_more_than_one_std_deviation.keys.map do |key|
+      ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][key]
+    end
   end
 
-  
+  def total_revenue_by_date(date)
+    invoices_from_date = invoices.find_all_by_created_at(date)
+    invoice_items_from_date = invoices_from_date.map do |invoice|
+      these_invoice_items = invoice_items.find_all_by_invoice_id(invoice.id)
+      these_invoice_items.map do |invoice_item|
+        invoice_item.quantity * invoice_item.unit_price
+      end.reduce(:+)
+    end.reduce(:+)
+  end
 
 end

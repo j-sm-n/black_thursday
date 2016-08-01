@@ -29,4 +29,16 @@ class SalesAnalyst
   def invoices
     sales_engine.invoices
   end
+
+  def invoice_items
+    sales_engine.invoice_items
+  end
+
+  def transactions
+    sales_engine.transactions
+  end
+
+  def customers
+    sales_engine.customers
+  end
 end
