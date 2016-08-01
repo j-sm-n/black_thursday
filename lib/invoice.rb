@@ -39,4 +39,14 @@ class Invoice
     transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
   end
 
+  def invoice_item
+    parent.find_invoice_items_by_invoice(id)
+  end
+
+  def total
+    invoice_item.reduce(0) do |total, invoice_item|
+      total += (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
 end

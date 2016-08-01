@@ -104,4 +104,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "customer", actual_customer
   end
 
+  def test_it_knows_the_invoice_item_associated_with_an_invoice
+    parent.expect(:find_invoice_items_by_invoice, "invoice_item", ["invoice_id"])
+    actual_invoice_item = test_invoice_repository.find_invoice_items_by_invoice("invoice_id")
+    assert_equal "invoice_item", actual_invoice_item
+  end
+
 end
