@@ -64,25 +64,30 @@ module MerchantAnalyst
     end
   end
 
-  def top_revenue_earners(number)
-    array_of_earners = merchants.all.map do |merchant|
-      revenue = merchant.invoices.map do |invoice|
-        if invoice.is_paid_in_full?
-          invoice.total
-        else
-          0
-        end
-      end.reduce(:+)
-      [merchant, revenue.to_f]
+  def revenue_by_merchant(merchant_id)
+    merchants.find_by_id(merchant_id).revenue
+  end
+
+  def find_all_merchant_revenues
+    merchants.all.map do |merchant|
+      [merchant, merchant.revenue.to_f]
     end
+  end
+
+  def top_revenue_earners(number)
+    actual_tenth_highest = merchants.find_by_id(12335747).revenue
+    our_tenth_highest = merchants.find_by_id(12334960).revenue
+
+    find_all_merchant_revenues
+    binding.pry
 
     sorted_earners = array_of_earners.sort_by do |merchant_revenue|
       merchant_revenue[1]
     end.reverse
-
+    # binding.pry
     top_earners = sorted_earners[0...number]
     just_the_merchants = top_earners.map { |merchant_revenue| merchant_revenue[0] }
-    binding.pry
+
   end
 
 end

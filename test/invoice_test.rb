@@ -118,7 +118,7 @@ class InvoiceTest < Minitest::Test
     merchant_path = "./test/fixtures/merchant.csv"
     invoice_path = "./test/fixtures/business_intelligence_02_iteration_03_invoices_fixture.csv"
     invoice_item_path = "./test/fixtures/business_intelligence_02_iteration_03_invoice_items_fixture.csv"
-    transaction_path = "./test/fixtures/transaction_fixture.csv"
+    transaction_path = "./test/fixtures/business_intelligence_01_iteration_03_transactions_fixture.csv"
     customer_path = "./test/fixtures/customer_fixture.csv"
     paths = {:items => item_path, :merchants => merchant_path,
              :invoices => invoice_path, :invoice_items => invoice_item_path,
