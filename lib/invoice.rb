@@ -54,4 +54,10 @@ class Invoice
     status == :pending
   end
 
+  def outstanding?
+    transactions.any? do |transaction|
+      transaction.result == "failed"
+    end
+  end
+
 end

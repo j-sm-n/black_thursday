@@ -91,19 +91,12 @@ module MerchantAnalyst
   end
 
   def merchants_with_pending_invoices
-    merchants.all.find_all do |merchant|
+    the_merchants = merchants.all.find_all do |merchant|
       merchant.has_pending_invoices?
     end
   end
 
 end
-# sa.merchants_with_pending_invoices
-
-# merchants.all.find_all do |merchant|
-# merchant.invoices.map |invoice|
-  # invoice.status == :pending
-# end
-# end
 
 # sa.merchants_with_only_one_item #=> [merchant, merchant, merchant]
 # merchants.all.find_all do |merchant|

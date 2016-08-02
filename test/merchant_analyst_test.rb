@@ -296,21 +296,24 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_merchants_with_pending_invoices
-    merchant_path = "./test/fixtures/iteration04_merchants_with_pending_invoices_merchants.csv"
-    invoice_path = "./test/fixtures/iteration04_merchants_with_pending_invoices_invoices.csv"
-    # merchant_path = "./data/merchants.csv"
-    # invoice_path = "./data/invoices.csv"
+
+    # merchant_path = "./test/fixtures/iteration04_merchants_with_pending_invoices_merchants.csv"
+    # invoice_path = "./test/fixtures/iteration04_merchants_with_pending_invoices_invoices.csv"
+    merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
+    transaction_path = "./data/transactions.csv"
     file_paths = {:merchants => merchant_path,
-                  :invoices => invoice_path}
+                  :invoices => invoice_path,
+                  :transactions => transaction_path}
 
     test_sales_engine = SalesEngine.from_csv(file_paths)
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     actual = test_sales_analyst.merchants_with_pending_invoices
-    assert_equal 2, actual.length
-    assert_equal Merchant, actual.first.class
-    # assert_equal 467, actual.length
+    # assert_equal 2, actual.length
     # assert_equal Merchant, actual.first.class
+    assert_equal 467, actual.length
+    assert_equal Merchant, actual.first.class
   end
 
 end

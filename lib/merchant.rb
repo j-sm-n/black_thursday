@@ -37,8 +37,12 @@ class Merchant
 
   def has_pending_invoices?
     invoices.any? do |invoice|
-      invoice.pending?
+      invoice.outstanding? || invoice.pending?
     end
+  end
+
+  def has_only_one_item?
+
   end
 
 end

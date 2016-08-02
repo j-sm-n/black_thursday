@@ -100,17 +100,30 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_knows_if_it_has_pending_invoices
-    pending_invoice = Minitest::Mock.new
-    shipped_invoice = Minitest::Mock.new
-    invoices = [shipped_invoice, pending_invoice]
+    successful_invoice1 = Minitest::Mock.new
+    unsuccessful_invoice2 = Minitest::Mock.new
+    invoices = [successful_invoice1, unsuccessful_invoice2]
     parent.expect(:find_invoices_by_merchant, invoices, [12334407])
-    pending_invoice.expect(:pending?, true)
-    shipped_invoice.expect(:pending?, false)
+    successful_invoice1.expect(:pending?, false)
+    successful_invoice1.expect(:outstanding?, false)
+    unsuccessful_invoice2.expect(:pending?, true)
+    unsuccessful_invoice2.expect(:outstanding?, false)
 
     assert_equal true, test_merchant.has_pending_invoices?
-    assert pending_invoice.verify
-    assert shipped_invoice.verify
+    assert unsuccessful_invoice2.verify
+    assert successful_invoice1.verify
     assert parent.verify
+  end
+
+  def test_it_knows_if_it_has_only_one_item
+    # item_1 = Minitest::Mock.new
+    # item_2 = Minitest::Mock.new
+    # items_1 = [item_1]
+    # items_2 = [item_1, item_2]
+    #
+    # parent.expect(:find_items_by_merchant, items_1, [12334407])
+
+
   end
 
 end
