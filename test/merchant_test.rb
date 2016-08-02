@@ -86,14 +86,17 @@ class MerchantTest < Minitest::Test
     assert_equal "customer", actual_customer
     assert parent.verify
   end
-  # def test_it_knows_all_the_customers_of_a_merchant
-  #   parent.expect(:find_customers_of_merchant, "customer", [12334407])
-  #
-  #   actual_customer = test_merchant.customers
-  #
-  #   assert_equal "customer", actual_customer
-  #   assert parent.verify
-  # end
 
+  def test_it_knows_its_revenue
+    invoices_array = Minitest::Mock.new
+    invoice = Minitest::Mock.new
+    parent.expect(:find_invoices_by_merchant, invoices_array, [12334407])
+    invoices_array.expect(:map, invoice)
+    invoice.expect(:total, 1000000)
+    invoice.expect(:reduce, 1000001, [:+])
+
+    assert_equal 1000001, test_merchant.revenue
+    assert parent.verify
+  end
 
 end

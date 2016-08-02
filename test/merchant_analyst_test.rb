@@ -222,12 +222,53 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal expected_id_1, merchants.map { |merchant| merchant.id }
   end
 
+  def test_it_finds_revenue_by_merchant
+    merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
+    invoice_item_path = "./data/invoice_items.csv"
+    transaction_path = "./data/transactions.csv"
+    file_paths = {:merchants => merchant_path,
+                  :invoices => invoice_path,
+                  :invoice_items => invoice_item_path,
+                  :transactions => transaction_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    actual_revenue = test_sales_analyst.revenue_by_merchant(12334194)
+
+    assert_equal BigDecimal.new(actual_revenue), actual_revenue
+    # assert_instance_of BigDecimal, actual_revenue
+  end
+
+  def test_it_can_find_all_merchant_revenues
+    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
+    invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
+    invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
+    transaction_path = "./test/fixtures/iteration04_top_revenue_earners_transactions.csv"
+    file_paths = {:merchants => merchant_path,
+                  :invoices => invoice_path,
+                  :invoice_items => invoice_item_path,
+                  :transactions => transaction_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    actual_all_merchant_revenues = test_sales_analyst.find_all_merchant_revenues
+
+    assert_equal 5, actual_all_merchant_revenues.length
+    assert_equal Merchant, actual_all_merchant_revenues.first[0].class
+    assert_equal 73777.17, actual_all_merchant_revenues.first[1]
+
+  end
+
+
   def test_it_finds_top_x_merchants_by_revenue
     skip
     # merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
     # invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
     # invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
-    # transaction_path = "WE NEED TRANSACTION TEST DATA"
+    # transaction_path = "./test/fixtures/iteration04_top_revenue_earners_transactions.csv"
     merchant_path = "./data/merchants.csv"
     invoice_path = "./data/invoices.csv"
     invoice_item_path = "./data/invoice_items.csv"
@@ -246,14 +287,11 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal Merchant, test_sales_analyst.top_revenue_earners(10).last.class
     assert_equal 12335747, test_sales_analyst.top_revenue_earners(10).last.id
 
-    #
-    # 12334634 has 287580.49 amount of sales
-    # ruby tells us that 12334942 has 317503.49 amount of sales
-    # google sheet says that 12334942 has 523321.28
-
     # assert_equal 2, test_sales_analyst.top_revenue_earners(2).length
     # assert_equal 12334115, test_sales_analyst.top_revenue_earners(2).first.id
-    # assert_equal 12334113, test_sales_analyst.top_revenue_earners(2).last.id
+    # assert_equal 12334105, test_sales_analyst.top_revenue_earners(2).last.id
+
+    # 12335747 has revenue of 121321.29
 
   end
 

@@ -30,7 +30,9 @@ class Merchant
   end
 
   def revenue
-    q
+    invoices.map do |invoice|
+      invoice.total
+    end.reduce(:+)
   end
 
 end
