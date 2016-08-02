@@ -50,4 +50,14 @@ class Invoice
     end
   end
 
+  # def pending?
+  #   status == :pending
+  # end
+
+  def outstanding?
+    transactions.none? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
 end

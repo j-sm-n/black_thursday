@@ -140,5 +140,31 @@ class InvoiceTest < Minitest::Test
     assert parent.verify
   end
 
+  # def test_it_knows_if_it_is_pending
+  #   contents = Loader.load("./test/fixtures/iteration04_invoices_pending.csv")
+  #   contents.each do |data|
+  #     test_invoice = Invoice.new(data, parent)
+  #     if test_invoice.id == 1
+  #       assert_equal true, test_invoice.pending?
+  #     else
+  #       assert_equal false, test_invoice.pending?
+  #     end
+  #   end
+  # end
+
+  def test_it_knows_if_it_is_outstanding
+    transaction = Minitest::Mock.new
+    transaction2 = Minitest::Mock.new
+
+    parent.expect(:find_transactions_on_invoice, [transaction, transaction2], [181])
+    transaction.expect(:result, "failed")
+    transaction2.expect(:result, "success")
+    assert_equal false, test_invoice.outstanding?
+
+    assert parent.verify
+    assert transaction.verify
+    assert transaction2.verify
+  end
+
 
 end
