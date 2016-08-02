@@ -35,4 +35,10 @@ class Merchant
     end.reduce(:+)
   end
 
+  def has_pending_invoices?
+    invoices.any? do |invoice|
+      invoice.pending?
+    end
+  end
+
 end

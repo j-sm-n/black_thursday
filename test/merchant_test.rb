@@ -100,14 +100,16 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_knows_if_it_has_pending_invoices
-    invoices_array = Minitest::Mock.new
-    invoice = Minitest::Mock.new
-    parent.expect(:find_invoices_by_merchant, invoices_array, [12334407])
-    invoices_array.expect(:map, invoice)
-    invoice.expect(:total, 1000000)
-    invoice.expect(:reduce, 1000001, [:+])
+    pending_invoice = Minitest::Mock.new
+    shipped_invoice = Minitest::Mock.new
+    invoices = [shipped_invoice, pending_invoice]
+    parent.expect(:find_invoices_by_merchant, invoices, [12334407])
+    pending_invoice.expect(:pending?, true)
+    shipped_invoice.expect(:pending?, false)
 
-    assert_equal 1000001, test_merchant.revenue
+    assert_equal true, test_merchant.has_pending_invoices?
+    assert pending_invoice.verify
+    assert shipped_invoice.verify
     assert parent.verify
   end
 
