@@ -44,20 +44,38 @@ class Invoice
   end
 
   def total
-    return 0 unless is_paid_in_full?
     invoice_item.reduce(0) do |total, invoice_item|
-      total += (invoice_item.quantity * invoice_item.unit_price)
+      total += is_paid_in_full? ? calc_price(invoice_item) : 0
     end
   end
+
+
 
   # def pending?
   #   status == :pending
   # end
+  def returned?
+    status == :returned
+  end
+
+  def shipped?
+    status == :shipped
+  end
 
   def outstanding?
     transactions.none? do |transaction|
       transaction.result == "success"
     end
+  end
+
+  private
+
+  # def successful?
+  #   is_paid_in_full? && shipped?
+  # end
+
+  def calc_price(invoice_item)
+    invoice_item.quantity * invoice_item.unit_price
   end
 
 end

@@ -281,11 +281,13 @@ class MerchantAnalystTest < Minitest::Test
     test_sales_engine = SalesEngine.from_csv(file_paths)
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    assert_equal 10, test_sales_analyst.top_revenue_earners(10).length
-    assert_equal Merchant, test_sales_analyst.top_revenue_earners(10).first.class
-    assert_equal 12334634, test_sales_analyst.top_revenue_earners(10).first.id
-    assert_equal Merchant, test_sales_analyst.top_revenue_earners(10).last.class
-    assert_equal 12335747, test_sales_analyst.top_revenue_earners(10).last.id
+    actual_top_merchants = test_sales_analyst.top_revenue_earners(10)
+
+    assert_equal 10, actual_top_merchants.length
+    assert_equal Merchant, actual_top_merchants.first.class
+    assert_equal 12334634, actual_top_merchants.first.id
+    assert_equal Merchant, actual_top_merchants.last.class
+    assert_equal 12335747, actual_top_merchants.last.id
 
     # assert_equal 2, test_sales_analyst.top_revenue_earners(2).length
     # assert_equal 12334115, test_sales_analyst.top_revenue_earners(2).first.id
@@ -296,7 +298,6 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_merchants_with_pending_invoices
-
     merchant_path = "./data/merchants.csv"
     invoice_path = "./data/invoices.csv"
     transaction_path = "./data/transactions.csv"
@@ -312,6 +313,48 @@ class MerchantAnalystTest < Minitest::Test
     # assert_equal Merchant, actual.first.class
     assert_equal 467, actual.length
     assert_equal Merchant, actual.first.class
+  end
+
+  def test_it_knows_merchants_with_only_one_item
+
+    merchant_path = "./data/merchants.csv"
+    item_path = "./data/items.csv"
+    file_paths = {:merchants => merchant_path,
+                  :items => item_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    actual = test_sales_analyst.merchants_with_only_one_item
+    # assert_equal 2, actual.length
+    # assert_equal Merchant, actual.first.class
+    assert_equal 243, actual.length
+    assert_equal Merchant, actual.first.class
+  end
+
+  def test_it_knows_merchants_registered_in_month_with_only_one_item
+    merchant_path = "./data/merchants.csv"
+    item_path = "./data/items.csv"
+    file_paths = {:merchants => merchant_path,
+                  :items => item_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    actual_1 = test_sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+
+    assert_equal 21, actual_1.length
+    assert_instance_of Merchant, actual_1.first
+
+    actual_2 = test_sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+
+    assert_equal 18, actual_2.length
+    assert_instance_of Merchant, actual_2.first
+  end
+
+  def test_it_knows_month_names_from_number
+    assert_equal "January", test_sales_analyst.month_number_to_name(1)
+    assert_equal "December", test_sales_analyst.month_number_to_name(12)
   end
 
 end

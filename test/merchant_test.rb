@@ -116,13 +116,20 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_knows_if_it_has_only_one_item
-    # item_1 = Minitest::Mock.new
-    # item_2 = Minitest::Mock.new
-    # items_1 = [item_1]
-    # items_2 = [item_1, item_2]
-    #
-    # parent.expect(:find_items_by_merchant, items_1, [12334407])
+    item_1 = Minitest::Mock.new
+    item_2 = Minitest::Mock.new
+    items_1 = [item_1]
+    items_2 = [item_1, item_2]
 
+    parent.expect(:find_items_by_merchant, items_1, [12334407])
+    assert_equal true, test_merchant.has_only_one_item?
+    assert parent.verify
+    assert item_1.verify
+
+    parent.expect(:find_items_by_merchant, items_2, [12334407])
+    assert_equal false, test_merchant.has_only_one_item?
+    assert parent.verify
+    assert item_2.verify
 
   end
 

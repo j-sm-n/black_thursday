@@ -31,7 +31,7 @@ class Merchant
 
   def revenue
     invoices.map do |invoice|
-      invoice.total
+      !invoice.outstanding? ? invoice.total : 0
     end.reduce(:+)
   end
 
@@ -42,7 +42,7 @@ class Merchant
   end
 
   def has_only_one_item?
-    
+    items.length == 1
   end
 
 end
