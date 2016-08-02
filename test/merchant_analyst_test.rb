@@ -297,8 +297,6 @@ class MerchantAnalystTest < Minitest::Test
 
   def test_it_knows_merchants_with_pending_invoices
 
-    # merchant_path = "./test/fixtures/iteration04_merchants_with_pending_invoices_merchants.csv"
-    # invoice_path = "./test/fixtures/iteration04_merchants_with_pending_invoices_invoices.csv"
     merchant_path = "./data/merchants.csv"
     invoice_path = "./data/invoices.csv"
     transaction_path = "./data/transactions.csv"
