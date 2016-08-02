@@ -331,4 +331,30 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 243, actual.length
     assert_equal Merchant, actual.first.class
   end
+
+  def test_it_knows_merchants_registered_in_month_with_only_one_item
+    merchant_path = "./data/merchants.csv"
+    item_path = "./data/items.csv"
+    file_paths = {:merchants => merchant_path,
+                  :items => item_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    actual_1 = test_sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+
+    assert_equal 21, actual_1.length
+    assert_instance_of Merchant, actual_1.first
+
+    actual_2 = test_sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+
+    assert_equal 18, actual_2.length
+    assert_instance_of Merchant, actual_2.first
+  end
+
+  def test_it_knows_month_names_from_number
+    assert_equal "January", test_sales_analyst.month_number_to_name(1)
+    assert_equal "December", test_sales_analyst.month_number_to_name(12)
+  end
+
 end

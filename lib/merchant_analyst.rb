@@ -101,9 +101,16 @@ module MerchantAnalyst
     end
   end
 
-end
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      month_number_to_name(merchant.created_at.month) == month
+    end
+  end
 
-# sa.merchants_with_only_one_item #=> [merchant, merchant, merchant]
-# merchants.all.find_all do |merchant|
-# merchant.items.lenght == 1
-# end
+  def month_number_to_name(month_num)
+    ["January", "February", "March", "April", "May", "June",
+     "July", "August", "September", "October", "November",
+     "December"][month_num - 1]
+  end
+
+end
