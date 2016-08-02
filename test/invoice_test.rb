@@ -166,5 +166,13 @@ class InvoiceTest < Minitest::Test
     assert transaction2.verify
   end
 
+  def test_it_knows_if_it_has_been_returned
+    assert_equal true, test_invoice.returned?
+  end
+
+  def test_it_knows_if_it_has_been_shipped
+    assert_equal false, test_invoice.shipped?
+  end
+
 
 end

@@ -75,13 +75,12 @@ module MerchantAnalyst
   end
 
   def top_revenue_earners(number)
-    actual_tenth_highest = merchants.find_by_id(12335747).revenue
-    our_tenth_highest = merchants.find_by_id(12334960).revenue
+    # actual_tenth_highest = merchants.find_by_id(12335747).revenue
+    # our_tenth_highest = merchants.find_by_id(12334960).revenue
 
-    find_all_merchant_revenues
-    binding.pry
 
-    sorted_earners = array_of_earners.sort_by do |merchant_revenue|
+    # binding
+    sorted_earners = find_all_merchant_revenues.sort_by do |merchant_revenue|
       merchant_revenue[1]
     end.reverse
     # binding.pry
@@ -93,6 +92,12 @@ module MerchantAnalyst
   def merchants_with_pending_invoices
     the_merchants = merchants.all.find_all do |merchant|
       merchant.has_pending_invoices?
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchants.all.find_all do |merchant|
+      merchant.has_only_one_item?
     end
   end
 
