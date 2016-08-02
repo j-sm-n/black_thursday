@@ -140,5 +140,18 @@ class InvoiceTest < Minitest::Test
     assert parent.verify
   end
 
+  def test_it_knows_if_it_is_pending
+    contents = Loader.load("./test/fixtures/iteration04_invoices_pending.csv")
+    parent = Minitest::Mock.new
+    contents.each do |data|
+      test_invoice = Invoice.new(data, parent)
+      if test_invoice.id == 1
+        assert_equal true, test_invoice.pending?
+      else
+        assert_equal false, test_invoice.pending?
+      end
+    end
+  end
+
 
 end

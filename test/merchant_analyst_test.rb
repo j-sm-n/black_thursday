@@ -295,4 +295,8 @@ class MerchantAnalystTest < Minitest::Test
 
   end
 
+  def test_it_knows_merchants_with_pending_invoices
+
+  end
+
 end

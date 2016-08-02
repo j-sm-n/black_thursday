@@ -50,4 +50,8 @@ class Invoice
     end
   end
 
+  def pending?
+    status == :pending
+  end
+
 end
