@@ -29,4 +29,8 @@ class Merchant
     parent.find_customers_of_merchant(id)
   end
 
+  def revenue
+    q
+  end
+
 end

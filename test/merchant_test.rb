@@ -86,6 +86,14 @@ class MerchantTest < Minitest::Test
     assert_equal "customer", actual_customer
     assert parent.verify
   end
+  # def test_it_knows_all_the_customers_of_a_merchant
+  #   parent.expect(:find_customers_of_merchant, "customer", [12334407])
+  #
+  #   actual_customer = test_merchant.customers
+  #
+  #   assert_equal "customer", actual_customer
+  #   assert parent.verify
+  # end
 
 
 end
