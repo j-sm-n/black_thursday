@@ -90,7 +90,11 @@ module MerchantAnalyst
 
   end
 
-  
+  def merchants_with_pending_invoices
+    merchants.all.find_all do |merchant|
+      merchant.has_pending_invoices?
+    end
+  end
 
 end
 # sa.merchants_with_pending_invoices
