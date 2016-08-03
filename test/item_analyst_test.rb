@@ -50,16 +50,23 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_group_invoice_items_by_quantity
     id = 12337105
-    grouped_invoice_items = test_sales_analyst.grouped_invoice_items_by_quantity(id)
+    grouped_invoice_items = test_sales_analyst.group_invoice_items_by_quantity(id)
     assert_equal 10, grouped_invoice_items.length
     assert_equal (1..10).to_a, grouped_invoice_items.keys.sort
   end
 
   def test_it_can_group_invoice_items_by_revenue
     id = 12337105
-    grouped_invoice_items = test_sales_analyst.grouped_invoice_items_by_revenue(id)
+    grouped_invoice_items = test_sales_analyst.group_invoice_items_by_revenue(id)
     assert_equal 34, grouped_invoice_items.length
-    assert_equal true, grouped_invoice_items.keys.include?(179376)
+    assert_equal true, grouped_invoice_items.keys.include?(BigDecimal.new(179376)/100)
+  end
+
+  def test_it_can_find_the_max_quantity_invoice_items
+    id = 12337105
+    invoice_items = test_sales_analyst.max_quantity_invoice_items(id)
+    assert_equal 4, invoice_items.length
+    assert_equal 263431273, invoice_items.first.item_id
   end
 
   def test_it_can_find_all_non_returned_invoices_for_merchant

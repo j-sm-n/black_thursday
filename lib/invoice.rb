@@ -46,7 +46,8 @@ class Invoice
 
   def total
     invoice_item.reduce(0) do |total, invoice_item|
-      total += is_paid_in_full? ? calc_price(invoice_item) : 0
+      total += is_paid_in_full? ? invoice_item.price : 0
+      # total += is_paid_in_full? ? calc_price(invoice_item) : 0
     end
   end
 
@@ -69,14 +70,6 @@ class Invoice
   end
 
   private
-
-  # def successful?
-  #   is_paid_in_full? && shipped?
-  # end
-
-  def calc_price(invoice_item)
-    invoice_item.quantity * invoice_item.unit_price
-  end
 
   def has_transactions?
     !transactions.empty?

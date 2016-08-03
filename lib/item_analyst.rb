@@ -21,7 +21,7 @@ module ItemAnalyst
     end.flatten
   end
 
-  def grouped_invoice_items_by_quantity(merchant_id)
+  def group_invoice_items_by_quantity(merchant_id)
     merchant_paid_in_full_invoice_items(merchant_id).group_by do |invoice_item|
       invoice_item.quantity
     end
@@ -29,12 +29,15 @@ module ItemAnalyst
 
   def group_invoice_items_by_revenue(merchant_id)
     merchant_paid_in_full_invoice_items(merchant_id).group_by do |invoice_item|
-      invoice_item.
+      invoice_item.price
+    end
   end
-  #
-  # def max_quantity_invoice_items()
-  # end
-  #
+
+  def max_quantity_invoice_items(merchant_id)
+    invoice_items = group_invoice_items_by_quantity(merchant_id)
+    invoice_items[invoice_items.keys.max]
+  end
+
   # def max_revenue_invoice_items()
   # end
   #
