@@ -69,24 +69,37 @@ module MerchantAnalyst
   end
 
   def find_all_merchant_revenues
+    # merchants.all.map do |merchant|
+    #   [merchant, merchant.revenue.to_f]
+    # end
     merchants.all.map do |merchant|
-      [merchant, merchant.revenue.to_f]
+      [merchant, revenue_by_merchant(merchant.id)]
     end
   end
 
-  def top_revenue_earners(number)
+  def top_revenue_earners(number = 20)
     # actual_tenth_highest = merchants.find_by_id(12335747).revenue
     # our_tenth_highest = merchants.find_by_id(12334960).revenue
 
+    # sorted_earners = find_all_merchant_revenues.sort_by do |merchant_revenue|
+    #   merchant_revenue[1]
+    # end.reverse
 
-    # binding
-    sorted_earners = find_all_merchant_revenues.sort_by do |merchant_revenue|
+    # top_earners = merchants_ranked_by_revenue[0...number] #sorted_earners[0...number]
+    # just_the_merchants = top_earners.map { |merchant_revenue| merchant_revenue[0] }
+
+    merchants_ranked_by_revenue[0...number]
+
+  end
+
+  def merchants_ranked_by_revenue
+    ranked_merchants = find_all_merchant_revenues.sort_by do |merchant_revenue|
       merchant_revenue[1]
     end.reverse
-    # binding.pry
-    top_earners = sorted_earners[0...number]
-    just_the_merchants = top_earners.map { |merchant_revenue| merchant_revenue[0] }
 
+    ranked_merchants.map do |merchant_revenue|
+      merchant_revenue[0]
+    end
   end
 
   def merchants_with_pending_invoices

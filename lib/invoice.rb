@@ -36,7 +36,8 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
+    # transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
+    transactions.any? { |transaction| transaction.result == "success" }
   end
 
   def invoice_item
@@ -49,20 +50,19 @@ class Invoice
     end
   end
 
-
-
   # def pending?
   #   status == :pending
   # end
-  def returned?
+
+  def returned? # are we using?
     status == :returned
   end
 
-  def shipped?
+  def shipped? # are we using?
     status == :shipped
   end
 
-  def outstanding?
+  def outstanding? # do we need this anymore?
     transactions.none? do |transaction|
       transaction.result == "success"
     end

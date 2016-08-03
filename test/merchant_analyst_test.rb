@@ -259,12 +259,10 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 5, actual_all_merchant_revenues.length
     assert_equal Merchant, actual_all_merchant_revenues.first[0].class
     assert_equal 73777.17, actual_all_merchant_revenues.first[1]
-
   end
 
 
   def test_it_finds_top_x_merchants_by_revenue
-    skip
     # merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
     # invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
     # invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
@@ -281,13 +279,17 @@ class MerchantAnalystTest < Minitest::Test
     test_sales_engine = SalesEngine.from_csv(file_paths)
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
-    actual_top_merchants = test_sales_analyst.top_revenue_earners(10)
+    actual_top_10_merchants = test_sales_analyst.top_revenue_earners(10)
+    actual_top_20_merchants = test_sales_analyst.top_revenue_earners
 
-    assert_equal 10, actual_top_merchants.length
-    assert_equal Merchant, actual_top_merchants.first.class
-    assert_equal 12334634, actual_top_merchants.first.id
-    assert_equal Merchant, actual_top_merchants.last.class
-    assert_equal 12335747, actual_top_merchants.last.id
+    assert_equal 10, actual_top_10_merchants.length
+    assert_equal Merchant, actual_top_10_merchants.first.class
+    assert_equal 12334634, actual_top_10_merchants.first.id
+    assert_equal Merchant, actual_top_10_merchants.last.class
+    assert_equal 12335747, actual_top_10_merchants.last.id
+
+    assert_equal 20, actual_top_20_merchants.length
+    # Jasmin should probably write more tests on top 20 merchants...
 
     # assert_equal 2, test_sales_analyst.top_revenue_earners(2).length
     # assert_equal 12334115, test_sales_analyst.top_revenue_earners(2).first.id
@@ -295,6 +297,27 @@ class MerchantAnalystTest < Minitest::Test
 
     # 12335747 has revenue of 121321.29
 
+  end
+
+  def test_it_knows_all_merchants_ranked_by_revenue
+    merchant_path = "./data/merchants.csv"
+    invoice_path = "./data/invoices.csv"
+    invoice_item_path = "./data/invoice_items.csv"
+    transaction_path = "./data/transactions.csv"
+    file_paths = {:merchants => merchant_path,
+                  :invoices => invoice_path,
+                  :invoice_items => invoice_item_path,
+                  :transactions => transaction_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+
+    actual_ranked_merchants = test_sales_analyst.merchants_ranked_by_revenue
+
+    assert_equal Merchant, actual_ranked_merchants.first.class
+    assert_equal 12334634, actual_ranked_merchants.first.id
+    assert_equal Merchant, actual_ranked_merchants.last.class
+    assert_equal 12336175, actual_ranked_merchants.last.id 
   end
 
   def test_it_knows_merchants_with_pending_invoices

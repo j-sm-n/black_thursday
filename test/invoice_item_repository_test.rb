@@ -36,4 +36,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
     end
   end
 
+
+  def test_it_knows_highest_quantity_invoice_item_for_invoice_id
+    actual_invoice_item =   test_invoice_item_repository.find_highest_quantity_by_invoice(100)
+
+    assert_equal 468, actual_invoice_item.first.id
+  end
+  # def test_it_knows_highest_value_invoice_item_for_invoice_id
+  #   actual_invoice_item =   test_invoice_item_repository.find_highest_quantity_by_invoice(100)
+  #
+  #   assert_equal 468, actual_invoice_item.first.id
+  # end
+
 end
