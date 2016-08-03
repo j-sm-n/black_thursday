@@ -23,6 +23,8 @@ class InvoiceItem
     @unit_price_to_dollars = unit_price.to_f
   end
 
-  
+  def price
+    quantity * unit_price
+  end
 
 end
