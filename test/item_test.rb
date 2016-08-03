@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/item'
-require './lib/loader'
+require './lib/item_repository'
 
 class ItemTest < Minitest::Test
   attr_reader :test_item,
@@ -59,22 +59,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_returns_merchant_it_is_sold_by
-    invalid_item = Item.new({
-      id:           "2",
-      name:         "invalid_item",
-      description:  "invalid_item_description",
-      unit_price:   "10000",
-      created_at:   "2016-04-25 05:41:41 UTC",
-      updated_at:   "2016-07-25 05:41:41 UTC",
-      merchant_id:  "2"}, parent)
-
     parent.expect(:find_merchant_by_merchant_id, "this_merchant", [12334703])
-    parent.expect(:find_merchant_by_merchant_id, nil, [2])
 
     actual_merchants = test_item.merchant
 
     assert_equal "this_merchant", actual_merchants
-    assert_equal nil, invalid_item.merchant
     assert parent.verify
   end
 end

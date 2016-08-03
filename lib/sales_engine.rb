@@ -10,41 +10,41 @@ require_relative '../lib/loader'
 class SalesEngine
   include Relationships
 
-  attr_reader :file_paths
+  attr_reader :path
 
-  def initialize(file_paths)
-    @file_paths = file_paths
+  def initialize(path)
+    @path = path
   end
 
-  def self.from_csv(file_paths)
-    SalesEngine.new(file_paths)
+  def self.from_csv(path)
+    SalesEngine.new(path)
   end
 
   def items
-    @items ||= ItemRepository.new(Loader.load(file_paths[:items]), self)
+    @items ||= ItemRepository.new(Loader.load(path[:items]), self)
   end
 
   def merchants
-    @merchants ||= MerchantRepository.new(Loader.load(file_paths[:merchants]), self)
+    @merchants ||= MerchantRepository.new(Loader.load(path[:merchants]), self)
   end
 
   def invoices
-    @invoices ||= InvoiceRepository.new(Loader.load(file_paths[:invoices]), self)
+    @invoices ||= InvoiceRepository.new(Loader.load(path[:invoices]), self)
   end
 
   def invoice_items
-    @invoice_items ||= load_repository(file_paths[:invoice_items], InvoiceItemRepository.new)
+    @invoice_items ||= create(path[:invoice_items], InvoiceItemRepository.new)
   end
 
   def transactions
-    @transactions ||= load_repository(file_paths[:transactions], TransactionRepository.new)
+    @transactions ||= create(path[:transactions], TransactionRepository.new)
   end
 
   def customers
-    @customers ||= load_repository(file_paths[:customers], CustomerRepository.new)
+    @customers ||= create(path[:customers], CustomerRepository.new)
   end
 
-  def load_repository(file_path, repository)
+  def create(file_path, repository)
     repository.from_csv(file_path, self)
     return repository
   end

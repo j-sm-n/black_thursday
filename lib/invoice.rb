@@ -1,5 +1,3 @@
-require_relative '../lib/invoice_repository'
-
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -36,8 +34,9 @@ class Invoice
   end
 
   def is_paid_in_full?
-    # transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
-    has_transactions? && transactions.any? { |transaction| transaction.result == "success" }
+    has_transactions? && transactions.any? do |transaction|
+      transaction.result == "success"
+    end
   end
 
   def invoice_item
@@ -47,25 +46,6 @@ class Invoice
   def total
     invoice_item.reduce(0) do |total, invoice_item|
       total += is_paid_in_full? ? invoice_item.price : 0
-      # total += is_paid_in_full? ? calc_price(invoice_item) : 0
-    end
-  end
-
-  def pending?
-    status == :pending
-  end
-
-  def returned?
-    status == :returned
-  end
-
-  def shipped?
-    status == :shipped
-  end
-
-  def outstanding? # do we need this anymore?
-    transactions.none? do |transaction|
-      transaction.result == "success"
     end
   end
 

@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './lib/loader'
 
 class LoaderTest < Minitest::Test
 

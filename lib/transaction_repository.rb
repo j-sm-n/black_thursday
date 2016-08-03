@@ -1,4 +1,3 @@
-require_relative '../lib/loader'
 require_relative '../lib/repository'
 require_relative '../lib/transaction'
 
@@ -14,12 +13,16 @@ class TransactionRepository
   end
 
   def from_csv(file_path, parent=nil)
-    @repository = Loader.load(file_path).map { |row| Transaction.new(row, self) }
+    @repository = Loader.load(file_path).map do |row|
+      Transaction.new(row, self)
+    end
     @parent = parent
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    repository.find_all { |transaction| transaction.credit_card_number == credit_card_number }
+    repository.find_all do |transaction|
+      transaction.credit_card_number == credit_card_number
+    end
   end
 
   def find_all_by_result(result)

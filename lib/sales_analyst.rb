@@ -1,5 +1,5 @@
 require_relative "../lib/sales_engine"
-require_relative "../lib/math_engine"
+require_relative "../lib/math_nerd"
 require_relative "../lib/merchant_analyst"
 require_relative "../lib/item_analyst"
 require_relative "../lib/date_analyst"

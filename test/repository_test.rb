@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './lib/loader'
 require './lib/merchant_repository'
 require './lib/repository'
 require './lib/invoice_item_repository'
@@ -7,18 +6,18 @@ require './lib/invoice_item_repository'
 class RepositoryTest < Minitest::Test
 
   attr_reader :parent,
-              :test_repository
+              :repo
 
   def setup
-    path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    path = "./test/fixtures/3_merchants.csv"
     contents = Loader.load(path)
     @parent = Minitest::Mock.new
-    @test_repository = MerchantRepository.new(contents, parent)
+    @repo = MerchantRepository.new(contents, parent)
   end
 
 
   def test_it_has_a_count
-    assert_equal 3, test_repository.count
+    assert_equal 3, repo.count
   end
 
   def test_it_can_find_by_id
@@ -26,17 +25,17 @@ class RepositoryTest < Minitest::Test
     id_2 = 12334105
     id_3 = 11111111
 
-    repository_child_1 = test_repository.find_by_id(12334141)
-    repository_child_2 = test_repository.find_by_id(12334105)
-    repository_child_3 = test_repository.find_by_id(11111111)
+    child_1 = repo.find_by_id(12334141)
+    child_2 = repo.find_by_id(12334105)
+    child_3 = repo.find_by_id(11111111)
 
-    repository_child_1_id = repository_child_1.id unless repository_child_1.nil?
-    repository_child_2_id = repository_child_2.id unless repository_child_2.nil?
-    repository_child_3_id = repository_child_3.id unless repository_child_3.nil?
+    child_1_id = child_1.id unless child_1.nil?
+    child_2_id = child_2.id unless child_2.nil?
+    child_3_id = child_3.id unless child_3.nil?
 
-    assert_equal id_1, repository_child_1_id
-    assert_equal id_2, repository_child_2_id
-    assert_equal nil, repository_child_3_id
+    assert_equal id_1, child_1_id
+    assert_equal id_2, child_2_id
+    assert_equal nil, child_3_id
   end
 
   def test_it_can_find_by_name
@@ -44,24 +43,24 @@ class RepositoryTest < Minitest::Test
     name_2 = "Shopin1901"
     name_3 = "Jeff Casimir"
 
-    repository_child_1 = test_repository.find_by_name(name_1)
-    repository_child_2 = test_repository.find_by_name(name_2)
-    repository_child_3 = test_repository.find_by_name(name_3)
+    child_1 = repo.find_by_name(name_1)
+    child_2 = repo.find_by_name(name_2)
+    child_3 = repo.find_by_name(name_3)
 
-    repository_child_1_id = repository_child_1.id unless repository_child_1.nil?
-    repository_child_2_id = repository_child_2.id unless repository_child_2.nil?
-    repository_child_3_id = repository_child_3.id unless repository_child_3.nil?
+    child_1_id = child_1.id unless child_1.nil?
+    child_2_id = child_2.id unless child_2.nil?
+    child_3_id = child_3.id unless child_3.nil?
 
-    assert_equal 12334141, repository_child_1_id
-    assert_equal 12334105, repository_child_2_id
-    assert_equal nil, repository_child_3_id
+    assert_equal 12334141, child_1_id
+    assert_equal 12334105, child_2_id
+    assert_equal nil, child_3_id
   end
 
-  def test_it_can_return_all_merchants
+  def test_it_can_return_all_child_items
     actual_ids = [12334141, 12334105, 12337041]
     invalid_id = [11111111]
 
-    repository_children = test_repository.all
+    repository_children = repo.all
 
     assert_equal false, repository_children.empty?
     repository_children.each do |child|
@@ -70,7 +69,7 @@ class RepositoryTest < Minitest::Test
     end
   end
 
-  def test_it_can_return_item_invoices_that_contain_given_invoice_id
+  def test_it_can_return_children_that_contain_given_invoice_id
     file_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     parent = Minitest::Mock.new
     test_invoice_item_repository = InvoiceItemRepository.new

@@ -6,8 +6,8 @@ class MerchantAnalystTest < Minitest::Test
   attr_reader :test_sales_engine,
               :test_sales_analyst
   def setup
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
-    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
+    merchant_path = "./test/fixtures/3_merchants.csv"
     invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
@@ -66,8 +66,8 @@ class MerchantAnalystTest < Minitest::Test
   # end
 
   def test_it_knows_the_average_price_sold_by_merchant
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
-    merchant_path = "./test/fixtures/sales_analyst_merchants_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
+    merchant_path = "./test/fixtures/3_merchants.csv"
     invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
@@ -122,9 +122,9 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_invoice_count_for_a_given_merchant
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
-    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_path = "./test/fixtures/107_invoices.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
     customer_path = "./test/fixtures/customer_repository_fixture.csv"
@@ -141,9 +141,9 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_average_count_of_invoices_per_merchant
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
-    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_path = "./test/fixtures/107_invoices.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
     customer_path = "./test/fixtures/customer_repository_fixture.csv"
@@ -160,9 +160,9 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_average_invoices_per_merchant_standard_deviation
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
-    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_path = "./test/fixtures/107_invoices.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
     customer_path = "./test/fixtures/customer_repository_fixture.csv"
@@ -179,9 +179,9 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_which_merchants_have_the_most_invoices
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
-    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_path = "./test/fixtures/107_invoices.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
     customer_path = "./test/fixtures/customer_repository_fixture.csv"
@@ -202,9 +202,9 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_which_merchants_have_the_fewest_invoices
-    item_path = "./test/fixtures/sales_analyst_items_for_finding_average.csv"
+    item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/merchants_iteration_2.csv"
-    invoice_path = "./test/fixtures/invoices_iteration_2.csv"
+    invoice_path = "./test/fixtures/107_invoices.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
     customer_path = "./test/fixtures/customer_repository_fixture.csv"
@@ -317,7 +317,7 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal Merchant, actual_ranked_merchants.first.class
     assert_equal 12334634, actual_ranked_merchants.first.id
     assert_equal Merchant, actual_ranked_merchants.last.class
-    assert_equal 12336175, actual_ranked_merchants.last.id 
+    assert_equal 12336175, actual_ranked_merchants.last.id
   end
 
   def test_it_knows_merchants_with_pending_invoices
@@ -332,8 +332,7 @@ class MerchantAnalystTest < Minitest::Test
     test_sales_analyst = SalesAnalyst.new(test_sales_engine)
 
     actual = test_sales_analyst.merchants_with_pending_invoices
-    # assert_equal 2, actual.length
-    # assert_equal Merchant, actual.first.class
+
     assert_equal 467, actual.length
     assert_equal Merchant, actual.first.class
   end

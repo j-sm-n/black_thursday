@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'pry'
 
 class Transaction
   attr_reader :id,
