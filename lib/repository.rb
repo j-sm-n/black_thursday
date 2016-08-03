@@ -1,3 +1,5 @@
+require_relative '../lib/loader'
+
 module Repository
   def count
     repository.count
@@ -18,5 +20,4 @@ module Repository
   def find_all_by_invoice_id(invoice_id)
     repository.find_all { |child| child.invoice_id == invoice_id }
   end
-
 end

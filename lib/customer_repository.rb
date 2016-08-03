@@ -1,4 +1,3 @@
-require_relative '../lib/loader'
 require_relative '../lib/repository'
 require_relative '../lib/customer'
 

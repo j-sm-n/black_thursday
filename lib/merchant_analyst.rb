@@ -4,18 +4,18 @@ module MerchantAnalyst
   end
 
   def average_items_per_merchant
-    MathEngine.mean(item_counts_for_all_merchants).to_f
+    MathNerd.mean(item_counts_for_all_merchants).to_f
   end
 
   def average_items_per_merchant_standard_deviation
-    MathEngine.standard_deviation(item_counts_for_all_merchants)
+    MathNerd.standard_deviation(item_counts_for_all_merchants)
   end
 
   def merchants_with_high_item_count
-    mean = MathEngine.mean(item_counts_for_all_merchants)
-    standard_deviation = MathEngine.standard_deviation(item_counts_for_all_merchants)
+    mean = MathNerd.mean(item_counts_for_all_merchants)
+    standard_dev = MathNerd.standard_deviation(item_counts_for_all_merchants)
     merchants.all.find_all do |merchant|
-      MathEngine.outlier?(merchant.items.count, mean, standard_deviation, 1)
+      MathNerd.outlier?(merchant.items.count, mean, standard_dev, 1)
     end
   end
 
@@ -25,42 +25,41 @@ module MerchantAnalyst
       item.unit_price_to_dollars
     end
     unless prices_of_this_merchants_items.empty?
-      BigDecimal.new(MathEngine.mean(prices_of_this_merchants_items),4)
+      BigDecimal.new(MathNerd.mean(prices_of_this_merchants_items),4)
     end
   end
 
   def average_average_price_per_merchant
-    MathEngine.mean(merchants.repository.map do |merchant|
+    MathNerd.mean(merchants.repository.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end)
   end
 
-  # MerchantAnalyst
   def invoice_counts_for_all_merchants
     merchants.repository.map { |merchant| merchant.invoices.length }
   end
-  # MerchantAnalyst
+
   def average_invoices_per_merchant
-    MathEngine.mean(invoice_counts_for_all_merchants).to_f
+    MathNerd.mean(invoice_counts_for_all_merchants).to_f
   end
-  # MerchantAnalyst
+
   def average_invoices_per_merchant_standard_deviation
-    MathEngine.standard_deviation(invoice_counts_for_all_merchants)
+    MathNerd.standard_deviation(invoice_counts_for_all_merchants)
   end
-  # MerchantAnalyst
+
   def top_merchants_by_invoice_count
-    mean = MathEngine.mean(invoice_counts_for_all_merchants)
-    standard_deviation = MathEngine.standard_deviation(invoice_counts_for_all_merchants)
+    mean = MathNerd.mean(invoice_counts_for_all_merchants)
+    standard_dev = MathNerd.standard_deviation(invoice_counts_for_all_merchants)
     merchants.all.find_all do |merchant|
-      MathEngine.outlier?(merchant.invoices.count, mean, standard_deviation, 2)
+      MathNerd.outlier?(merchant.invoices.count, mean, standard_dev, 2)
     end
   end
 
   def bottom_merchants_by_invoice_count
-    mean = MathEngine.mean(invoice_counts_for_all_merchants)
-    standard_deviation = MathEngine.standard_deviation(invoice_counts_for_all_merchants)
+    mean = MathNerd.mean(invoice_counts_for_all_merchants)
+    standard_dev = MathNerd.standard_deviation(invoice_counts_for_all_merchants)
     merchants.all.find_all do |merchant|
-      MathEngine.outlier?(merchant.invoices.count, mean, standard_deviation, -2)
+      MathNerd.outlier?(merchant.invoices.count, mean, standard_dev, -2)
     end
   end
 
@@ -69,27 +68,13 @@ module MerchantAnalyst
   end
 
   def find_all_merchant_revenues
-    # merchants.all.map do |merchant|
-    #   [merchant, merchant.revenue.to_f]
-    # end
     merchants.all.map do |merchant|
       [merchant, revenue_by_merchant(merchant.id)]
     end
   end
 
   def top_revenue_earners(number = 20)
-    # actual_tenth_highest = merchants.find_by_id(12335747).revenue
-    # our_tenth_highest = merchants.find_by_id(12334960).revenue
-
-    # sorted_earners = find_all_merchant_revenues.sort_by do |merchant_revenue|
-    #   merchant_revenue[1]
-    # end.reverse
-
-    # top_earners = merchants_ranked_by_revenue[0...number] #sorted_earners[0...number]
-    # just_the_merchants = top_earners.map { |merchant_revenue| merchant_revenue[0] }
-
     merchants_ranked_by_revenue[0...number]
-
   end
 
   def merchants_ranked_by_revenue

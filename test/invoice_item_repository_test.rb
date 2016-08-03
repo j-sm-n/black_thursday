@@ -2,23 +2,23 @@ require './test/test_helper'
 require './lib/invoice_item_repository'
 
 class InvoiceItemRepositoryTest < Minitest::Test
-  attr_reader :test_invoice_item_repository,
+  attr_reader :invoice_item_repo,
               :parent
 
   def setup
     file_path = "./test/fixtures/invoice_item_repository_fixture.csv"
     @parent = Minitest::Mock.new
-    @test_invoice_item_repository = InvoiceItemRepository.new
-    test_invoice_item_repository.from_csv(file_path, parent)
+    @invoice_item_repo = InvoiceItemRepository.new
+    invoice_item_repo.from_csv(file_path, parent)
   end
 
   def test_from_csv_loads_items_to_repository
-    assert_equal 15, test_invoice_item_repository.all.length
+    assert_equal 15, invoice_item_repo.all.length
   end
 
   def test_invoice_item_repository_has_parent
     parent.expect(:class, "SalesEngine")
-    assert_equal "SalesEngine", test_invoice_item_repository.parent.class
+    assert_equal "SalesEngine", invoice_item_repo.parent.class
     assert parent.verify
   end
 
@@ -27,7 +27,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     expected_id = [3356, 8193, 8362, 10215, 11894, 14898, 14982,
                   15035, 16392, 20508, 21456]
 
-    actual = test_invoice_item_repository.find_all_by_item_id(item_id)
+    actual = invoice_item_repo.find_all_by_item_id(item_id)
 
     assert_equal 11, actual.length
     assert_equal InvoiceItem, actual.first.class
@@ -35,17 +35,5 @@ class InvoiceItemRepositoryTest < Minitest::Test
       assert_equal true, expected_id.include?(invoice_item.id)
     end
   end
-
-
-  def test_it_knows_highest_quantity_invoice_item_for_invoice_id
-    actual_invoice_item =   test_invoice_item_repository.find_highest_quantity_by_invoice(100)
-
-    assert_equal 468, actual_invoice_item.first.id
-  end
-  # def test_it_knows_highest_value_invoice_item_for_invoice_id
-  #   actual_invoice_item =   test_invoice_item_repository.find_highest_quantity_by_invoice(100)
-  #
-  #   assert_equal 468, actual_invoice_item.first.id
-  # end
 
 end

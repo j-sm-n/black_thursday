@@ -34,11 +34,11 @@ class ItemRepository
     repository.find_all { |item| item.merchant_id == id }
   end
 
-  def inspect
-    "#<#{self.class} #{@repository.size} rows>"
-  end
-
   def find_merchant_by_merchant_id(merchant_id)
     parent.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
   end
 end

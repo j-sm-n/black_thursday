@@ -1,6 +1,6 @@
 require 'bigdecimal'
-require 'pry'
-module MathEngine
+
+module MathNerd
 
   def self.sum(numbers)
     numbers.reduce(0.0) { |result, number| result += number}

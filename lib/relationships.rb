@@ -30,7 +30,8 @@ module Relationships
   end
 
   def find_customers_of_merchant(merchant_id)
-    invoices.find_all_by_merchant_id(merchant_id).reduce([]) do |result, invoice|
+    merchants_invoices = invoices.find_all_by_merchant_id(merchant_id)
+    merchants_invoices.reduce([]) do |result, invoice|
       unless customers.find_by_id(invoice.customer_id).nil?
         result << customers.find_by_id(invoice.customer_id)
       end

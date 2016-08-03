@@ -1,5 +1,3 @@
-require "pry"
-
 class Merchant
   attr_reader :id,
               :name,
@@ -31,14 +29,13 @@ class Merchant
 
   def revenue
     invoices.map do |invoice|
-      # !invoice.outstanding? ? invoice.total : 0
       invoice.total
     end.reduce(:+)
   end
 
   def has_pending_invoices?
     invoices.any? do |invoice|
-      invoice.outstanding?
+      !invoice.is_paid_in_full?
     end
   end
 
