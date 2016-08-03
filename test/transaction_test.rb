@@ -46,8 +46,8 @@ class TransactionTest < Minitest::Test
     expected_1 = "0217"
     expected_2 = "1217"
 
-    assert_equal expected_1, transaction.scrub_expiration_date(test_date_1)
-    assert_equal expected_2, transaction.scrub_expiration_date(test_date_2)
+    assert_equal expected_1, transaction.scrub(test_date_1)
+    assert_equal expected_2, transaction.scrub(test_date_2)
   end
 
   def test_transaction_can_return_invoice
