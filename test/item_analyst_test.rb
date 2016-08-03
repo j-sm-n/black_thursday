@@ -20,7 +20,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected_golden_item_ids, actual_golden_item_ids
   end
 
-  def test_it__knows_most_items_sold_for_merchant
+
+
+  def test_it_knows_most_items_sold_for_merchant
+    skip
     invoice_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice.csv"
     merchant_path = "./test/fixtures/iteration04_sold_item_for_merchant_merchant.csv"
     invoice_item_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice_item.csv"
@@ -37,7 +40,12 @@ class SalesAnalystTest < Minitest::Test
     items_2 = test_sales_analyst.most_sold_item_for_merchant(12334768)
     items_3 =  test_sales_analyst.most_sold_item_for_merchant(12337105)
 
-    assert_equal 
+    item_263524984 = items_1.find { |item| item.id == 263524984 }
+    item_263549386 = items_2.find { |item| item.id == 263549386 }
+
+    assert_equal 263524984, item_263524984.id
+    assert_equal 263549386, item_263549386.id
+    assert_equal 4, items_3.length
   end
 
 

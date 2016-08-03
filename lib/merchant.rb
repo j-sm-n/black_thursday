@@ -31,7 +31,8 @@ class Merchant
 
   def revenue
     invoices.map do |invoice|
-      !invoice.outstanding? ? invoice.total : 0
+      # !invoice.outstanding? ? invoice.total : 0
+      invoice.total
     end.reduce(:+)
   end
 
