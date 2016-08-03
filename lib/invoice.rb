@@ -50,15 +50,15 @@ class Invoice
     end
   end
 
-  # def pending?
-  #   status == :pending
-  # end
+  def pending?
+    status == :pending
+  end
 
-  def returned? # are we using?
+  def returned?
     status == :returned
   end
 
-  def shipped? # are we using?
+  def shipped?
     status == :shipped
   end
 
