@@ -41,4 +41,8 @@ class InvoiceItemTest < Minitest::Test
   def test_returns_the_price_of_invoice_item_in_dollars_as_float
     assert_equal 136.35, test_invoice_item.unit_price_to_dollars
   end
+
+  def test_it_knows_its_total_price
+    assert_equal 136.35 * 4, test_invoice_item.price
+  end
 end

@@ -37,7 +37,7 @@ class Invoice
 
   def is_paid_in_full?
     # transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
-    transactions.any? { |transaction| transaction.result == "success" }
+    has_transactions? && transactions.any? { |transaction| transaction.result == "success" }
   end
 
   def invoice_item
@@ -46,7 +46,8 @@ class Invoice
 
   def total
     invoice_item.reduce(0) do |total, invoice_item|
-      total += is_paid_in_full? ? calc_price(invoice_item) : 0
+      total += is_paid_in_full? ? invoice_item.price : 0
+      # total += is_paid_in_full? ? calc_price(invoice_item) : 0
     end
   end
 
@@ -70,12 +71,8 @@ class Invoice
 
   private
 
-  # def successful?
-  #   is_paid_in_full? && shipped?
-  # end
-
-  def calc_price(invoice_item)
-    invoice_item.quantity * invoice_item.unit_price
+  def has_transactions?
+    !transactions.empty?
   end
 
 end
