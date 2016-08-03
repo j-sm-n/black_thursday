@@ -3,6 +3,23 @@ require './lib/sales_analyst'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
+  attr_reader :test_sales_analyst
+
+  def setup
+    invoice_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice.csv"
+    merchant_path = "./test/fixtures/iteration04_sold_item_for_merchant_merchant.csv"
+    invoice_item_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice_item.csv"
+    transaction_path = "./data/transactions.csv"
+    item_path = "./data/items.csv"
+    file_paths = {:merchants => merchant_path,
+                  :items => item_path,
+                  :invoice_items => invoice_item_path,
+                  :invoices => invoice_path,
+                  :transactions => transaction_path}
+
+    test_sales_engine = SalesEngine.from_csv(file_paths)
+    @test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+  end
 
   def test_it_knows_golden_items
     item_path = "./test/fixtures/sales_analyst_golden_items.csv"
@@ -18,6 +35,31 @@ class SalesAnalystTest < Minitest::Test
     actual_golden_item_ids = actual_golden_items.map { |item| item.id }
 
     assert_equal expected_golden_item_ids, actual_golden_item_ids
+  end
+
+  def test_it_can_find_a_merchants_paid_in_full_invoices
+    invoices = test_sales_analyst.merchant_paid_in_full_invoices(12337105)
+    assert_equal 7, invoices.length
+  end
+
+  def test_it_can_find_paid_in_full_invoice_items
+    id = 12337105
+    invoice_items = test_sales_analyst.merchant_paid_in_full_invoice_items(id)
+    assert_equal 35, invoice_items.length
+  end
+
+  def test_it_can_group_invoice_items_by_quantity
+    id = 12337105
+    grouped_invoice_items = test_sales_analyst.grouped_invoice_items_by_quantity(id)
+    assert_equal 10, grouped_invoice_items.length
+    assert_equal (1..10).to_a, grouped_invoice_items.keys.sort
+  end
+
+  def test_it_can_group_invoice_items_by_revenue
+    id = 12337105
+    grouped_invoice_items = test_sales_analyst.grouped_invoice_items_by_revenue(id)
+    assert_equal 34, grouped_invoice_items.length
+    assert_equal true, grouped_invoice_items.keys.include?(179376)
   end
 
   def test_it_can_find_all_non_returned_invoices_for_merchant
@@ -43,25 +85,25 @@ class SalesAnalystTest < Minitest::Test
     end
   end
 
-  def test_it_can_group_invoice_items_by_quantity
-    invoice_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice.csv"
-    merchant_path = "./test/fixtures/iteration04_sold_item_for_merchant_merchant.csv"
-    invoice_item_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice_item.csv"
-    item_path = "./data/items.csv"
-    file_paths = {:merchants => merchant_path,
-                  :items => item_path,
-                  :invoice_items => invoice_item_path,
-                  :invoices => invoice_path}
-
-    test_sales_engine = SalesEngine.from_csv(file_paths)
-    test_sales_analyst = SalesAnalyst.new(test_sales_engine)
-
-    id = 2878
-    expected_quantities = [10, 8, 3, 1]
-    actual_quantities = test_sales_analyst.invoice_items_of_invoice_quantities(id).keys
-
-    assert_equal expected_quantities, actual_quantities
-  end
+  # def test_it_can_group_invoice_items_by_quantity
+  #   invoice_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice.csv"
+  #   merchant_path = "./test/fixtures/iteration04_sold_item_for_merchant_merchant.csv"
+  #   invoice_item_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice_item.csv"
+  #   item_path = "./data/items.csv"
+  #   file_paths = {:merchants => merchant_path,
+  #                 :items => item_path,
+  #                 :invoice_items => invoice_item_path,
+  #                 :invoices => invoice_path}
+  #
+  #   test_sales_engine = SalesEngine.from_csv(file_paths)
+  #   test_sales_analyst = SalesAnalyst.new(test_sales_engine)
+  #
+  #   id = 2878
+  #   expected_quantities = [10, 8, 3, 1]
+  #   actual_quantities = test_sales_analyst.invoice_items_of_invoice_quantities(id).keys
+  #
+  #   assert_equal expected_quantities, actual_quantities
+  # end
 
   def test_it_knows_highest_quantity_invoice_item_by_invoice
     invoice_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice.csv"

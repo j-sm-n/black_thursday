@@ -37,7 +37,7 @@ class Invoice
 
   def is_paid_in_full?
     # transactions.any? && transactions.none? { |transaction| transaction.result == "failed" }
-    transactions.any? { |transaction| transaction.result == "success" }
+    has_transactions? && transactions.any? { |transaction| transaction.result == "success" }
   end
 
   def invoice_item
@@ -76,6 +76,10 @@ class Invoice
 
   def calc_price(invoice_item)
     invoice_item.quantity * invoice_item.unit_price
+  end
+
+  def has_transactions?
+    !transactions.empty?
   end
 
 end
