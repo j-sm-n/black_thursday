@@ -191,10 +191,10 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_all_merchant_revenues
-    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
-    invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
-    invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
-    transaction_path = "./test/fixtures/iteration04_top_revenue_earners_transactions.csv"
+    merchant_path = "./test/fixtures/5_merchants.csv"
+    invoice_path = "./test/fixtures/50_invoices.csv"
+    invoice_item_path = "./test/fixtures/215_invoice_items.csv"
+    transaction_path = "./test/fixtures/63_transactions.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path,
                   :invoice_items => invoice_item_path,
@@ -212,10 +212,10 @@ class MerchantAnalystTest < Minitest::Test
 
 
   def test_it_finds_top_x_merchants_by_revenue
-    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
-    invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
-    invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
-    transaction_path = "./test/fixtures/iteration04_top_revenue_earners_transactions.csv"
+    merchant_path = "./test/fixtures/5_merchants.csv"
+    invoice_path = "./test/fixtures/50_invoices.csv"
+    invoice_item_path = "./test/fixtures/215_invoice_items.csv"
+    transaction_path = "./test/fixtures/63_transactions.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path,
                   :invoice_items => invoice_item_path,
@@ -237,10 +237,10 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_all_merchants_ranked_by_revenue
-    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
-    invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
-    invoice_item_path = "./test/fixtures/iteration04_top_revenue_earners_invoice_items.csv"
-    transaction_path = "./test/fixtures/iteration04_top_revenue_earners_transactions.csv"
+    merchant_path = "./test/fixtures/5_merchants.csv"
+    invoice_path = "./test/fixtures/50_invoices.csv"
+    invoice_item_path = "./test/fixtures/215_invoice_items.csv"
+    transaction_path = "./test/fixtures/63_transactions.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path,
                   :invoice_items => invoice_item_path,
@@ -258,9 +258,9 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_merchants_with_pending_invoices
-    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
-    invoice_path = "./test/fixtures/iteration04_top_revenue_earners_invoices.csv"
-    transaction_path = "./test/fixtures/iteration04_top_revenue_earners_transactions.csv"
+    merchant_path = "./test/fixtures/5_merchants.csv"
+    invoice_path = "./test/fixtures/50_invoices.csv"
+    transaction_path = "./test/fixtures/63_transactions.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path,
                   :transactions => transaction_path}
@@ -275,7 +275,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_merchants_with_only_one_item
-    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
+    merchant_path = "./test/fixtures/5_merchants.csv"
     item_path = "./data/items.csv"
     file_paths = {:merchants => merchant_path,
                   :items => item_path}
@@ -290,7 +290,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_merchants_registered_in_month_with_only_one_item
-    merchant_path = "./test/fixtures/iteration04_top_revenue_earners_merchants.csv"
+    merchant_path = "./test/fixtures/5_merchants.csv"
     item_path = "./data/items.csv"
     file_paths = {:merchants => merchant_path,
                   :items => item_path}
