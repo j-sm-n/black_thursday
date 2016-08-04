@@ -7,7 +7,7 @@ class InvoiceTest < Minitest::Test
               :parent
 
   def setup
-    contents = Loader.load("./test/fixtures/invoice_fixture.csv")
+    contents = Loader.load("./test/fixtures/1_invoice_v2.csv")
     @parent = Minitest::Mock.new
     contents.each do |data|
       @test_invoice = Invoice.new(data, parent)

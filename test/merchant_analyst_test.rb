@@ -9,8 +9,8 @@ class MerchantAnalystTest < Minitest::Test
     merchant_path = "./test/fixtures/3_merchants.csv"
     invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
     invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
-    transaction_path = "./test/fixtures/transaction_repository_fixture.csv"
-    customer_path = "./test/fixtures/customer_repository_fixture.csv"
+    transaction_path = "./test/fixtures/3_transactions.csv"
+    customer_path = "./test/fixtures/92_customers.csv"
     file_paths = {:items => item_path, :merchants => merchant_path,
                   :invoices => invoice_path, :invoice_items => invoice_item_path,
                   :transactions => transaction_path, :customers => customer_path}
@@ -38,8 +38,8 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_which_merchants_sell_the_most_items
-    item_path = "./test/fixtures/high_item_count_merchant_item_repo_data.csv"
-    merchant_path = "./test/fixtures/high_item_count_merchant_merchant_repo_data.csv"
+    item_path = "./test/fixtures/34_items.csv"
+    merchant_path = "./test/fixtures/4_merchants.csv"
     file_paths = {:items => item_path, :merchants => merchant_path}
     engine = SalesEngine.from_csv(file_paths)
     analyst = SalesAnalyst.new(engine)

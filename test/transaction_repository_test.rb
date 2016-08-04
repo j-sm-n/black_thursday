@@ -7,7 +7,7 @@ class TransactionRepositoryTest < Minitest::Test
               :parent
 
   def setup
-    file_path = "./test/fixtures/transaction_repository_fixture.csv"
+    file_path = "./test/fixtures/3_transactions.csv"
     @parent = Minitest::Mock.new
     @transaction_repo = TransactionRepository.new
     transaction_repo.from_csv(file_path, parent)

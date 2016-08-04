@@ -7,7 +7,7 @@ class CustomerRepositoryTest < Minitest::Test
               :parent
 
   def setup
-    file_path = "./test/fixtures/customer_repository_fixture.csv"
+    file_path = "./test/fixtures/92_customers.csv"
     @parent = Minitest::Mock.new
     @customer_repo = CustomerRepository.new
     customer_repo.from_csv(file_path, parent)
