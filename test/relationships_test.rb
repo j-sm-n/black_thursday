@@ -67,7 +67,7 @@ class RelationshipsTest < Minitest::Test
 
   def test_it_can_find_transactions_on_invoice
     invoice_path = "./test/fixtures/107_invoices.csv"
-    transaction_path = "./test/fixtures/relationships_01_iteration_03_transaction_fixture.csv"
+    transaction_path = "./test/fixtures/1_transaction_v2.csv"
     path = {:invoices => invoice_path,
             :transactions => transaction_path}
     engine = SalesEngine.from_csv(path)
@@ -104,9 +104,9 @@ class RelationshipsTest < Minitest::Test
   end
 
   def test_it_can_find_customers_from_merchant_id
-    merchant_path = "./test/fixtures/relationships_01_iteration_03_merchant_fixture.csv"
+    merchant_path = "./test/fixtures/1_merchant.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
-    customer_path = "./test/fixtures/relationships_02_iteration_03_customer_fixture.csv"
+    customer_path = "./test/fixtures/3_customers.csv"
     path = {:merchants => merchant_path,
             :invoices => invoice_path,
             :customers => customer_path}

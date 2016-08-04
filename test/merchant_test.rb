@@ -7,7 +7,7 @@ class MerchantTest < Minitest::Test
               :parent
 
   def setup
-    contents = Loader.load("./test/fixtures/merchant.csv")
+    contents = Loader.load("./test/fixtures/1_merchant_v2.csv")
     @parent = Minitest::Mock.new
     contents.each do |data|
       @test_merchant = Merchant.new(data, parent)

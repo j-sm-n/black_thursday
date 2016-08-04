@@ -70,7 +70,7 @@ class RepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_children_that_contain_given_invoice_id
-    file_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    file_path = "./test/fixtures/15_invoice_items.csv"
     parent = Minitest::Mock.new
     test_invoice_item_repository = InvoiceItemRepository.new
     test_invoice_item_repository.from_csv(file_path, parent)

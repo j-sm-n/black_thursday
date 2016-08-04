@@ -8,7 +8,7 @@ class SalesEngineTest < Minitest::Test
     item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/3_merchants.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
-    invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    invoice_item_path = "./test/fixtures/15_invoice_items.csv"
     transaction_path = "./test/fixtures/3_transactions.csv"
     customer_path = "./test/fixtures/92_customers.csv"
     paths = {:items => item_path, :merchants => merchant_path,

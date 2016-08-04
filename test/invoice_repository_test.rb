@@ -5,7 +5,7 @@ class InvoiceRepositoryTest < Minitest::Test
   attr_reader :parent,
               :invoice_repo
   def setup
-    path = "./test/fixtures/invoice_repository_fixture.csv"
+    path = "./test/fixtures/10_invoices.csv"
     contents = Loader.load(path)
     @parent = Minitest::Mock.new
     @invoice_repo = InvoiceRepository.new(contents, parent)

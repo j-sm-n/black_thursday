@@ -7,8 +7,8 @@ class MerchantAnalystTest < Minitest::Test
   def setup
     item_path = "./test/fixtures/9_items.csv"
     merchant_path = "./test/fixtures/3_merchants.csv"
-    invoice_path = "./test/fixtures/invoice_repository_fixture.csv"
-    invoice_item_path = "./test/fixtures/invoice_item_repository_fixture.csv"
+    invoice_path = "./test/fixtures/10_invoices.csv"
+    invoice_item_path = "./test/fixtures/15_invoice_items.csv"
     transaction_path = "./test/fixtures/3_transactions.csv"
     customer_path = "./test/fixtures/92_customers.csv"
     file_paths = {:items => item_path, :merchants => merchant_path,
@@ -100,7 +100,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_invoice_count_for_a_given_merchant
-    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    merchant_path = "./test/fixtures/9_merchants.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path}
@@ -114,7 +114,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_average_count_of_invoices_per_merchant
-    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    merchant_path = "./test/fixtures/9_merchants.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path}
@@ -127,7 +127,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_average_invoices_per_merchant_standard_deviation
-    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    merchant_path = "./test/fixtures/9_merchants.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path}
@@ -140,7 +140,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_which_merchants_have_the_most_invoices
-    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    merchant_path = "./test/fixtures/9_merchants.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path}
@@ -157,7 +157,7 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_knows_which_merchants_have_the_fewest_invoices
-    merchant_path = "./test/fixtures/merchants_iteration_2.csv"
+    merchant_path = "./test/fixtures/9_merchants.csv"
     invoice_path = "./test/fixtures/107_invoices.csv"
     file_paths = {:merchants => merchant_path,
                   :invoices => invoice_path}
