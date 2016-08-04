@@ -60,7 +60,7 @@ class DateAnalystTest < Minitest::Test
 
   def test_it_can_find_total_revenue_by_date
     invoice_items_path = "./test/fixtures/8_invoice_items_v2.csv"
-    invoice_path = "./test/fixtures/iteration04_total_revenue_by_date_invoices.csv"
+    invoice_path = "./test/fixtures/1_invoice_v3.csv"
     file_path = {:invoices => invoice_path, :invoice_items => invoice_items_path}
     engine = SalesEngine.from_csv(file_path)
     analyst = SalesAnalyst.new(engine)
@@ -75,7 +75,7 @@ class DateAnalystTest < Minitest::Test
 
   def test_it_can_total_invoice_price
     invoice_items_path = "./test/fixtures/8_invoice_items_v2.csv"
-    invoice_path = "./test/fixtures/iteration04_total_revenue_by_date_invoices.csv"
+    invoice_path = "./test/fixtures/1_invoice_v3.csv"
     file_path = {:invoices => invoice_path, :invoice_items => invoice_items_path}
     engine = SalesEngine.from_csv(file_path)
     analyst = SalesAnalyst.new(engine)
