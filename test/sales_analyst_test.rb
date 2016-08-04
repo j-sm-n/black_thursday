@@ -6,12 +6,12 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :test_sales_analyst
 
   def setup
-    item_path = "./test/fixtures/item.csv"
-    merchant_path = "./test/fixtures/merchant.csv"
-    invoice_path = "./test/fixtures/invoice_fixture.csv"
-    invoice_item_path = "./test/fixtures/invoice_item_fixture.csv"
-    transaction_path = "./test/fixtures/transaction_fixture.csv"
-    customer_path = "./test/fixtures/customer_fixture.csv"
+    item_path = "./test/fixtures/1_item.csv"
+    merchant_path = "./test/fixtures/1_merchant_v2.csv"
+    invoice_path = "./test/fixtures/1_invoice_v2.csv"
+    invoice_item_path = "./test/fixtures/1_invoice_item.csv"
+    transaction_path = "./test/fixtures/1_transaction.csv"
+    customer_path = "./test/fixtures/1_customer.csv"
     file_paths = {:items => item_path, :merchants => merchant_path,
                   :invoices => invoice_path, :invoice_items => invoice_item_path,
                   :transactions => transaction_path, :customers => customer_path}

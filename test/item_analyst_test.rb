@@ -5,7 +5,7 @@ class ItemAnalystTest < Minitest::Test
   attr_reader :analyst
 
   def setup
-    item_path = "./test/fixtures/sales_analyst_golden_items.csv"
+    item_path = "./test/fixtures/20_items.csv"
 
     engine = SalesEngine.from_csv({:items => item_path})
     @analyst = SalesAnalyst.new(engine)

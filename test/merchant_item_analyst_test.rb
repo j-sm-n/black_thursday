@@ -7,9 +7,9 @@ class MerchantItemAnalystTest < Minitest::Test
   attr_reader :mi_anlyst
 
   def setup
-    invoice_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice.csv"
-    merchant_path = "./test/fixtures/iteration04_sold_item_for_merchant_merchant.csv"
-    invoice_item_path = "./test/fixtures/iteration04_sold_item_for_merchant_invoice_item.csv"
+    invoice_path = "./test/fixtures/31_invoices.csv"
+    merchant_path = "./test/fixtures/3_merchants_v2.csv"
+    invoice_item_path = "./test/fixtures/134_invoice_items.csv"
     transaction_path = "./data/transactions.csv"
     item_path = "./data/items.csv"
     file_paths = {:merchants => merchant_path,

@@ -7,7 +7,7 @@ class InvoiceTest < Minitest::Test
               :parent
 
   def setup
-    contents = Loader.load("./test/fixtures/invoice_fixture.csv")
+    contents = Loader.load("./test/fixtures/1_invoice_v2.csv")
     @parent = Minitest::Mock.new
     contents.each do |data|
       @test_invoice = Invoice.new(data, parent)
@@ -73,8 +73,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_knows_if_it_is_paid_in_full
-    invoice_path = "./test/fixtures/business_intelligence_01_iteration_03_invoices_fixture.csv"
-    transaction_path = "./test/fixtures/business_intelligence_01_iteration_03_transactions_fixture.csv"
+    invoice_path = "./test/fixtures/4_invoices.csv"
+    transaction_path = "./test/fixtures/5_transactions.csv"
     paths = {:invoices => invoice_path,
              :transactions => transaction_path}
 
@@ -97,9 +97,9 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_knows_total_price_of_invoice
-    invoice_path = "./test/fixtures/business_intelligence_02_iteration_03_invoices_fixture.csv"
-    invoice_item_path = "./test/fixtures/business_intelligence_02_iteration_03_invoice_items_fixture.csv"
-    transaction_path = "./test/fixtures/business_intelligence_01_iteration_03_transactions_fixture.csv"
+    invoice_path = "./test/fixtures/1_invoice.csv"
+    invoice_item_path = "./test/fixtures/8_invoice_items.csv"
+    transaction_path = "./test/fixtures/5_transactions.csv"
     paths = {:invoices => invoice_path,
              :invoice_items => invoice_item_path,
              :transactions => transaction_path}

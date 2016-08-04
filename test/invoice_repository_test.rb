@@ -5,7 +5,7 @@ class InvoiceRepositoryTest < Minitest::Test
   attr_reader :parent,
               :invoice_repo
   def setup
-    path = "./test/fixtures/invoice_repository_fixture.csv"
+    path = "./test/fixtures/10_invoices.csv"
     contents = Loader.load(path)
     @parent = Minitest::Mock.new
     @invoice_repo = InvoiceRepository.new(contents, parent)
@@ -73,7 +73,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_created_at
-    path = "./test/fixtures/iteration04_total_revenue_by_date_find_all_invoices_by_date_created_invoices.csv"
+    path = "./test/fixtures/7_invoices.csv"
     contents = Loader.load(path)
     invoice_repo = InvoiceRepository.new(contents, "parent")
 

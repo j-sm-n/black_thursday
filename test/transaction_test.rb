@@ -6,7 +6,7 @@ class TransactionTest < Minitest::Test
               :parent
 
   def setup
-    contents = Loader.load("./test/fixtures/transaction_fixture.csv")
+    contents = Loader.load("./test/fixtures/1_transaction.csv")
     @parent = Minitest::Mock.new
     contents.each do |data|
       @transaction = Transaction.new(data, parent)
