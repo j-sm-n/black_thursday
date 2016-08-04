@@ -11,7 +11,7 @@ class SalesAnalystTest < Minitest::Test
     invoice_path = "./test/fixtures/invoice_fixture.csv"
     invoice_item_path = "./test/fixtures/invoice_item_fixture.csv"
     transaction_path = "./test/fixtures/transaction_fixture.csv"
-    customer_path = "./test/fixtures/customer_fixture.csv"
+    customer_path = "./test/fixtures/1_customer.csv"
     file_paths = {:items => item_path, :merchants => merchant_path,
                   :invoices => invoice_path, :invoice_items => invoice_item_path,
                   :transactions => transaction_path, :customers => customer_path}

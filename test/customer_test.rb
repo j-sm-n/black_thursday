@@ -6,7 +6,7 @@ class CustomerTest < Minitest::Test
               :parent
 
   def setup
-    contents = Loader.load("./test/fixtures/customer_fixture.csv")
+    contents = Loader.load("./test/fixtures/1_customer.csv")
     @parent = Minitest::Mock.new
     contents.each do |data|
       @customer = Customer.new(data, parent)

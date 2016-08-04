@@ -124,8 +124,8 @@ class RelationshipsTest < Minitest::Test
   end
 
   def test_it_finds_invoice_items_by_invoice
-    invoice_path = "./test/fixtures/business_intelligence_02_iteration_03_invoices_fixture.csv"
-    invoice_item_path = "./test/fixtures/business_intelligence_02_iteration_03_invoice_items_fixture.csv"
+    invoice_path = "./test/fixtures/1_invoice.csv"
+    invoice_item_path = "./test/fixtures/8_invoice_items.csv"
     path = {:invoices => invoice_path,
             :invoice_items => invoice_item_path}
     engine = SalesEngine.from_csv(path)
